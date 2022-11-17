@@ -24,96 +24,10 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <!-- <h1><%= title %></h1> -->
-    <!-- <p>Welcome to <%= title %></p> -->
-    
-    <!-- 메인로고랑 사용자관련 메뉴 들어있는 navbar -->
-    <nav class="navbar navbar-expand-lg" style="background-color: #191B5E; height: 40px;">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#" style="color: #FFFFFF;">able</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup" >
-          <div class="navbar-nav">
-                <a class="nav-link active " aria-current="page" href="#" style="color: #FFFFFF; font-size: 12px;">로그인</a>
-                <a class="nav-link" href="#" style="color: #FFFFFF; font-size: 12px;">회원가입</a>
-                <a class="nav-link" href="#" style="color: #FFFFFF; font-size: 12px;">마이페이지</a>
-                <a class="nav-link" href="#" style="color: #FFFFFF; font-size: 12px;">장바구니</a>
-                <a class="nav-link" href="#" style="color: #FFFFFF; font-size: 12px;">검색</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-
-    <!-- 카테고리 navbar -->
-    <nav class="navbar navbar-expand-lg" style="background-color: #191B5E; height: 40px; border-color: #7C8390; border-top-style: dashed; border-width: 0.5px;">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup" >
-          <div class="navbar-nav">
-                <a class="nav-link active " aria-current="page" href="#" style="color: #7C8390; font-size: 14px;">문구점</a>
-                <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">다이어리</a>
-                <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">필기노트</a>
-                <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">스티커</a>
-                <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">배경화면</a>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <!-- 홈 화면 이외의 창에서 항상 있을 메뉴바 -->
-    <div  class="row" style="height: 1000px;">
-        <div class="col-2" style="background-color: #EEE5E5;">
-          <div class="container m-5" style="width: 150px;">
-          <p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-            </svg> HOME
-          </p>
-          <br/>
-          <p class=h6>다이어리</p> <br/>
-          <p class=h6>필기노트</p><br/>
-          <p class=h6>스티커</p><br/>
-          <p class=h6>배경화면</p>
-        </div>
-
-        </div>
-        <div class="col-10">
-          <h5 class="text-center"> </h5>
-        </div>
-    </div>
+    <% include ./layout/header.ejs %>
+    <% include ./layout/category.ejs %>
+    <% include ./layout/menubar.ejs %>
     
   </body>
-
-  <footer style="background-color: #191B5E;">
-    <div class="container" style="background-color: #191B5E;">
-      <div class="row" style="height: 20px;"></div>
-      <div class="row">
-        <div class="col"></div>
-        <div class="col-6">
-          <h6 class="text-center" style="color: #ffffff;">able</h6>
-          <nav class="navbar navbar-expand-lg">
-            <div class="container-fluid">
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup" >
-                <div class="navbar-nav">
-                      <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 12px;">다이어리</a>
-                      <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 12px;">필기노트</a>
-                      <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 12px;">스티커</a>
-                      <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 12px;">배경화면</a>
-                </div>
-              </div>
-            </div>
-          </nav>
-      
-          <h6 class="text-center" style="color: #EEE5E5; font-size: 12px;"><pre>Aran Kim   ⁃   Siyoung Yoo    ⁃    Jisoo Kim</pre></h6>
-        </div>
-        <div class="col"></div>
-      </div>
-    </div>
-  </footer>
+  <% include ./layout/footer.ejs %>
 </html>
