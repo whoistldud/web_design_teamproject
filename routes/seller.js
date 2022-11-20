@@ -1,9 +1,19 @@
 var express = require('express');
+const mysql = require("../config/database.js");
+const crypto= require("crypto");
+const jwt = require("jsonwebtoken");
+const session = require("express-session");
+
 var router = express.Router();
 
-/* GET users listing. */
+require('dotenv').config({
+  path : ".env",
+});
+
 router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+  res.render('seller/home', { title: 'able' });
 });
 
 module.exports = router;

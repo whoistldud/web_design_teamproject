@@ -12,10 +12,9 @@ require('dotenv').config({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  console.log(req.session);
-  if(!req.session) res.render('index', { title: 'able' });
-  else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).role == 'consumer') res.redirect('/consumer');
-  else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).role == 'seller') res.redirect('/seller');
+  if(!req.session.user) res.render('index', { title: 'able' });
+  else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role == 'consumer') res.redirect('/consumer');
+  else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role == 'seller') res.redirect('/seller');
 });
 
 /* GET  page. */
@@ -81,8 +80,11 @@ router.post('/login',async (req, res) => {
           (err, token) => {    
             if (err) throw err;
             req.session.user = {token:token};
-            console.log(res.session.user);
-            res.redirect('/');
+            const obj = {
+              status : "success",
+              token : token
+            };
+            res.redirect("/");    
           }
         );
       }else{
