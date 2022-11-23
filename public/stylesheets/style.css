@@ -1,9 +1,32 @@
-/* body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body {
+  background-color: #eee5e5;
 }
-*/
+
 
 a {
   color: #00B7FF;
+}
+
+#footer {
+  position:relative;
+  bottom: 0;
+  width: 100%;
+}
+
+#menubar {
+  position: relative;
+  width: 200px;
+  height: 100%;
+  bottom: 0;
+  left: -637px;
+  top: -24px;
+  display: block;
+  margin-bottom: -50px;
+}
+
+#content {
+  position: relative;
+  left: 200px;
+  top: -485px;
+  display: block;
 }
