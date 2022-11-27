@@ -26,8 +26,20 @@
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
     <% include ./../layout/header.ejs %>
     <% include ./../layout/category.ejs %>
+    <div class="container">
+      <div class="justify-content-center">
+        <button type="button" class="btn btn-primary" onclick="registerProduct()">상품 등록</button>
+      </div>
+    </div>
     <% include ./../layout/menubar.ejs %>
+    
     
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+
+<script>
+  function registerProduct() {
+    location.href="seller/product"
+  }
+</script>

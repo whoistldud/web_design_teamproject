@@ -24,14 +24,22 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./layout/header.ejs %>
-    <% include ./layout/category.ejs %>
-    <% include ./layout/menubar.ejs %>
+    <% include ./../layout/header.ejs %>
+    <% include ./../layout/category.ejs %>
+    <div class="container">
+      <div class="justify-content-center">
+        <button type="button" class="btn btn-primary" onclick="readProduct()">등록 상품 조회</button>
+      </div>
+    </div>
+    <% include ./../layout/menubar.ejs %>
+    
     
   </body>
-  <% include ./layout/footer.ejs %>
+  <% include ./../layout/footer.ejs %>
 </html>
 
-<style>
-  
-</style>
+<script>
+  function readProduct() {
+    location.href="/seller/productlist"
+  }
+</script>
