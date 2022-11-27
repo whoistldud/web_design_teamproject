@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% include ./../layout/header.ejs %>
+    
+    <div class="container">
+        <div class="input-form-backgroud row">
+          <div class="input-form col-md-12 mx-auto">
+            <h4 class="mb-3">Q&A</h4>
+            <form class="validation-form"  id = "qnaRegister" action="register" method = "post" >
+                <div class="row">
+                    <div class="col-md-8 mb-3">
+                        <label for="input-group">제목</label>
+                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요." required>
+                    </div>
+                    <div class="col-md-4  mb-3">
+                        <label for="input-group">이름</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." required>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col mb-3">
+                      <label for="input-group">문의 내용</label>
+                      <textarea class="form-control" aria-label="With textarea" 
+                      placeholder="문의 내용을 입력하세요." id="content", name="content"></textarea>
+                  </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4  mb-3">
+                    <label for="lock">비공개</label>
+                    <select class="form-select" aria-label="Default select example" id="lock_post" name="lock_post">
+                        <option value="1"selected>공개</option>
+                        <option value="2">비공개</option>
+                      </select>
+                    </div>
+                </div>
+                <div class="row">
+                <div class="col-md-4  mb-3">
+                    <label for="input-group">비밀번호</label>
+                    <input type="text" class="form-control" id="password" name="password" 
+                    placeholder="비밀번호를 입력하세요." required disabled>
+                </div>
+                </div>
+
+               
+                <div class="mb-4"></div>
+                <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit">문의 등록</button>
+                  </form>
+          </div>
+        </div>
+  </body>
+</html>
+</body>
+<% include ./../layout/footer.ejs %>
+</html>
+
+<script>
+    $("select[name=lock_post]").change(function(){
+  console.log($(this).val()); //value값 가져오기
+  console.log($("select[name=lock_post] option:selected").text()); //text값 가져오기
+  if ($(this).val() == "2") {
+    document.getElementById('password').disabled = false;
+  }
+  else {
+    document.getElementById('password').disabled = true;
+  }
+});
+
+
+</script>
