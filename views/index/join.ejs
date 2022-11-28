@@ -21,11 +21,10 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-  <body>
-
+  <body></body>
     <% include ./../layout/header.ejs %>
-    
-    <div class="container" style="background-color : #EEE5E5;">
+
+    <div class="container">
       <!-- Row1. 회원가입 제목 -->
       <div class="row">
         <div class="col"></div>
@@ -116,7 +115,7 @@
                 <div class="row mb-3">
                   <div class="col-md-9 mb-3 ">
                     <label for="role">🔎 가입 사유</label>
-                    <select class="form-select form-select d-block w-50" id="role" name="role">
+                    <select class="form-select form-select w-50" id="role" name="role">
                       <option value="consumer">구매</option>
                       <option value="seller">판매</option>
                     </select>
@@ -137,6 +136,8 @@
           </div>
           <div class="col"></div>
         </div>
+      </div>
+      
        
       </div>
       <br/>
