@@ -21,6 +21,7 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
+
   <body>
     <% include ./../layout/header.ejs %>
     
@@ -28,46 +29,28 @@
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">등록 상품 목록</h4>
-            <form class="validation-form"  id = "qnaList" action="qnaList" method = "post" >
-              <div id="main">
-                <button type="button" class="btn btn-primary mb-3" style="float:right" onclick="newproduct()">상품 등록</button>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>번호</th>
-                            <th>이름</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2</td>
-                            <td>지수의 만년 다이어리</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2023년 캘린더</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <nav aria-label="Page navigation example" class="mt-5">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                      </a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                      </a>
-                    </li>
-                  </ul>
-                </nav>
-            </div>
-                  </form>
+              <table>
+                <tbody>
+                  <tr>  
+                    <td>번호</td>
+                    <td>이름</td>
+                    <td>카테고리</td>
+                    <td>상세정보</td>
+                    <td>가격</td>
+                    </tr>
+                <% for(var i=0; i < row.length; i++) {  
+                  %>
+                  <tr>
+                    <td><p alt="번호"></p><%= row[i].id %></td>                      
+                    <td><a alt="이름" href="/seller/product/read/<%= row[i].id %>"><%= row[i].name %></a>
+                    </td>
+                    <td><p alt="카테고리"><%= row[i].category %></p></td>
+                    <td><p alt="상세정보"><img src= "/images/<%=row[i].imageurl %>" width="80"/></p></td>
+                    <td><p alt="가격"><%=row[i].price %></p></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
           </div>
         </div>
   </body>
@@ -80,4 +63,5 @@
   function newproduct(){
     location.href = "/seller/product"
   }
+
 </script>
