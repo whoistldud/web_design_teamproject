@@ -16,7 +16,7 @@
     
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
-
+    
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -34,57 +34,42 @@
     <% include ./../layout/category.ejs %>
 
     <div>
-      <!-- 안에 들어가는 내용의 height이 500px 미만이면 아래 <div class="row" 옆에 style="height: 500px" 이렇게 설정-->
       <div class="row">
         <div class="col-2" >
+          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
         </div>
         <div class="col-10" style="margin-left: -20px;">
           <!-- 내용 들어갈 자리 !!! -->
-          <div class="row" style="height: 20px;"></div>
-          <!-- carousel-->
-          <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
-            <div class="carousel-indicators">
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"  aria-label="Slide 1"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" class="active" aria-current="true" aria-label="Slide 2"></button>
-              <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-              <div class="carousel-item" data-bs-interval="3000">
-                <img src="images/openimg.png" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item active" data-bs-interval="3000">
-                <img src="http://www.ilemonde.com/news/photo/201811/9214_10274_4336.jpg" class="d-block w-100" alt="...">
-              </div>
-              <div class="carousel-item" data-bs-interval="3000">
-                <img src="http://www.tvj.co.kr/news/photo/201809/49265_76099_3356.jpg" class="d-block w-100" alt="...">
-              </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-
-          <h5 class="mt-5 mb-3" style="font-weight: bold;"> BEST ITEMS </h5>
+          
+            <h5 class="mt-5 mb-3" style="font-weight: bold;"> 다이어리 상품 <%=row.length %> 개 </h5>
+            <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
+            <% for (var i=0; i< row.length; i++) { %>
+                    <div class="col">
+                        <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
+                            <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
+                            <div class="card-body">
+                                <h6 class="card-title"><%=row[i].name%></h6>
+                            </div>
+                        </div>
+                    </div>
+            <% } %>
+        </div>
+<!--
           <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
             <div class="col">
               <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                <img src="https://www.webudding.com/_next/image/?url=https%3A%2F%2Fd29hudvzbgrxww.cloudfront.net%2Fpublic%2Fproduct%2F20221122232554-e403a1aa-33c9-4d58-a023-bdb7c7280d7d.png&w=384&q=75" class="card-img-top" alt="...">
+                <img src="/images/<%=row[0].imageurl %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h6 class="card-title">2023 fave 날짜형 위클리 다이어리 (베이직/리프그린)</h6>
+                  <h6 class="card-title"><%=row[0].name%></h6>
                 </div>
               </div>
             </div>
             <div class="col">
               <div class="card h-100">
-                <img src="https://www.webudding.com/_next/image/?url=https%3A%2F%2Fd29hudvzbgrxww.cloudfront.net%2Fpublic%2Fproduct%2F20220905161044-a6e5771e-a656-4736-8dff-d35976e4122e.png&w=384&q=75" class="card-img-top" alt="...">
+                <img src="/images/<%=row[1].imageurl %>" class="card-img-top" alt="...">
                 <div class="card-body">
-                  <h6 class="card-title">레인보우 디지털 노트북 6컬러</h6>
+                  <h6 class="card-title"><%=row[1].name%></h6>
                 </div>
               </div>
             </div>
@@ -140,12 +125,15 @@
               </div>
             </div>
           </div>
-
+        -->
         </div>
       </div>
     </div>
   
-  
+    <script>
+        const len = row.length;
+
+    </script>
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
