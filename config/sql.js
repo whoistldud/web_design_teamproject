@@ -24,7 +24,9 @@ module.exports = {
     minusPoint: 'update user set point = point - ? where id = ?',
     readPoint : 'select point from user where id=?',
     qnaDelete: 'delete from qnaboard where id=?',
-    newPurchase : 'insert into purchase(productId,userId) value (?,?)'
+    newPurchase : 'insert into purchase(productId,userId,productName) value (?,?,?)',
+    purchaseRead : 'select * from purchase where userId=?',
+    purchaseIdRead : 'select * from purchase where id=?',
     
 
 };

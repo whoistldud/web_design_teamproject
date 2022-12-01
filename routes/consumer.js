@@ -52,7 +52,17 @@ router.post('/mypage/editinfo/done', async (req, res, next) => {
 router.get('/myorder', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyorder');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyorder');
-  res.render('consumer/pagemyorder', { title: 'able' });
+
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("purchaseRead",  consumerID);
+
+  res.render('consumer/pagemyorder', { title: 'able' , row:result});
+});
+
+router.get('/mypurchase/:id', async (req, res, next) => {
+  const id = req.params.id;
+  const result = await mysql.query("purchaseIdRead", id);
+  res.render('consumer/purchaseRead', {row:result[0]});  
 });
 
 router.get('/myqna', async (req, res, next) => {
@@ -154,7 +164,7 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
   console.log(resultN1[0].price, consumerID);
   const resultN2 = await mysql.query("minusPoint", [resultN1[0].price, consumerID]);
 
-  var data = [id,consumerID, resultN1[0].price];
+  var data = [id,consumerID, resultN1[0].name];
   console.log('구매 데이터',data);
   // // res.render("index/purchage", { title: "상품 구매" ,row : resultN1[0], consum : resultN2[0], point:resultN3[0]});
   const resultN3 = await mysql.query("newPurchase", data);
