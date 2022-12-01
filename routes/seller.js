@@ -89,7 +89,7 @@ router.post("/product/write", upload.single("imageurl"), async(req, res, next) =
 
 
 /* 등록한 상품 list */
-router.get('/productlist/:sellerId', async (req,res,next) => {
+router.get('/productlist', async (req,res,next) => {
   var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("productRead", sellerId);
   categoryToch(result);
@@ -109,12 +109,13 @@ router.get('/product/read/:id', async (req,res,next) => {
 });
 
 /* 상품 삭제 */
-router.post("/product/delete/:id", async (req,res,next) => {
-  const {id} = req.params.id;
+router.get("/product/delete/:id", async (req,res,next) => {
+  const id = req.params.id;
+  console.log(' 아디',id);
   const result = await mysql.query("productDelete", id);
-  console.log(result);
+  // console.log(result);
   // res.render('/')
-  res.send("<script>alert('상품삭제완료.');location.href='/';</script>"); 
+  res.send("<script>alert('상품삭제완료.');location.href='/seller/productlist/';</script>"); 
   // res.redirect('/')
 });
 
@@ -161,8 +162,18 @@ router.get('/qna/read/:id', async (req,res,next) => {
   console.log(result[0]);
 });
 
+router.get("/qna/delete/:id", async (req,res,next) => {
+  const id = req.params.id;
+  console.log(' 아디',id);
+  const result = await mysql.query("qnaDelete", id);
+  // console.log(result);
+  // res.render('/')
+  res.send("<script>alert('질문삭제완료.');location.href='/seller/myqnaList';</script>"); 
+  // res.redirect('/')
+});
 
-router.get('/myqnalist/:userId', async (req,res,next) => {
+
+router.get('/myqnalist', async (req,res,next) => {
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("아이디", userId);
   const result = await mysql.query("myqnaRead", userId);

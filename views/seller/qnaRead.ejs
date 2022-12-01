@@ -28,6 +28,7 @@
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">문의내역</h4>
+            <form class="validation-form"  enctype="multipart/form-data" id = "qnaRead" action="delete/:id" method = "post" ></form>
             <table class="table">
                 <tbody>
                     <tr>  
@@ -49,7 +50,18 @@
                     
                 </tbody>
               </table>
+              <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="deleteQnA()">삭제</button>
+
           </div>
         </div>
   </body>
 </html>
+
+<script>
+  function deleteQnA() {
+    
+    if (confirm("질문을 삭제하시겠습니까?") == true) {
+      location.href = "/seller/qna/delete/<%=row.id %>"
+    }
+  }
+</script>

@@ -20,6 +20,6 @@ module.exports = {
     qnaListRead : 'select * from qnaboard ',
     qnaDetRead : 'select * from qnaboard where id=? ',
     myqnaRead : 'select * from qnaboard where userId=?',
-
+    qnaDelete: 'delete from qnaboard where id=?',
 
 };
