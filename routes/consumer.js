@@ -10,11 +10,10 @@ require('dotenv').config({
   path : ".env",
 });
 
-
 router.get('/', function(req, res, next) {
   if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
-  res.render('consumer/home', { title: 'able' });
+  res.render('consumer/home', { title: 'able'});
 });
 
 router.get('/mypage', async (req, res, next) => {

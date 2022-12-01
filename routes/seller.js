@@ -208,4 +208,6 @@ router.get('/shopqna', function(req, res, next) {
   res.render('seller/pageShopqna', { title: 'able' });
 });
 
+
+
 module.exports = router;
