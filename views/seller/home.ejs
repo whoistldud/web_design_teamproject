@@ -24,11 +24,15 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./../layout/header.ejs %>
+    <% include ./../layout/sellerloginheader.ejs %>
     <% include ./../layout/category.ejs %>
     <div class="container">
       <div class="justify-content-center">
-        <button type="button" class="btn btn-primary" onclick="registerProduct()">상품 등록</button>
+        
+        <form class="validation-form"  id = "home" action="product/write" method = "post" >
+          <button type="button" class="btn btn-primary" onclick="registerProduct()">상품 등록</button>
+        </form>
+        
       </div>
     </div>
     <% include ./../layout/menubar.ejs %>

@@ -21,47 +21,35 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
-
   <body>
     <% include ./../layout/header.ejs %>
     
     <div class="container">
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">등록 상품 목록</h4>
-              <table>
+            <h4 class="mb-3">문의내역</h4>
+            <table class="table">
                 <tbody>
-                  <tr>  
-                    <td>번호</td>
-                    <td>이름</td>
-                    <td>카테고리</td>
-                    <td>상세정보</td>
-                    <td>가격</td>
+                    <tr>  
+                        <td>제목</td>
+                        <td><p alt="제목"><%=row.title %></p></td>
                     </tr>
-                <% for(var i=0; i < row.length; i++) {  
-                  %>
-                  <tr>
-                    <td><p alt="번호"></p><%= row[i].id %></td>                      
-                    <td><a alt="이름" href="/seller/product/read/<%= row[i].id %>"><%= row[i].name %></a>
-                    </td>
-                    <td><p alt="카테고리"><%= row[i].category %></p></td>
-                    <td><p alt="상세정보"><img src= "/images/<%=row[i].imageurl %>" width="80"/></p></td>
-                    <td><p alt="가격"><%=row[i].price %></p></td>
-                  </tr>
-                  <% } %>
+                    <tr>  
+                        <td>이름</td>
+                        <td><p alt="이름"><%=row.name %></p></td>
+                    </tr>
+                    <tr>  
+                        <td>날짜</td>
+                        <td><p alt="날짜"><%=row.date %></p></td>
+                    </tr>
+                    <tr>  
+                        <td>문의내용</td>
+                        <td><p alt="문의내용"><%=row.content %></p></td>
+                    </tr>
+                    
                 </tbody>
               </table>
           </div>
         </div>
   </body>
 </html>
-</body>
-<% include ./../layout/footer.ejs %>
-</html>
-
-<script>
-  function newproduct(){
-    location.href = "/seller/product"
-  }
-
-</script>
