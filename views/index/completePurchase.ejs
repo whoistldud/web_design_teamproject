@@ -42,39 +42,10 @@
         </div>
         <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
-            <div class="row">
-            <h6 id="navtext">HOME > "카테고리 이름"</h6>
-            </div>
-            <div class="row mt-1 mb-3">
-                <div class="col-5">
-                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
-                        <img src="/images/<%=row.imageurl %>" class="card-img-top" style="height: 400px; width: 400px;" alt="...">
-                    </div>
-                </div>
-                <div class="col-7">
-                    <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
-                    <div class="row mt-4">
-                        <h6>made by <%= row.sellerId %></h6>
-                        <h6>구매후기</h6>
-                    </div>
-                    <hr />
-                    <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
-                    <div class="row " style="margin-right: -20px;">
-                        <div class="col-7"></div>
-                        <div class="col-5 mt-2" >
-                            <button class="btn btn-lg btn-outline-dark" id="cartbtn">장바구니</button>
-                            <button class="btn btn-lg" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
-                            onclick="buy(<%= row.id %>)">구매하기</button>
-                        </div>
-                    </div>
-                        
-
-                </div>
-            </div>
-
-        </div>
-
-        </div>
+          결제되었습니다. </br>
+          구메해주셔서 감사합니다!
+         </div>
+        
       </div>
     </div>
 
@@ -82,8 +53,3 @@
   <% include ./../layout/footer.ejs %>
 </html>
 
-<script>
-  function buy(id){
-    location.href="/consumer/buy/" + id;
-  }
-</script>
