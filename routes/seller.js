@@ -16,4 +16,6 @@ router.get('/', function(req, res, next) {
   res.render('seller/home', { title: 'able' });
 });
 
+
+
 module.exports = router;
