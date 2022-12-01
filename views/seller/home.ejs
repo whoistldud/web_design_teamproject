@@ -27,11 +27,16 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
+
     <% include ./../layout/sellerloginheader.ejs %>
     <% include ./../layout/sellercategory.ejs %>
-
     <% include ./../layout/menubar.ejs %>
     
+    <div class="container">
+      <div class="justify-content-center">
+        <button type="button" class="btn btn-primary" onclick="registerProduct()">상품 등록</button>
+      </div>
+    </div>
     
   </body>
   <div>
