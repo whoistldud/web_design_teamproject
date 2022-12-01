@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
+      무엇이든 클릭하면 회원가입으로 넘어가도록!-->
+    <% include ./../layout/header.ejs %>
+    <% include ./../layout/category.ejs %>
+    <div class="container">
+      <div class="justify-content-center">
+        <button type="button" class="btn btn-primary" onclick="readProduct()">등록 상품 조회</button>
+      </div>
+    </div>
+    <% include ./../layout/menubar.ejs %>
+    
+    
+  </body>
+  <% include ./../layout/footer.ejs %>
+</html>
+
+<script>
+  function readProduct() {
+    location.href="/seller/productlist"
+  }
+</script>

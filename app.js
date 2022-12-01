@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var consumerRouter = require('./routes/consumer');
 var sellerRouter = require('./routes/seller');
 
+
 var app = express();
 
 // view engine setup
@@ -32,6 +33,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/consumer',consumerRouter);
 app.use('/seller',sellerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

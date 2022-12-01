@@ -22,6 +22,8 @@ router.get('/join', function(req, res, next) {
   res.render('index/join', { title: 'able' });
 });
 
+
+
 /*아이디 중복 확인*/
 router.get("/verifyId/:id", async (req, res) => {
   var check = false;
