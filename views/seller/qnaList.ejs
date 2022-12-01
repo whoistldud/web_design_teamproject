@@ -43,10 +43,10 @@
                   <% for(var i=0; i < row.length; i++) {  
                     %>
                     <tr>
-                      <td><p alt="번호"></p><%= row[i].id %></td>                      
-                      <!-- <td><a alt="제목" href="/seller/qna/read/<%= row[i].id %>"><%= row[i].title %></a>
-                      </td> -->
-                      <td><p alt="제목" onclick="readQna()"><%= row[i].title %></p>
+                      <td><p alt="번호"></p><%= row[i].id %></td>
+                      <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
+                        !!비밀!!
+                      <%}%> <%= row[i].title %></p>  
                       </td>
                       <td><p alt="작성일"><%= row[i].date %></p></td>
                       <td><p alt="작성자"><%= row[i].name %></p></td>
@@ -88,8 +88,22 @@
   }
 
   
-  function readQna(){
-    location.href = "/seller/qna/read/:id"
+  function readQna(id, lock, pw){
+    // alert(lock);
+    if (lock == 2) {
+      // alert(pw);
+      var pwInput = prompt("비공개글입니다. 비밀번호를 입력해주세요~"+"");
+      if (pwInput == pw){
+        location.href = "/seller/qna/read/" +id;
+      }
+      else{
+        alert("비밀번호가 잘못되었습니다.");
+      }
+    }
+    else {
+      location.href = "/seller/qna/read/" +id;
+    }
+    
   }
 
 </script>
