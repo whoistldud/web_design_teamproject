@@ -110,7 +110,7 @@ router.get('/logout', function(req, res, next) {
         return;
       }
       console.log('세션 삭제 성공');
-      res.redirect('/member/login');
+      res.redirect('/login');
     }
   );
 });

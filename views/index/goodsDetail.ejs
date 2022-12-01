@@ -1,3 +1,4 @@
+<!-- 상품 상세 페이지 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -35,38 +36,47 @@
 
     <div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
         </div>
-        <div class="col-10" style=" margin-left: -20px;">
+        <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
-          <div class="row">
-            <h6 id="navtext">HOME > 필기노트</h6>
-          </div>
-
-            <h5 class="mt-3 mb-3" style="font-weight: bold;"> 필기노트 상품 (<%=row.length %>) </h5>
-            <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
-            <% for (var i=0; i< row.length; i++) { %>
-                    <div class="col">
-                        <div class="card h-100" onclick="goDetails()" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                            <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
-                            <div class="card-body">
-                                <h6 class="card-title"><%=row[i].name%></h6>
-                            </div>
+            <div class="row">
+            <h6 id="navtext">HOME > "카테고리 이름"</h6>
+            </div>
+            <div class="row mt-1 mb-3">
+                <div class="col-5">
+                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
+                        <img src="/images/nothing.png" class="card-img-top" style="height: 400px; width: 400px;" alt="...">
+                    </div>
+                </div>
+                <div class="col-7">
+                    <h3 id="goodsName" style="font-weight: bold;"> 베이직 위클리 다이어리 2023</h3>
+                    <div class="row mt-4">
+                        <h6>made by "판매자명"</h6>
+                        <h6>구매후기</h6>
+                    </div>
+                    <hr />
+                    <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;">가격 8900원</h3></div>
+                    <div class="row " style="margin-right: -20px;">
+                        <div class="col-7"></div>
+                        <div class="col-5 mt-2" >
+                            <button class="btn btn-lg btn-outline-dark" id="cartbtn">장바구니</button>
+                            <button class="btn btn-lg" id="buybtn" style="background-color: #191B5E; color: #ffffff;">구매하기</button>
                         </div>
                     </div>
-            <% } %>
+                        
+
+                </div>
+            </div>
+
         </div>
 
         </div>
       </div>
     </div>
-    <script>
-      function goDetails() {
-        location.href="details";
-      }
-    </script>
+
   </body>
   <% include ./../layout/footer.ejs %>
 </html>

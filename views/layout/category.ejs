@@ -1,7 +1,51 @@
 <!-- header 아래에 있는 카테고리 -->
+<!--
+<script>
+  function category() {
+    let catenum = document.getElementById("catenum");
+    const diary = document.getElementById("diary");
+    const note = document.getElementById("note");
+    const sticker = document.getElementById("sticker");
+    const wallpaper = document.getElementById("wallpaper");
+
+    if (diary.click) {
+      catenum = 1;
+      location.href = "/consumer/category/:category";
+    } else if(note.click) {
+      catenum = 2;
+      location.href = "/consumer/category/:category";
+    } else if(sticker.click) {
+      catenum = 3;
+      location.href = "/consumer/category/:category";
+    } else if(wallpaper.click) {
+      catenum = 14;
+      location.href = "/consumer/category/:category";
+    }
+  }
+  
+
+</script>
+
 <nav class="navbar navbar-expand" style="background-color: #191B5E; height: 40px; border-color: #616283; border-top-style: dashed; border-width: 0.5px;">
   <div class="container-fluid">
+    <form class="validation-form" action="/category" method = "post" >
+    <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup" >
+      <div class="navbar-nav">
+            <a class="nav-link active " aria-current="page" style="color: #bbbbbb; font-size: 14px;">문구점</a>
+            <a class="nav-link" id="diary" onclick="category()" style="color: #FFFFFF; font-size: 14px;">다이어리</a>
+            <a class="nav-link" id="note" onclick="category()" style="color: #FFFFFF; font-size: 14px;">필기노트</a>
+            <a class="nav-link" id="sticker" onclick="category()" style="color: #FFFFFF; font-size: 14px;">스티커</a>
+            <a class="nav-link" id="wallpaper" onclick="category()" style="color: #FFFFFF; font-size: 14px;">배경화면</a>
+      </div>
+    </div>
+    <input type="hidden" name="catenum" id="catenum">
+    </form>
+  </div>
+</nav>
+-->
 
+  <nav class="navbar navbar-expand" style="background-color: #191B5E; height: 40px; border-color: #616283; border-top-style: dashed; border-width: 0.5px;">
+  <div class="container-fluid">
     <div class="collapse navbar-collapse justify-content-center" id="navbarNavAltMarkup" >
       <div class="navbar-nav">
             <a class="nav-link active " aria-current="page" style="color: #bbbbbb; font-size: 14px;">문구점</a>
@@ -14,31 +58,4 @@
   </div>
 </nav>
 
-<!--
-<div style="background-color: #191B5E; border-color: #616283; border-top-style: dashed; border-width: 0.5px;">
-      
-  <div class="row">
-    <div class="col"></div>
-    <div class="col-6">
-      <ul class="nav justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page"  style="color: #bbbbbb; font-size: 14px;">문구점</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#" style="color: #EEE5E5; font-size: 14px;">다이어리</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">필기노트</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">스티커</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#" style="color: #EEE5E5; font-size: 14px;">배경화면</a>
-        </li>
-      </ul>
-      
-    </div>
-    <div class="col"></div>
-  </div>
-</div>-->
+

@@ -16,10 +16,14 @@ router.get('/', function(req, res, next) {
   res.render('seller/home', { title: 'able' });
 });
 
-router.get('/mypage', function(req, res, next) {
+router.get('/mypage', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pageShopinfo');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
-  res.render('seller/pageShopinfo', { title: 'able' });
+  let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("sellerID :", sellerID);
+  const result = await mysql.query("userLogin", sellerID);
+  console.log("result : ", result);
+  res.render('seller/pageShopinfo', { title: 'able', info: result });
 });
 
 router.get('/mygoods', function(req, res, next) {

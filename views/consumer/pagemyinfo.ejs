@@ -53,19 +53,19 @@
                 <th></th> <!-- 2열-->
                 <tr> <!-- 첫번째 줄 시작-->
                   <td>이름</td>
-                  <td style="font-weight: bold;">회원이름</td>
+                  <td style="font-weight: bold;"><%= info[0].name %></td>
                 </tr>
                 <tr>
                   <td>회원유형</td>
-                  <td style="font-weight: bold;">일반(소비자)</td>
+                  <td style="font-weight: bold;"><%= info[0].role %></td>
                 </tr>
                 <tr>
                   <td>전화번호</td>
-                  <td style="font-weight: bold;">010 - 1234 -5678</td>
+                  <td style="font-weight: bold;"><%= info[0].phonenum %></td>
                 </tr>
                 <tr>
                   <td>이메일</td>
-                  <td style="font-weight: bold;">team5able@kw.ac.kr</td>
+                  <td style="font-weight: bold;"><%= info[0].email %></td>
                 </tr>
                 <tr>
                   <td></td>
@@ -83,7 +83,7 @@
     <script>
       // 수정하기 버튼 onclick 이벤트 함수
       function editInfo() {
-
+        location.href="/consumer/mypage/editinfo";
       }
     </script>
   

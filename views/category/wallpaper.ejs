@@ -35,26 +35,28 @@
 
     <div>
       <div class="row">
-        <div class="col-2" >
+        <div class="col-2">
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
         </div>
-        <div class="col-10" style="margin-left: -20px;">
+        <div class="col-10" style=" margin-left: -20px;">
           <!-- 내용 들어갈 자리 !!! -->
-  
-                    <h5 class="mt-5 mb-3" style="font-weight: bold;"> 배경화면 상품 <%=row.length %> 개 </h5>
-                    <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
-                    <% for (var i=0; i< row.length; i++) { %>
-                            <div class="col">
-                                <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                                    <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <h6 class="card-title"><%=row[i].name%></h6>
-                                    </div>
-                                </div>
-                            </div>
-                    <% } %>
-                </div>
+          <div class="row">
+            <h6 id="navtext">HOME > 배경화면</h6>
+          </div>
+          <h5 class="mt-3 mb-3" style="font-weight: bold;"> 배경화면 상품 (<%=row.length %>) </h5>
+          <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
+          <% for (var i=0; i< row.length; i++) { %>
+              <div class="col">
+                  <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
+                      <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
+                      <div class="card-body">
+                          <h6 class="card-title"><%=row[i].name%></h6>
+                      </div>
+                  </div>
+              </div>
+          <% } %>
+          </div>
 
         </div>
       </div>

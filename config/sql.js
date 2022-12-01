@@ -2,7 +2,8 @@ module.exports = {
     userVertifyId : `select id from user where id = ?`,
     userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
     userLogin : 'select * from user where id = ?',
-    // diaryProduct : 'SELECT name, imageurl FROM product WHERE category=1'
+    userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
+    cateProduct : 'SELECT * FROM product WHERE category=?',
     diaryProduct : 'SELECT * FROM product WHERE category = 1',
     noteProduct : 'SELECT * FROM product WHERE category = 2',
     stickerProduct : 'SELECT * FROM product WHERE category = 3',

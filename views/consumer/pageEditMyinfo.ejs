@@ -1,3 +1,4 @@
+<!-- 일반 회원 - 마이페이지 - 내 정보 수정 페이지 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -32,60 +33,60 @@
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
     <% include ./../layout/loginheader.ejs %>
-    <% include ./../layout/sellercategory.ejs %>
+    <% include ./../layout/category.ejs %>
 
     <div>
       <div class="row" style="height: 500px;">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/sellerpgmenubar.ejs %>
+          <% include ./../layout/mypgmenubar.ejs %>
         </div>
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 매장정보</h6>
+            <h6 id="navtext">HOME > 마이페이지 > 내 정보 수정 </h6>
           </div>
           <div class="row">
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6">
+            <form class="validation-form" action="/consumer/mypage/editinfo/done" method = "get" >
               <table width="600px" height="300px" style="margin-top: 30px;">
                 <th></th> <!-- 1열-->
                 <th></th> <!-- 2열-->
                 <tr> <!-- 첫번째 줄 시작-->
-                  <td>매장명</td>
-                  <td style="font-weight: bold;"><%= info[0].name %></td>
+                    <td>이름</td>
+                    <td style="font-weight: bold;">
+                        <input class="form-control form-control-sm" name="newname" type="text" placeholder="이름 입력" style="width: 200px;">
+                    </td>
                 </tr>
                 <tr>
                   <td>회원유형</td>
-                  <td style="font-weight: bold;"><%= info[0].role %></td>
+                  <td style="font-weight: bold;">일반(소비자)</td>
                 </tr>
                 <tr>
                   <td>전화번호</td>
-                  <td style="font-weight: bold;"><%= info[0].phonenum %></td>
+                  <td style="font-weight: bold;">
+                    <input class="form-control form-control-sm" name="newphonenum" type="text" placeholder="전화번호 입력" style="width: 200px;">
+                </td>
                 </tr>
                 <tr>
                   <td>이메일</td>
-                  <td style="font-weight: bold;"><%= info[0].email %></td>
+                  <td style="font-weight: bold;">
+                    <input type="email" name="newemail" class="form-control form-control-sm" placeholder="name@example.com" style="width: 200px;">
+                </td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td><button class="btn" id="editbtn" onclick="editInfo()" style="background-color: #DFE7F6;">수정하기</button></td>
+                  <td><button class="btn" type="submit" id="editsavebtn" style="background-color: #cbdbf9;">수정 완료</button></td>
                 </tr>
               </table>
-
+            </form>
             </div>
             <div class="col-2 col-lg-3"></div>
           </div>
         </div>
       </div>
     </div>
-  
-    <script>
-      // 수정하기 버튼 onclick 이벤트 함수
-      function editInfo() {
-
-      }
-    </script>
   
   </body>
   <% include ./../layout/footer.ejs %>

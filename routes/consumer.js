@@ -17,10 +17,36 @@ router.get('/', function(req, res, next) {
   res.render('consumer/home', { title: 'able' });
 });
 
-router.get('/mypage', function(req, res, next) {
+router.get('/mypage', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyinfo');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyinfo');
-  res.render('consumer/pagemyinfo', { title: 'able' });
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("consumerID :", consumerID);
+  const result = await mysql.query("userLogin", consumerID);
+  console.log("result : ", result);
+  res.render('consumer/pagemyinfo', { title: 'able', info: result});
+});
+
+router.get('/mypage/editinfo', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/pagemyinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pageEditMyinfo');
+  res.render('consumer/pageEditMyinfo', { title: 'able'});
+});
+
+// 수정 완료 후 버튼 눌렀을 떄!
+router.get('/mypage/editinfo/done', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/pagemyinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pageEditMyinfo');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("consumerID :", consumerID);
+  console.log(req.params);
+  var data = [req.body.newname, req.body.newemail, req.body.newphonenum, consumerID]; 
+  console.log("새로 업데이트 되는 : ", data);
+
+  const result = await mysql.query("userUpdate", data);
+  const result2 = await mysql.query("userLogin", consumerID);
+  console.log("result2 : ", result2);
+  res.render('consumer/pagemyinfo', { title: 'able', info: result2});
 });
 
 router.get('/myorder', async (req, res, next) => {
@@ -35,9 +61,18 @@ router.get('/myqna', async (req, res, next) => {
   res.render('consumer/pagemyqna', { title: 'able' });
 });
 
+// 카테고리 연결 router를 하나로 할 수 있다면.. 
+/*
+router.get('category/:category'), async (req, res, next) => {
+  const result = await mysql.query("cateProduct", )
+}
+*/
+
 router.get('/diary', async (req, res, next) => {
   const result = await mysql.query("diaryProduct");
   res.render("category/diary", { title: "상품 카테고리 다이어리", row: result});
+
+  
 });
 
 router.get('/note', async (req, res, next) => {
@@ -55,5 +90,8 @@ router.get('/wallpaper', async (req, res, next) => {
   res.render("category/wallpaper", { title: "상품 카테고리 배경화면", row: result});
 });
 
+router.get('/details', function(req, res, next) {
+  res.render("index/goodsDetail", { title: "able"});
+});
 
 module.exports = router;
