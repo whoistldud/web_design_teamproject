@@ -30,13 +30,14 @@ router.get('/mypage', async (req, res, next) => {
 router.get('/mypage/editinfo', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyinfo');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pageEditMyinfo');
-  res.render('consumer/pageEditMyinfo', { title: 'able'});
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("userLogin", consumerID);
+  res.render('consumer/pageEditMyinfo', { title: 'able', info: result});
 });
 
-// 수정 완료 후 버튼 눌렀을 떄!
-router.get('/mypage/editinfo/done', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pagemyinfo');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pageEditMyinfo');
+
+router.post('/mypage/editinfo/done', async (req, res, next) => {
+  
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("consumerID :", consumerID);
   console.log(req.params);
@@ -46,7 +47,7 @@ router.get('/mypage/editinfo/done', async (req, res, next) => {
   const result = await mysql.query("userUpdate", data);
   const result2 = await mysql.query("userLogin", consumerID);
   console.log("result2 : ", result2);
-  res.render('consumer/pagemyinfo', { title: 'able', info: result2});
+  res.redirect("/consumer/mypage");
 });
 
 router.get('/myorder', async (req, res, next) => {
@@ -59,6 +60,22 @@ router.get('/myqna', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyqna');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyqna');
   res.render('consumer/pagemyqna', { title: 'able' });
+});
+
+router.get('/addPoint', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("readPoint", consumerID);
+  res.render("consumer/pagemypoint", { title: "able", row: result});
+});
+
+router.post('/addPoint', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/pagemyinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("addPoint", [req.body.addpoint, consumerID]);
+  res.redirect("/consumer/addpoint");
 });
 
 // 카테고리 연결 router를 하나로 할 수 있다면.. 

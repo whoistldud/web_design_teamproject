@@ -49,30 +49,30 @@
           <div class="row">
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6">
-            <form class="validation-form" action="/consumer/mypage/editinfo/done" method = "get" >
+            <form class="validation-form" action="/consumer/mypage/editinfo/done" method = "post" >
               <table width="600px" height="300px" style="margin-top: 30px;">
                 <th></th> <!-- 1열-->
                 <th></th> <!-- 2열-->
                 <tr> <!-- 첫번째 줄 시작-->
                     <td>이름</td>
                     <td style="font-weight: bold;">
-                        <input class="form-control form-control-sm" name="newname" type="text" placeholder="이름 입력" style="width: 200px;">
+                        <input class="form-control form-control-sm" name="newname" type="text" value="<%= info[0].name%>" style="width: 200px;">
                     </td>
                 </tr>
                 <tr>
                   <td>회원유형</td>
-                  <td style="font-weight: bold;">일반(소비자)</td>
+                  <td style="font-weight: bold;"><%= info[0].role%></td>
                 </tr>
                 <tr>
                   <td>전화번호</td>
                   <td style="font-weight: bold;">
-                    <input class="form-control form-control-sm" name="newphonenum" type="text" placeholder="전화번호 입력" style="width: 200px;">
+                    <input class="form-control form-control-sm" name="newphonenum" type="text" value="<%= info[0].phonenum%>" style="width: 200px;">
                 </td>
                 </tr>
                 <tr>
                   <td>이메일</td>
                   <td style="font-weight: bold;">
-                    <input type="email" name="newemail" class="form-control form-control-sm" placeholder="name@example.com" style="width: 200px;">
+                    <input type="email" name="newemail" class="form-control form-control-sm" value="<%= info[0].email%>" style="width: 200px;">
                 </td>
                 </tr>
                 <tr>

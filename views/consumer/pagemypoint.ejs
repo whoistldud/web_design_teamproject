@@ -1,3 +1,4 @@
+<!-- 포인트 충전 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -31,61 +32,45 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./../layout/sellerloginheader.ejs %>
+    <% include ./../layout/loginheader.ejs %>
     <% include ./../layout/sellercategory.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellerpgmenubar.ejs %>
         </div>
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
-          <div class="container">
-            <div class="input-form-backgroud row">
-              <div class="input-form col-md-12 mx-auto">
-                <!-- <h4 class="mb-3">등록 상품 목록</h4> -->
-                <div class="row">
-                    <h6 id="navtext">HOME > 마이페이지 > 내 Q&A</h6>
-                  </div>
-                  <button type="button" class="btn btn-primary mb-3" style="float:right" onclick="newqna()">글쓰기</button>
-                  <table>
-                    <tbody>
-                      <tr>  
-                        <td>번호</td>
-                        <td>제목</td>
-                        <td>작성일</td>
-                        <td>작성자</td>
-                        </tr>
-                    <% for(var i=0; i < row.length; i++) {  
-                      %>
-                      <tr>
-                        <td><p alt="번호"></p><%= row[i].id %></td>                      
-                        <td><a alt="제목" href="/seller/qna/read/<%= row[i].id %>"><%= row[i].title %></a>
-                        </td>
-                        <td><p alt="작성일"><%= row[i].date %></p></td>
-                        <td><p alt="작성자"><%= row[i].name %></p></td>
-                      </tr>
-                      <% } %>
-                    </tbody>
-                  </table>
-              </div>
-            </div>
-          
-          
+          <div class="row">
+            <h6 id="navtext">HOME > 마이페이지 > 포인트 충전</h6>
+          </div>
+          <form class="validation-form" id="addpnt" onsubmit= "return confirm('포인트를 충전하시겠습니까?');" action="/consumer/addPoint" method = "post" >
+          <table width="600px" height="300px" style="margin-top: 30px;">
+            <th></th> <!-- 1열-->
+            <th></th> <!-- 2열-->
+            <tr> <!-- 첫번째 줄 시작-->
+              <td>보유 포인트</td>
+              <td style="font-weight: bold;"><%= row[0].point %></td>
+            </tr>
+            <tr>
+              <td>충전할 포인트</td>
+              <td style="font-weight: bold;">
+                <input class="form-control form-control-sm" name="addpoint" type="int" style="width: 200px;">
+            </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><button class="btn" id="addbtn" type="submit" style="background-color: #DFE7F6;">포인트 충전</button></td>
+            </tr>
+          </table></form>
+
         </div>
       </div>
     </div>
-  
+    
   
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
-
-<script>
-    function newqna(){
-    location.href = "/seller/qna/register"
-  }
-  
-  </script>

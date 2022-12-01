@@ -20,6 +20,6 @@ module.exports = {
     qnaListRead : 'select * from qnaboard ',
     qnaDetRead : 'select * from qnaboard where id=? ',
     myqnaRead : 'select * from qnaboard where userId=?',
-
-
+    addPoint: 'update user set point = point + ? where id = ?',
+    readPoint : 'select point from user where id=?'
 };

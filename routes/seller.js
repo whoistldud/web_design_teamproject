@@ -62,14 +62,6 @@ function categoryToch(result) {
 
 
 
-/* mypage */
-router.get('/mypage', function(req, res, next) {
-  if(!req.session.user) res.redirect('/pageShopinfo');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
-  res.render('seller/pageShopinfo', { title: 'able' });
-});
-
-
 router.get('/shopqna', function(req, res, next) {
   if(!req.session.user) res.redirect('/pageShopqna');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopqna');
@@ -89,7 +81,7 @@ router.post("/product/write", upload.single("imageurl"), async(req, res, next) =
 
 
 /* 등록한 상품 list */
-router.get('/productlist/:sellerId', async (req,res,next) => {
+router.get('/productlist', async (req,res,next) => {
   var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("productRead", sellerId);
   categoryToch(result);
@@ -162,7 +154,7 @@ router.get('/qna/read/:id', async (req,res,next) => {
 });
 
 
-router.get('/myqnalist/:userId', async (req,res,next) => {
+router.get('/myqnalist', async (req,res,next) => {
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("아이디", userId);
   const result = await mysql.query("myqnaRead", userId);
@@ -174,6 +166,16 @@ router.get('/myqnalist/:userId', async (req,res,next) => {
 });
 
 router.get('/mypage', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/pageShopinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/mypage');
+  let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("sellerID :", sellerID);
+  const result = await mysql.query("userLogin", sellerID);
+  console.log("result : ", result);
+  res.render('seller/mypage', { title: 'able', info: result });
+});
+
+router.get('/mypage/pageShopinfo', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pageShopinfo');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
