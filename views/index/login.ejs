@@ -24,37 +24,53 @@
   <body>
     <% include ./../layout/header.ejs %>
     
-    <div class="container">
-        <div class="input-form-backgroud row">
-          <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">로그인</h4>
-            <form class="validation-form"  id = "login" action="login" method = "post" >
-              <div class="row">
+    <div class="container" style=" height: 550px">
+      <br/><br/>
+      <div class="row" style="height: 400px;">
+        <div class="col"></div>
+        <div class="col-6">
+            <div class="input-form-backgroud row">
+            <div class="input-form col-md-12 mx-auto">
+              <h3 class="text-center fw-bold mt-5 mb-3">로그인👤</h3>
 
-                <div class="col-md-6 mb-3">
-                    <label for="id">아이디</label>
-                    <input type="text" class="form-control" id="id" name="id" placeholder="아이디" required>
-                    <div class="invalid-feedback">
-                      아이디를 입력해주세요.
+              
+              <form class="validation-form"  id = "login" action="login" method = "post" >
+                <div class="row">
+                  <div class="col mt-3"></div>
+                  <div class="col-md-6 mt-3 mb-3">
+                      <label for="id">👤 아이디</label>
+                      <input type="text" class="form-control mt-1" id="id" name="id" placeholder="아이디를 입력하세요." required>
+                      <div class="invalid-feedback">
+                        아이디를 입력해주세요.
+                      </div>
+                      <br />
+                      <label for="password">🔑 비밀번호</label>
+                      <input type="password" class="form-control mt-1" id="password" name="password" placeholder="비밀번호를 입력하세요." value="" required>
+                      <div class="invalid-feedback">
+                        비밀번호를 입력해주세요.
+                      </div>
+                      <br />
+                      <div class="row">
+                        <div class="col-6"></div>
+                        <div class="col-6" style="display: flex; justify-content: flex-end;">
+                          <button class="btn btn-block" id="loginbtn" type="submit" style="color: #ffffff; background-color : #191B5E;">로그인</button>
+
+                        </div>
+                      </div>
+
+    
                     </div>
+                  <div class="col mt-3"></div>
                 </div>
+              </form>
             </div>
-            <div class="row">
-
-                <div class="col-md-6 mb-3">
-                  <label for="password">비밀번호</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="" value="" required>
-                  <div class="invalid-feedback">
-                    비밀번호를 입력해주세요.
-                  </div>
-                </div>
-            </div>
-
-              <div class="mb-4"></div>
-              <button class="btn btn-primary btn-lg btn-block" id="loginbtn" type="submit">로그인</button>
-            </form>
           </div>
+
         </div>
+        <div class="col"></div>
+      </div>
+        
+      </div>
   </body>
   <% include ./../layout/footer.ejs %>
 </html>

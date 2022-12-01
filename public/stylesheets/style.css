@@ -1,9 +1,78 @@
-/* body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+body {
+  background-color: #F9F6F6;
 }
-*/
+
+li {
+  margin-left: -20px;
+}
 
 a {
   color: #00B7FF;
 }
+
+#footer {
+  position:relative;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  margin-left: 0px;
+
+}
+
+#menubar {
+  position: relative;
+  width: 200px;
+  height: 100%;
+  display: flex;
+  margin-left: 0px;
+  
+}
+
+.card-img-top {
+  height: 12rem;
+  object-fit: contain;
+  background-color: #f5eaea;
+  border-radius: 5px;
+}
+
+.card-title {
+  margin-top: -5px;
+  margin-left: -10px;
+  font-weight: 500;
+}
+
+.card {
+  border-color: #ffe2e2;
+  background-color: #F9F6F6;
+}
+
+.d-block {
+  height: 30rem;
+  object-fit: contain;
+  background-color: #f9f6f6;
+  /* #f3f3f3 */
+}
+
+#navtext {
+  margin-top: 20px;
+  color: #656565;
+}
+/*
+.wrap1 {
+  width : calc(90%);
+  border : 1px solid black;
+}
+
+.wrap2 {
+  position : relative;
+  width : 100%;
+}
+
+#contentbody {
+  height: 100%;
+  position : absolute;
+  width : 100%;
+  left: 150px;
+  top: -359px;
+  border : 1px solid red;
+}*/

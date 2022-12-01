@@ -6,6 +6,11 @@ module.exports = {
     productRead : 'select * from product ',
     productlisRead : 'select * from product where id=?',
     readImage : 'SELECT id, name, category, detail, price, imageurl FROM product WHERE id=?',
-    qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post) value (?,?,?,?,?,?)'
+    qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post) value (?,?,?,?,?,?)',
+    // diaryProduct : 'SELECT name, imageurl FROM product WHERE category=1'
+    diaryProduct : 'SELECT * FROM product WHERE category = 1',
+    noteProduct : 'SELECT * FROM product WHERE category = 2',
+    stickerProduct : 'SELECT * FROM product WHERE category = 3',
+    wpaperProduct : 'SELECT * FROM product WHERE category = 4',
 
 };

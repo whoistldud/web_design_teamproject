@@ -48,7 +48,8 @@ router.post("/join", async (req, res) => {
       var data = [req.body.id,password,req.body.name,req.body.email,req.body.phoneNum,req.body.birthday,req.body.role]; 
       const result = await mysql.query("userJoin", data);
     });
-    res.redirect('login');
+    res.send("<script>alert('🎈 환영합니다! 회원가입이 완료되었습니다 ✨');location.href='login';</script>");
+
   }
 });
 
