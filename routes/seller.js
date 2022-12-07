@@ -97,7 +97,7 @@ router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount
   
   console.log(data);
   const result = await mysql.query("productWrite", data);
-  res.redirect("/seller/productlist");
+  res.send("<script>alert('상품등록완료.');location.href='/seller/productlist';</script>"); 
 });
 
 /* 등록한 상품 list */
@@ -124,7 +124,6 @@ router.get('/product/read/:id', async (req,res,next) => {
 router.get('/product/edit/:id', async (req,res,next) => {
   const id = req.params.id;
   const result = await mysql.query("readImage", id);
-  categoryToch(result[0]);
   res.render('seller/pageProductEdit', { title: "상품 수정", row: result[0] });
 
 });
@@ -190,7 +189,6 @@ router.post("/qna/register", async(req,res) => {
 router.get('/qna/read/:id', async (req,res,next) => {
   const id = req.params.id;
   const result = await mysql.query("qnaDetRead", id);
-  categoryToch(result);
   res.render('seller/qnaRead', { title: "문의 조회", row: result[0] });
   console.log(result[0]);
 });
@@ -210,7 +208,6 @@ router.get('/myqnalist', async (req,res,next) => {
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("아이디", userId);
   const result = await mysql.query("myqnaRead", userId);
-  categoryToch(result);
   // console.log(result[1]);
 
   res.render('seller/myqnaList', { title: "내 qna 목록", row: result});
