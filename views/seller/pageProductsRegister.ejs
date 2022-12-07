@@ -96,7 +96,7 @@
                       </div>
                       <div class="mb-4"></div>
                       <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit"
-                      >
+                      onclick="register()">
                         상품 등록</button>
         
                       </form>
@@ -145,4 +145,8 @@
   };
 
   fileInput.addEventListener("change", handleFiles);
+
+  function register() {
+    alert('상품등록완료');
+  }
 </script>

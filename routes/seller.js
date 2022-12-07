@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const session = require("express-session");
 const multer = require("multer");
 const path = require("path");
+const { Console } = require('console');
 
 var router = express.Router();
 
@@ -80,13 +81,23 @@ router.get('/shopqna', function(req, res, next) {
 // });
 
 router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount:1}, {name:"detailimageurl", maxCount:1}, {name:"fileurl", maxCount:1}]), async(req, res, next) => {
+  const id = req.params.id;
   var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
-  var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
-    req.body.thumbnailimageurl,req.body.detailimageurl,req.file.fileurl]; 
+  console.log("흠", req.files.thumbnailimageurl);
+  console.log("흠", req.files['thumbnailimageurl'][0]);
+  if (req.files.length == 3){
+    var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
+      req.files['thumbnailimageurl'][0].filename,req.files['detailimageurl'][0].filename,req.files['fileurl'][0].filename]; 
+  }
+  else {
+    var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
+      req.files['thumbnailimageurl'][0].filename,'null',req.files['fileurl'][0].filename]; 
+  }
+  
   console.log(data);
   const result = await mysql.query("productWrite", data);
-  res.send("<script>alert('상품등록완료.');location.href='/seller/productlist/:sellerId';</script>"); 
+  res.redirect("/seller/productlist");
 });
 
 /* 등록한 상품 list */
