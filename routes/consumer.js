@@ -57,14 +57,22 @@ router.get('/myorder', async (req, res, next) => {
 
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("purchaseRead",  consumerID);
-
+  console.log("상품 : ", result);
   res.render('consumer/pagemyorder', { title: 'able' , row:result});
 });
 
-router.get('/mypurchase/:id', async (req, res, next) => {
-  const id = req.params.id;
-  const result = await mysql.query("purchaseIdRead", id);
-  res.render('consumer/purchaseRead', {row:result[0]});  
+router.get('/mypurchase/:productId', async (req, res, next) => {
+
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+  var productId = req.params.productId;
+  console.log("productId : ",req.params );
+  const result = await mysql.query("mypurchaseRead", [productId, consumerID]);
+  console.log("result : ",result);
+  console.log("result2 : ",productId);
+  const result2 = await mysql.query("readImage", productId);
+  res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0]});  
+  console.log("product : ",result2[0] )
 });
 
 router.get('/myqna', async (req, res, next) => {
@@ -177,5 +185,11 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
   res.send("<script>alert('상품 구매 완료.');location.href='/consumer/buycomplete';</script>"); 
 })
 
+router.post('/buy/downcount/:id', async (req,res,next) => {
+  const id = req.params.id;
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log('흠.. :', req.rescount);
+  // res.redirect('/');
+});
 
 module.exports = router;

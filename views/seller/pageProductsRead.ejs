@@ -59,10 +59,29 @@
                             <td>카테고리</td>
                             <td><p alt="카테고리"><%=row.category %></p></td>
                         </tr>
+                        <tr>  
+                          <td>대표 사진</td>
+                          <td><p alt="대표 사진"><img src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/></p></td>
+                        </tr>
+                        <tr>  
+                          <td>등록한 상품</td>
+                          <td><p alt="등록한 상품">
+                            <button type="button" id="view" class="btn btn-primary mb-3" onclick="viewproduct('<%=row.fileurl%>')">보기</button>
+                            <a href="/images/<%=row.fileurl%>" download="<%=row.name %>">
+                              <button type="button" id="downloadfile" class="btn btn-primary mb-3">다운 받기</button>
+                            </a>
+                          </p></td>
+                        </tr>
+
+                        
+
                         <tr>
                             <td>상세정보</td>
                             <td><%=row.detail %> </br></br>
-                              <img src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/></td>
+                              <% if (row.detailimageurl != "null") {%>
+                              <img src= "/images/<%=row.detailimageurl %>"  width="300"/>
+                              <%}%>
+                            </td>
                               <!-- <iframe src= "/images/<%=row.imageurl %>"></iframe> -->
                             <!-- <td>파일 들어갈 부분</td> -->
                         </tr>
@@ -107,5 +126,10 @@
     location.href = "/seller/product/edit/<%=row.id %>";
   }
 
-  
+  function viewproduct(file){
+    console.log(file);
+    var view = file;
+    window.open('/images/' + view);
+  }
+
 </script>

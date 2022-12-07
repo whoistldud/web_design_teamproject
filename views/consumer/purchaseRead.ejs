@@ -28,22 +28,48 @@
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">구매 내역</h4>
+            <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="/consumer/buy/downcount/<%=row.id%>" method = "post" >
             <table class="table">
                 <tbody>
                     <tr>  
-                        <td>번호</td>
-                        <td><p alt="제목"><%=row.id %></p></td>
+                        <td>상품 번호</td>
+                        <td><p alt="제목"><%=row.productId %></p></td>
                     </tr>
                     <tr>  
                         <td>상품명</td>
-                        <td><p alt="이름"><%=row.productId %></p></td>
+                        <td><p alt="이름"><%=row.productName %></p></td>
                     </tr>
+                    <tr>  
+                      <td>다운 받기</td>
+                      <td><p alt="다운 받기">
+                        <input type="hidden" name="count" id="count" value="">
+                        <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
+                          <button type="submit" id="downloadfile" class="btn btn-primary mb-3"
+                          onclick="btnClick()">다운 받기</button>
+                        </a>
+                      </p></td>
+                      <p id="rescount" name="rescount"></p>
+                  </tr>
                     
                     
                 </tbody>
               </table>
+              </form>
 
           </div>
         </div>
   </body>
 </html>
+
+<script>
+  var max = 7;
+
+  function btnClick(){
+    var countnum = document.getElementById("count").value;
+
+    countnum++;
+    alert(count + "회 다운받으셨습니다." );
+
+    document.getElementById("rescount").innerHTML = countnum;
+  }
+</script>

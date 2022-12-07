@@ -15,7 +15,7 @@ module.exports = {
 
     // productRead : 'select * from product ',
     productRead : 'select * from product where sellerId=?',
-    productUpdate : 'update product set name=?, category=?, detail=?, price=? where id=?' ,
+    productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',
     qnaListRead : 'select * from qnaboard ',
@@ -27,7 +27,7 @@ module.exports = {
     qnaDelete: 'delete from qnaboard where id=?',
     newPurchase : 'insert into purchase(productId,userId,productName) value (?,?,?)',
     purchaseRead : 'select * from purchase where userId=?',
-    purchaseIdRead : 'select * from purchase where id=?',
+    mypurchaseRead : 'select * from purchase where productId=? and userId=?',
     
 
 };

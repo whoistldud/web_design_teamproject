@@ -65,9 +65,9 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="formFileMultiple" class="form-label">대표 이미지</label>
-                            <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" >
-                            <img id="previewThumbnailImg" width="400" alt="이미지 영역" />
+                            <label for="formFileMultiple" class="form-label">대표 사진</label>
+                            <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" accept="image/*">
+                            <img id="previewThumbnailImg" width="300" alt="이미지 영역" />
                         </div>
                       </div>
                       <div class="row">
@@ -78,7 +78,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="formFileMultiple" class="form-label">상세 정보에 첨부할 사진</label>
-                            <input class="form-control" type="file" id="detailimageurl" name="detailimageurl" >
+                            <input class="form-control" type="file" id="detailimageurl" name="detailimageurl" accept="image/*" >
                         </div>
                       </div>
                       <div class="row">
@@ -91,7 +91,7 @@
                       <div class="row">
                         <div class="col-md-6 mb-3">
                           <label for="formFileMultiple" class="form-label">업로드할 파일 첨부</label>
-                          <input class="form-control" type="file" id="fileurl" name="fileurl" >
+                          <input class="form-control" type="file" id="fileurl" name="fileurl" accept=".pdf">
                       </div>
                       </div>
                       <div class="mb-4"></div>
@@ -132,6 +132,7 @@
   });
 
   const fileInput = document.getElementById("thumbnailimageurl");
+  console.log(fileInput);
 
   const handleFiles = (e) => {
     const selectedFile = [...fileInput.files];
