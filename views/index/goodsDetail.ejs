@@ -47,27 +47,28 @@
             </div>
             <div class="row mt-1">
                 <div class="col-5">
-                    <div style="border-color: #ffe2e2; background-color: #ebebeb; ">
-                        <img src="/images/ì¤í¬ë¦°ì·_20221030_085941-1669548703671.png"  id="DetailImg" alt="...">
+                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
+                        <img src="/images/<%=row.imageurl %>" class="card-img-top" style="height: 400px; width: 400px;" alt="...">
                     </div>
                 </div>
                 <div class="col-7">
-                    <h3 id="goodsName" style="font-weight: bold;"> "상품 이름 받아서 넣기"</h3>
+                    <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
                     <div class="row mt-4">
-                        <h5>made by "판매자명"
+                        <h5>made by <%= row.sellerId %>
                           <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
                             <i class="bi bi-arrow-right-circle"></i>
                           </button>
                         </h5>
-                        <h5>구매후기</h5>
+                        <h6>구매후기</h6>
                     </div>
                     <hr />
-                    <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;">가격 8900원</h3></div>
+                    <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
                     <div class="row " style="margin-right: -20px;">
                         <div class="col-8"></div>
                         <div class="col-4 mt-2" >
                             <button class="btn btn btn-outline-dark" id="cartbtn">장바구니</button>
-                            <button class="btn btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;">구매하기</button>
+                            <button class="btn btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
+                            onclick="buy(<%= row.id %>)">구매하기</button>
                         </div>
                     </div>
                 </div>
@@ -128,3 +129,9 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+
+<script>
+  function buy(id){
+    location.href="/consumer/buy/" + id;
+  }
+</script>

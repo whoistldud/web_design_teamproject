@@ -1,3 +1,4 @@
+<!-- 상품 상세 페이지 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -17,7 +18,6 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     
-
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -35,55 +35,21 @@
     <% include ./../layout/category.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/mypgmenubar.ejs %>
+          <% include ./../layout/menubar.ejs %>
         </div>
-        <div class="col-10" >
-          <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 구매내역</h6>
-            <form class="validation-form"  id = "myorder" action="myorder" method = "post" >
-              <div id="main">
-                
-                <table>
-                  <tbody>
-                    <tr>  
-                      <td>번호</td>
-                      <td>상품명</td>
-                      </tr>
-                  <% for(var i=0; i < row.length; i++) {  
-                    %>
-                    <tr>
-                      <td><p alt="번호"></p><%= row[i].id %></td>
-                      <td><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"></p><%= row[i].productName %></td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-
-               
-            </div>
-                  </form>
-
-          </div>
-
-          
-            
-
-        </div>
+        <div class="col-10">
+          <!-- 내용 들어갈 자리 !!! -->
+          결제되었습니다. </br>
+          구메해주셔서 감사합니다!
+         </div>
+        
       </div>
     </div>
-  
-  
+
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
 
-<script>
-  function toproduct(id){
-    console.log(id);
-    alert(id);
-    location.href="/consumer/mypurchase/" +id;
-  }
-</script>

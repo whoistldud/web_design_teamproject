@@ -107,7 +107,7 @@ router.get("/product/delete/:id", async (req,res,next) => {
   const result = await mysql.query("productDelete", id);
   // console.log(result);
   // res.render('/')
-  res.send("<script>alert('상품삭제완료.');location.href='/seller/productlist/';</script>"); 
+  res.send("<script>alert('상품삭제완료.');location.href='/seller/productlist';</script>"); 
   // res.redirect('/')
 });
 
@@ -143,7 +143,7 @@ router.post("/qna/register", async(req,res) => {
 
   const result = await mysql.query("qnaWrite", data);
   console.log(result[0]);
-  res.redirect('/seller/myqnalist/:userId');
+  res.redirect('/seller/myqnalist');
 });
 
 router.get('/qna/read/:id', async (req,res,next) => {

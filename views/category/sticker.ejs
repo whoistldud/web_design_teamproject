@@ -48,8 +48,8 @@
             <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
             <% for (var i=0; i< row.length; i++) { %>
                     <div class="col">
-                        <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                            <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
+                      <div class="card h-100" onclick="goDetails(<%=row[i].id%>)" style="border-color: #ffe2e2; background-color: #F9F6F6">
+                        <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h6 class="card-title"><%=row[i].name%></h6>
                             </div>
@@ -65,3 +65,8 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+<script>
+  function goDetails(id) {
+    location.href="/consumer/details/" + id;
+  }
+</script>
