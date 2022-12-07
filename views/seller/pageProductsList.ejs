@@ -49,6 +49,8 @@
                 <div class="row">
                     <h6 id="navtext">HOME > 마이페이지 > 조회</h6>
                   </div>
+                  <button type="button" class="btn btn-primary mb-3" onclick="newqna()">글쓰기</button>
+                  <br/>
                   <table width="600px;" border="1">
                     <tbody>
                       <tr>  
@@ -65,8 +67,8 @@
                         <td><a alt="이름" href="/seller/product/read/<%= row[i].id %>"><%= row[i].name %></a>
                         </td>
                         <td><p alt="카테고리"><%= row[i].category %></p></td>
-                        <td><p alt="상세정보"><img src= "/images/<%=row[i].imageurl %>" width="80"/></p></td>
-                        <td><p alt="가격"><%=row[i].price %></p></td>
+                        <td><p alt="상세정보"><img src= "/images/<%=row[i].thumbnailimageurl %>" width="80"/></p></td>
+                        <td><p alt="가격"><%=row[i].price %>원</p></td>
                       </tr>
                       <% } %>
                     </tbody>

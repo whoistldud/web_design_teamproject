@@ -4,9 +4,9 @@ module.exports = {
     userLogin : 'select * from user where id = ?',
     userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
     cateProduct : 'SELECT * FROM product WHERE category=?',
-    productWrite : 'Insert into product(name,sellerId,category,detail,price,imageurl) value (?,?,?,?,?,?)',
+    productWrite : 'Insert into product(name,sellerId,category,detail,price,thumbnailimageurl,detailimageurl,fileurl) value (?,?,?,?,?,?,?,?)',
     productlisRead : 'select * from product where id=?',
-    readImage : 'SELECT id, name, category, detail, price, imageurl FROM product WHERE id=?',
+    readImage : 'SELECT id, name, category, detail, price, thumbnailimageurl, detailimageurl, fileurl FROM product WHERE id=?',
     // diaryProduct : 'SELECT name, imageurl FROM product WHERE category=1'
     diaryProduct : 'SELECT * FROM product WHERE category = 1',
     noteProduct : 'SELECT * FROM product WHERE category = 2',
@@ -15,6 +15,7 @@ module.exports = {
 
     // productRead : 'select * from product ',
     productRead : 'select * from product where sellerId=?',
+    productUpdate : 'update product set name=?, category=?, detail=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',
     qnaListRead : 'select * from qnaboard ',

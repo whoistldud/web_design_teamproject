@@ -70,15 +70,24 @@ router.get('/shopqna', function(req, res, next) {
 
 
 /* 상품 등록 */
-router.post("/product/write", upload.single("imageurl"), async(req, res, next) => {
+// router.post("/product/write", upload.single("imageurl"), async(req, res, next) => {
+//   var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+//   var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,req.file.filename]; 
+//   console.log(data);
+//   const result = await mysql.query("productWrite", data);
+//   res.send("<script>alert('상품등록완료.');location.href='/seller/productlist/:sellerId';</script>"); 
+// });
+
+router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount:1}, {name:"detailimageurl", maxCount:1}, {name:"fileurl", maxCount:1}]), async(req, res, next) => {
   var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
-  var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,req.file.filename]; 
+  var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
+    req.body.thumbnailimageurl,req.body.detailimageurl,req.file.fileurl]; 
   console.log(data);
   const result = await mysql.query("productWrite", data);
   res.send("<script>alert('상품등록완료.');location.href='/seller/productlist/:sellerId';</script>"); 
 });
-
 
 /* 등록한 상품 list */
 router.get('/productlist', async (req,res,next) => {
@@ -100,6 +109,27 @@ router.get('/product/read/:id', async (req,res,next) => {
   console.log(result[0]);
 });
 
+/* 상품 수정 */
+router.get('/product/edit/:id', async (req,res,next) => {
+  const id = req.params.id;
+  const result = await mysql.query("readImage", id);
+  categoryToch(result[0]);
+  res.render('seller/pageProductEdit', { title: "상품 수정", row: result[0] });
+
+});
+
+router.post('/product/edit/done/:id', async (req, res, next) => {
+  const id = req.params.id;
+  console.log(id);
+  var data = [req.body.newname, req.body.newcategory,req.body.newdetail,req.body.newprice, id]; 
+  console.log(req.params);
+  console.log("상품 수정 data : ", data);
+  await mysql.query("productUpdate", data); //수정
+  const result = await mysql.query("readImage", id);
+  console.log("수정 결과 : ", result[0]);
+  res.redirect("/seller/product/read/" + id); 
+});
+
 /* 상품 삭제 */
 router.get("/product/delete/:id", async (req,res,next) => {
   const id = req.params.id;
@@ -107,7 +137,7 @@ router.get("/product/delete/:id", async (req,res,next) => {
   const result = await mysql.query("productDelete", id);
   // console.log(result);
   // res.render('/')
-  res.send("<script>alert('상품삭제완료.');location.href='/seller/productlist';</script>"); 
+  res.send("<script>alert('상품 삭제 완료.');location.href='/seller/productlist';</script>"); 
   // res.redirect('/')
 });
 
