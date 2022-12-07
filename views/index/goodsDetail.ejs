@@ -45,38 +45,86 @@
             <div class="row">
             <h6 id="navtext">HOME > "카테고리 이름"</h6>
             </div>
-            <div class="row mt-1 mb-3">
+            <div class="row mt-1">
                 <div class="col-5">
-                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
-                        <img src="/images/nothing.png" class="card-img-top" style="height: 400px; width: 400px;" alt="...">
+                    <div style="border-color: #ffe2e2; background-color: #ebebeb; ">
+                        <img src="/images/ì¤í¬ë¦°ì·_20221030_085941-1669548703671.png"  id="DetailImg" alt="...">
                     </div>
                 </div>
                 <div class="col-7">
-                    <h3 id="goodsName" style="font-weight: bold;"> 베이직 위클리 다이어리 2023</h3>
+                    <h3 id="goodsName" style="font-weight: bold;"> "상품 이름 받아서 넣기"</h3>
                     <div class="row mt-4">
-                        <h6>made by "판매자명"</h6>
-                        <h6>구매후기</h6>
+                        <h5>made by "판매자명"
+                          <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
+                            <i class="bi bi-arrow-right-circle"></i>
+                          </button>
+                        </h5>
+                        <h5>구매후기</h5>
                     </div>
                     <hr />
                     <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;">가격 8900원</h3></div>
                     <div class="row " style="margin-right: -20px;">
-                        <div class="col-7"></div>
-                        <div class="col-5 mt-2" >
-                            <button class="btn btn-lg btn-outline-dark" id="cartbtn">장바구니</button>
-                            <button class="btn btn-lg" id="buybtn" style="background-color: #191B5E; color: #ffffff;">구매하기</button>
+                        <div class="col-8"></div>
+                        <div class="col-4 mt-2" >
+                            <button class="btn btn btn-outline-dark" id="cartbtn">장바구니</button>
+                            <button class="btn btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;">구매하기</button>
                         </div>
                     </div>
-                        
-
                 </div>
             </div>
-
+            <div class="row mt-3">
+              <div class="container">
+                <!-- 탭 메뉴 상단 시작 -->
+                  <ul class="tabs" style="margin-left :20px;">
+                    <li class="tab-link current" data-tab="tab-1">상세정보</li>
+                    <li class="tab-link" data-tab="tab-2">리뷰</li>
+                    <li class="tab-link" data-tab="tab-3">Q&A</li>
+                  </ul>
+                  <!-- 탭 메뉴 내용 시작 -->
+                  <div id="tab-1" class="tab-content current">
+                    <h1>탭 메뉴 1 내용입니다.</h1>
+                    <p>모든 국민은 법률이 정하는 바에 의하여 국방의 의무를 진다. 공공필요에 의한 재산권의 수용·사용 또는 제한 및 그에 대한 보상은 법률로써 하되, 정당한 보상을 지급하여야 한다. 법관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니하며, 징계처분에 의하지 아니하고는 정직·감봉 기타 불리한 처분을 받지 아니한다. 대통령이 임시회의 집회를 요구할 때에는 기간과 집회요구의 이유를 명시하여야 한다. 대통령은 제1항과 제2항의 처분 또는 명령을 한 때에는 지체없이 국회에 보고하여 그 승인을 얻어야 한다. 대통령은 국무총리·국무위원·행정각부의 장 기타 법률이 정하는 공사의 직을 겸할 수 없다.</p>
+                
+                <p>공무원은 국민전체에 대한 봉사자이며, 국민에 대하여 책임을 진다. 공개하지 아니한 회의내용의 공표에 관하여는 법률이 정하는 바에 의한다. 형사피의자 또는 형사피고인으로서 구금되었던 자가 법률이 정하는 불기소처분을 받거나 무죄판결을 받은 때에는 법률이 정하는 바에 의하여 국가에 정당한 보상을 청구할 수 있다. 헌법개정안은 국회가 의결한 후 30일 이내에 국민투표에 붙여 국회의원선거권자 과반수의 투표와 투표자 과반수의 찬성을 얻어야 한다. 헌법개정안이 제2항의 찬성을 얻은 때에는 헌법개정은 확정되며, 대통령은 즉시 이를 공포하여야 한다. 대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다.</p>
+                
+                
+                  </div>
+                  <div id="tab-2" class="tab-content">
+                  <h1>  탭 메뉴 2 내용입니다.  </h1>
+                <p>근로자는 근로조건의 향상을 위하여 자주적인 단결권·단체교섭권 및 단체행동권을 가진다. 국가는 청원에 대하여 심사할 의무를 진다. 이 헌법공포 당시의 국회의원의 임기는 제1항에 의한 국회의 최초의 집회일 전일까지로 한다. 모든 국민은 직업선택의 자유를 가진다. 모든 국민은 언론·출판의 자유와 집회·결사의 자유를 가진다. 저작자·발명가·과학기술자와 예술가의 권리는 법률로써 보호한다. 대통령은 법률안의 일부에 대하여 또는 법률안을 수정하여 재의를 요구할 수 없다. 국회는 정부의 동의없이 정부가 제출한 지출예산 각항의 금액을 증가하거나 새 비목을 설치할 수 없다. 이 헌법시행 당시의 법령과 조약은 이 헌법에 위배되지 아니하는 한 그 효력을 지속한다.</p>
+                
+                <p>정기회의 회기는 100일을, 임시회의 회기는 30일을 초과할 수 없다. 훈장등의 영전은 이를 받은 자에게만 효력이 있고, 어떠한 특권도 이에 따르지 아니한다. 모든 국민은 헌법과 법률이 정한 법관에 의하여 법률에 의한 재판을 받을 권리를 가진다. 모든 국민은 양심의 자유를 가진다. 법관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니하며, 징계처분에 의하지 아니하고는 정직·감봉 기타 불리한 처분을 받지 아니한다. 이 헌법시행 당시에 이 헌법에 의하여 새로 설치될 기관의 권한에 속하는 직무를 행하고 있는 기관은 이 헌법에 의하여 새로운 기관이 설치될 때까지 존속하며 그 직무를 행한다.</p>
+                  </div>
+                  <div id="tab-3" class="tab-content">
+                  <h1>  탭 메뉴 3 내용입니다.  </h1>
+                <p>대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다. 국군의 조직과 편성은 법률로 정한다. 타인의 범죄행위로 인하여 생명·신체에 대한 피해를 받은 국민은 법률이 정하는 바에 의하여 국가로부터 구조를 받을 수 있다. 모든 국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.</p>
+                  </div>
+                <!-- 탭 메뉴 내용 끝 -->
+                </div>
+              
+            </div>
         </div>
 
         </div>
       </div>
     </div>
 
+    <script>
+      $(document).ready(function(){
+	
+	$('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
+		var tab_id = $(this).attr('data-tab');
+
+		$('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
+		$('.tab-content').removeClass('current');		
+
+		$(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
+		$("#" + tab_id).addClass('current');
+	})
+
+});
+
+    </script>
   </body>
   <% include ./../layout/footer.ejs %>
 </html>

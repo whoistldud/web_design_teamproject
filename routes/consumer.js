@@ -16,9 +16,10 @@ router.get('/', function(req, res, next) {
   res.render('consumer/home', { title: 'able'});
 });
 
+// 마이페이지 중 내 정보
 router.get('/mypage', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyinfo');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("consumerID :", consumerID);
   const result = await mysql.query("userLogin", consumerID);
@@ -26,9 +27,10 @@ router.get('/mypage', async (req, res, next) => {
   res.render('consumer/pagemyinfo', { title: 'able', info: result});
 });
 
+// 내 정보 수정
 router.get('/mypage/editinfo', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyinfo');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pageEditMyinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("userLogin", consumerID);
   res.render('consumer/pageEditMyinfo', { title: 'able', info: result});
@@ -51,13 +53,13 @@ router.post('/mypage/editinfo/done', async (req, res, next) => {
 
 router.get('/myorder', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyorder');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyorder');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   res.render('consumer/pagemyorder', { title: 'able' });
 });
 
 router.get('/myqna', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyqna');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyqna');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   res.render('consumer/pagemyqna', { title: 'able' });
 });
 
@@ -84,26 +86,30 @@ router.get('category/:category'), async (req, res, next) => {
 }
 */
 
+// 다이어리 상품
 router.get('/diary', async (req, res, next) => {
   const result = await mysql.query("diaryProduct");
-  res.render("category/diary", { title: "상품 카테고리 다이어리", row: result});
+  res.render("category/diary", { title: "다이어리 상품", row: result});
 
   
 });
 
+// 필기노트 상품
 router.get('/note', async (req, res, next) => {
   const result = await mysql.query("noteProduct");
-  res.render("category/note", { title: "상품 카테고리 필기노트", row: result});
+  res.render("category/note", { title: "필기노트 상품", row: result});
 });
 
+// 스티커 상품
 router.get('/sticker', async (req, res, next) => {
   const result = await mysql.query("stickerProduct");
-  res.render("category/sticker", { title: "상품 카테고리 스티커", row: result});
+  res.render("category/sticker", { title: "스티커 상품", row: result});
 });
 
+ //배경화면 상품
 router.get('/wallpaper', async (req, res, next) => {
   const result = await mysql.query("wpaperProduct");
-  res.render("category/wallpaper", { title: "상품 카테고리 배경화면", row: result});
+  res.render("category/wallpaper", { title: "배경화면 상품", row: result});
 });
 
 router.get('/details', function(req, res, next) {

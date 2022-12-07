@@ -33,13 +33,13 @@
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
     <% include ./../layout/loginheader.ejs %>
-    <% include ./../layout/sellercategory.ejs %>
+    <% include ./../layout/category.ejs %>
 
     <div>
-      <div class="row">
+      <div class="row" style="height: 500px;">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/sellerpgmenubar.ejs %>
+          <% include ./../layout/mypgmenubar.ejs %>
         </div>
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
@@ -47,7 +47,7 @@
             <h6 id="navtext">HOME > 마이페이지 > 포인트 충전</h6>
           </div>
           <form class="validation-form" id="addpnt" onsubmit= "return confirm('포인트를 충전하시겠습니까?');" action="/consumer/addPoint" method = "post" >
-          <table width="600px" height="300px" style="margin-top: 30px;">
+          <table width="600px" height="200px" style="margin-top: 30px;">
             <th></th> <!-- 1열-->
             <th></th> <!-- 2열-->
             <tr> <!-- 첫번째 줄 시작-->
