@@ -60,7 +60,7 @@
 
                     <%if (review!=null){
                       %>
-                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="">리뷰보기</button>
+                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="reviewRead(<%= row.id %>)">리뷰보기</button>
                     <%}%>
 
                     <button type="button" id="reviewwrite" class="btn btn-primary mb-3">문의하기</button>
@@ -99,5 +99,9 @@
 
   function reviewWrite(id){
     location.href="/consumer/reviewrite/" + id;
+  }
+
+  function reviewRead(id){
+    location.href="/consumer/reviewRead/" + id;
   }
 </script>

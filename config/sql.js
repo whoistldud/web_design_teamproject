@@ -63,5 +63,6 @@ module.exports = {
     reiviewWrite : 'insert into review(userId,productId,content,star,date,purchaseId) value(?,?,?,?,?,?)',
     reviewRead : 'select * from review where productId=? and purchaseId=?',
     reviewlis : 'select * from review where productId=?',
+    reviewMyRead : 'select * from review where purchaseId=?',
 
 };
