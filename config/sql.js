@@ -1,3 +1,5 @@
+const { useDebugValue } = require("react");
+
 module.exports = {
     userVertifyId : `select id from user where id = ?`,
     userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
@@ -28,6 +30,7 @@ module.exports = {
     newPurchase : 'insert into purchase(productId,userId,productName) value (?,?,?)',
     purchaseRead : 'select * from purchase where userId=?',
     purchaseIdRead : 'select * from purchase where id=?',
-    
-
+    mycartList : 'SELECT * from cart where userId=?',
+    intoMycart : 'INSERT INTO cart(userId,productId,prodName) value (?,?,?)',
+    search : 'select * from product where name like "" or sellerId like ""',
 };

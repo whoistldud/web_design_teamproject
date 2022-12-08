@@ -44,68 +44,75 @@
           <!-- 내용 들어갈 자리 !!! -->
             <div class="row">
               <!-- <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/<%=row.id%>/bycom" method = "post" > -->
+                <div class="row">
+                  <h6 id="navtext">HOME > <%= row.name%> > 구매</h6>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-10" style="margin-left: 20px;">
+                    <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/bycom/<%=row.id%>" method = "post" >
 
-                <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/bycom/<%=row.id%>" method = "post" >
-
-
-                <!-- <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRegister" action="" method = "post"  > -->
-                <div class="row mt-3 mb-3">
-                    <h3 style="font-weight: bold;">주문 상품 정보</h3>
-                    <hr />
-                    <div class="col-5">
-                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
-                        <img src="/images/<%=row.thumbnailimageurl %>" class="card-img-top"  alt="...">
-                    </div>
-                    </div>
-                
-                    <div class="col-7">
-                        <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
-                        <div class="row mt-4">
-                            <h5>made by <%= row.sellerId %></h5>
-                            <h5><%= row.price %>원</h5>
+                    <!-- <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRegister" action="" method = "post"  > -->
+                    <div class="row mt-3 mb-3">
+                        <h5 >주문 상품 정보</h5>
+                        <hr />
+                        <div class="col-5">
+                        <div style="border-color: #ffe2e2; background-color: #d9d9d9">
+                            <img src="/images/<%=row.thumbnailimageurl %>" class="card-img-top"  alt="...">
+                        </div>
                         </div>
                     
-                    </div>
-                </div>
-
-                <div class="row mt-5 mb-3">
-                    <h3 style="font-weight: bold;">주문자 정보</h3>
-                    <hr />
-                    <div class="col-7">
-                        <h4 id="goodsName" style="font-weight: bold;"> <%= consum.name%></h4>
-                        <h5><%=consum.email%></h5>
-                        <h5><%=consum.phonenum%></h5>
-                    </div>
-                </div>
-
-                <div class="row mt-5 mb-3">
-                    <h3 style="font-weight: bold;">보유 포인트</h3>
-                    <hr />
-                    <div class="col-7">
-                        <h4 id="goodsName" style="font-weight: bold;"> <%= point.point%></h4>
-                        <button class="btn btn-primary btn-lg btn-block" id="pointadd"
-                        onclick="location.href = '/consumer/addPoint'"
-                        >포인트 충전</button>
+                        <div class="col-7">
+                            <h5 id="goodsName" style="font-weight: bold;"> <%= row.name%></h5>
+                            <div class="row mt-4">
+                                <h5>made by <%= row.sellerId %></h5>
+                                <h5 style="font-weight: bold;"><%= row.price %>원</h5>
+                            </div>
                         
+                        </div>
                     </div>
-                </div>
 
-                <div class="row mt-5 mb-3">
-                    <h3 style="font-weight: bold;">약관</h3>
-                    <hr />
-                    <div class="terms__check__all">
-                        <input type="checkbox" name="check" id="check" />
-                            아래의 환불 유의사항을 확인했으며, 이에 동의합니다. (필수) </br>
-                            able 운영정책에 따라, 디지털 콘텐츠 환불을 구매시점으로부터 3일 이내에만 가능합니다. </br>
-                            따라서 상품 구매 직후, 상품에 오류가 없는지 확인해주세요.
-                      </div>
+                    <div class="row mt-5 mb-3">
+                        <h5>주문자 정보</h5>
+                        <hr />
+                        <div class="col-7">
+                            <h4 id="goodsName" style="font-weight: bold;"> <%= consum.name%></h4>
+                            <h6><%=consum.email%></h6>
+                            <h6><%=consum.phonenum%></h6>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 mb-3">
+                        <h5>보유 포인트</h5>
+                        <hr />
+                        <div class="col-7">
+                            <h4 id="goodsName" style="font-weight: bold;"> <%= point.point%></h4>
+                            <button class="btn btn-block" id="pointadd" style="background-color: #DFE7F6;"
+                            onclick="location.href = '/consumer/addPoint'"
+                            >포인트 충전</button>
+                            
+                        </div>
+                    </div>
+
+                    <div class="row mt-5 mb-3">
+                        <h5>약관</h5>
+                        <hr />
+                        <div class="terms__check__all">
+                            <input type="checkbox" name="check" id="check" />
+                                아래의 환불 유의사항을 확인했으며, 이에 동의합니다. (필수) </br>
+                                able 운영정책에 따라, 디지털 콘텐츠 환불을 구매시점으로부터 3일 이내에만 가능합니다. </br>
+                                따라서 상품 구매 직후, 상품에 오류가 없는지 확인해주세요.
+                          </div>
+                    </div>
+                    
+                  <button class="btn btn-lg btn-block mb-3" id="tobuy" type="submit"
+                        style="background-color: #191B5E; color: #ffffff;"
+                        onclick="buy(<%= point.point%>, <%= row.price %>)">결제하기</button>
+
+                  </form>
+                  </div>
+                  <div class="col"></div>
                 </div>
                 
-              <button class="btn btn-primary btn-lg btn-block" id="tobuy" type="submit"
-              onclick="buy(<%= point.point%>, <%= row.price %>)">
-                결제</button>
-
-              </form>
             
                         
 

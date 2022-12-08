@@ -37,23 +37,26 @@
     <div>
       <div class="row" >
         <div class="col-2" >
-          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellerpgmenubar.ejs %>
         </div>
         <div class="col-10" >
-            <div class="container">
+          <div class="row">
+            <h6 id="navtext">HOME > 상품 등록</h6>
+          </div>
+            <div class="container mt-2">
+              <div class="col-10">
                 <div class="input-form-backgroud row">
                   <div class="input-form col-md-12 mx-auto">
-                    <h4 class="mb-3">상품등록</h4>
+                    <h4 class="mb-3">🪄 새로운 상품을 등록합니다</h4>
                     <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRegister" action="product/write" method = "post" >
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                              <label for="floatingTextarea">이름</label>
+                              <label for="floatingTextarea">🖍️ 상품 이름</label>
                               <input type="text" class="form-control" id="name" name="name" placeholder="상품 이름을 입력하세요." required>
             
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="category">카테고리</label>
+                            <label for="category">🏷️ 카테고리</label>
                             <select class="form-select" aria-label="Default select example" id="category" name="category">
                                 <option selected>상품 카테고리 선택</option>
                                 <option value="1">다이어리</option>
@@ -65,48 +68,48 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="formFileMultiple" class="form-label">대표 이미지</label>
+                            <label for="formFileMultiple" class="form-label">📌 대표 이미지</label>
                             <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" >
                             <img id="previewThumbnailImg" width="400" alt="이미지 영역" />
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="input-group">상세정보</label>
+                            <label for="input-group">📑 상세정보</label>
                             <textarea class="form-control" aria-label="With textarea" 
                             placeholder="상품 상세정보를 입력하세요." id="detail", name="detail"></textarea>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="formFileMultiple" class="form-label">상세 정보에 첨부할 사진</label>
+                            <label for="formFileMultiple" class="form-label">📑 상세 정보에 첨부할 사진</label>
                             <input class="form-control" type="file" id="detailimageurl" name="detailimageurl" >
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="floatingTextarea">가격</label>
-                              <input type="text" class="form-control" id="price" name="price"
-                              required>
-                               
+                          <label for="floatingTextarea">💰 가격</label>
+                            <input type="text" class="form-control" id="price" name="price"
+                            required>
                         </div>
-                      <div class="row">
-                        <div class="col-md-6 mb-3">
-                          <label for="formFileMultiple" class="form-label">업로드할 파일 첨부</label>
+                        <div class="col-md-6 mb-2">
+                          <label for="formFileMultiple" class="form-label">🖇️ 업로드할 파일 첨부 🔓</label>
                           <input class="form-control" type="file" id="fileurl" name="fileurl" >
+                        </div>
                       </div>
-                      </div>
-                      <div class="mb-4"></div>
-                      <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit"
-                      onclick="register()">
-                        상품 등록</button>
-        
-                      </form>
+                      <div class="row mt-2 mb-3">
+                        <div class="col-4">
+                          <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit"
+                                  onclick="register()" style="color: #ffffff; background-color : #191B5E;">상품 등록</button>
+                        </div>
+
                             
-          
-                  </div>
+                      </div>
+                    </div>
+                    </form>
                 </div>
-          <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 등록</h6>
-          </div>
+              </div>
+              </div>
+              <div class="col-2"></div>
+          
           
         </div>
       </div>

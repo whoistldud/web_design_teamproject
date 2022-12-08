@@ -47,22 +47,24 @@
               <div class="input-form col-md-12 mx-auto">
                 <!-- <h4 class="mb-3">등록 상품 목록</h4> -->
                 <div class="row">
-                    <h6 id="navtext">HOME > 마이페이지 > 조회</h6>
+                    <h6 id="navtext">HOME > 상품 조회</h6>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3" onclick="newproduct()">새 상품 등록</button>
+                  <div>
+                  <button type="button" class="btn btn-primary mb-3" onclick="newproduct()"
+                          style="color: #ffffff; background-color : #191B5E;">새 상품 등록</button>
                   <br/>
-                  <table width="600px;" border="1">
+                  <table width="1000px;" id="mygoodslist">
                     <tbody>
-                      <tr>  
-                        <td>번호</td>
-                        <td>이름</td>
-                        <td>카테고리</td>
-                        <td>상세정보</td>
-                        <td>가격</td>
+                      <tr bgcolor="#DFE7F6" align="center">  
+                        <th>번호</th>
+                        <th>이름</th>
+                        <th>카테고리</th>
+                        <th>상세정보</th>
+                        <th>가격</th>
                         </tr>
                     <% for(var i=0; i < row.length; i++) {  
                       %>
-                      <tr>
+                      <tr align="center">
                         <td><p alt="번호"></p><%= row[i].id %></td>                      
                         <td><a alt="이름" href="/seller/product/read/<%= row[i].id %>"><%= row[i].name %></a>
                         </td>
@@ -73,6 +75,7 @@
                       <% } %>
                     </tbody>
                   </table>
+                  </div>
               </div>
             </div>
           

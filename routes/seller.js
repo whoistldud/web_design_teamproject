@@ -64,8 +64,8 @@ function categoryToch(result) {
 
 
 router.get('/shopqna', function(req, res, next) {
-  if(!req.session.user) res.redirect('/pageShopqna');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopqna');
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   res.render('seller/pageShopqna', { title: 'able' });
 });
 
@@ -215,7 +215,7 @@ router.get('/myqnalist', async (req,res,next) => {
 });
 
 router.get('/mypage', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pageShopinfo');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/mypage');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
@@ -225,7 +225,7 @@ router.get('/mypage', async (req, res, next) => {
 });
 
 router.get('/mypage/pageShopinfo', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pageShopinfo');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
@@ -235,17 +235,41 @@ router.get('/mypage/pageShopinfo', async (req, res, next) => {
 });
 
 router.get('/mygoods', function(req, res, next) {
-  if(!req.session.user) res.redirect('/pageProducts');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageProducts');
   res.render('seller/pageProducts', { title: 'able' });
 });
 
 router.get('/shopqna', function(req, res, next) {
-  if(!req.session.user) res.redirect('/pageShopqna');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopqna');
   res.render('seller/pageShopqna', { title: 'able' });
 });
 
+// seller 매장 정보 수정
+router.get('/mypage/editShopinfo', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
+  let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("sellerID :", sellerID);
+  const result = await mysql.query("userLogin", sellerID);
+  console.log("result : ", result);
+  res.render('seller/pageEditShopinfo', { title: 'able', info: result });
+});
 
+router.post('/mypage/editShopinfo/done', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
+  let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("sellerID :", sellerID);
+
+  console.log(req.params);
+  var data = [req.body.newname, req.body.newemail, req.body.newphonenum, sellerID];
+
+  const result = await mysql.query("userUpdate", data);
+  const result2 = await mysql.query("userLogin", sellerID);
+  console.log("result2 : ", result2);
+  res.redirect("/seller/mypage/pageShopinfo");
+});
 
 module.exports = router;

@@ -16,9 +16,85 @@ router.get('/', function(req, res, next) {
   res.render('consumer/home', { title: 'able'});
 });
 
+// 장바구니 (상품 목록)
+router.get('/mycartlist', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("userLogin", consumerID);
+  const result1 = await mysql.query("mycartList", consumerID);
+  console.log("가져온 result1", result1);
+  
+  let prodID = [];
+  for(var i=0; i < result1.length ; i++){
+    let pid = result1[i].productId;
+    prodID.push(pid);
+  };
+  console.log("prodID", prodID);
+  //const result2 = await mysql.query("productlisRead", prodID);
+  // 장바구니에 등록하려는 상품이 이미 같은 아이디에 있으면 막기
+
+  res.render('consumer/mycart', { title: 'able', info: result1, consum: result});
+});
+
+// 장바구니 상품 상세 (상세페이지로 연결)
+router.get('/mycartlist/:id', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const id = req.params.id; // 이건 상품 아이디!
+  const result = await mysql.query("productlisRead", id);
+  console.log("result", result[0]);
+  res.render('index/goodsDetail', { title: 'able', info: result[0]});
+});
+
+// 장바구니에 상품 추가
+router.get('/mycart/:id', async function(req,res,next) {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  const id = req.params.id;
+  console.log("상품 id", id);
+
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  
+  const resultN2 = await mysql.query("userLogin", consumerID);
+  const prod = await mysql.query("productlisRead", id);
+  const prodname = prod[0].name;
+  console.log("prodname", prodname);
+  const inputdata = [consumerID, id, prodname];
+  const result = await mysql.query("intoMycart", inputdata);
+  const incart = await mysql.query("mycartList", consumerID);
+  console.log("장바구니 확인!!", incart);
+
+  res.render("/index/goodsDetail");
+  //res.send("<script> console.log('🎈 장바구니에 상품을 담았습니다 ✨');</script>");
+});
+
+// 검색 페이징
+router.get('/search', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("consumerID :", consumerID);
+  res.render('consumer/search', { title: 'able'});
+});
+
+// 검색 결과 
+router.post('/searchres', async (req, res, next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  console.log("consumerID :", consumerID);
+  let keyword = req.body.keyword;
+  console.log("검색 단어", keyword);
+  const result = await mysql.query("search", "%"+keyword+"%");
+  console.log("result : ", result);
+  res.render('consumer/searchresult', { title: 'able'});
+});
+
 // 마이페이지 중 내 정보
 router.get('/mypage', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pagemyinfo');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("consumerID :", consumerID);
@@ -29,7 +105,7 @@ router.get('/mypage', async (req, res, next) => {
 
 // 내 정보 수정
 router.get('/mypage/editinfo', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pagemyinfo');
+  if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("userLogin", consumerID);
@@ -51,9 +127,10 @@ router.post('/mypage/editinfo/done', async (req, res, next) => {
   res.redirect("/consumer/mypage");
 });
 
+// 구매내역
 router.get('/myorder', async (req, res, next) => {
-  if(!req.session.user) res.redirect('/pagemyorder');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/pagemyorder');
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
 
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("purchaseRead",  consumerID);
@@ -122,12 +199,13 @@ router.get('/wallpaper', async (req, res, next) => {
   res.render("category/wallpaper", { title: "배경화면 상품", row: result});
 });
 
+// 상품 상세 페이지
 router.get('/details/:id', async function(req, res, next) {
   const id = req.params.id;
   console.log(id);
   const result = await mysql.query("productlisRead", id);
   console.log(result[0]);
-  res.render("index/goodsDetail", { title: "상품 정보", row : result[0]});
+  res.render("index/goodsDetail", { title: "able "+result[0].name+ " 's Detail", row : result[0]});
 });
 
 
@@ -150,11 +228,11 @@ router.get('/buy/:id', async function(req,res,next) {
 
   res.render("index/purchase", { title: "상품 구매" ,row : resultN1[0], consum : resultN2[0], point:resultN3[0]});
 
-})
+});
 
 router.get('/buycomplete', async function(req,res,next){
   res.render('index/completePurchase', { title: "구매 완료"});
-})
+});
 
 router.post('/buy/bycom/:id', async function(req,res,next) {
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;

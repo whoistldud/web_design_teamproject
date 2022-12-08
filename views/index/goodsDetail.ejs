@@ -42,36 +42,57 @@
         </div>
         <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
-            <div class="row">
-            <h6 id="navtext">HOME > "카테고리 이름"</h6>
-            </div>
-            <div class="row mt-1">
-                <div class="col-5">
-                    <div style="border-color: #ffe2e2; background-color: #d9d9d9">
-                        <img src="/images/<%=row.thumbnailimageurl %>" class="card-img-top" style="height: 400px; width: 400px;" alt="...">
-                    </div>
-                </div>
-                <div class="col-7">
-                    <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
-                    <div class="row mt-4">
-                        <h5>made by <%= row.sellerId %>
-                          <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
-                            <i class="bi bi-arrow-right-circle"></i>
-                          </button>
-                        </h5>
-                        <h6>구매후기</h6>
-                    </div>
-                    <hr />
-                    <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
-                    <div class="row " style="margin-right: -20px;">
-                        <div class="col-8"></div>
-                        <div class="col-4 mt-2" >
-                            <button class="btn btn btn-outline-dark" id="cartbtn">장바구니</button>
-                            <button class="btn btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
-                            onclick="buy(<%= row.id %>)">구매하기</button>
-                        </div>
-                    </div>
-                </div>
+            <div class="container">
+              <div class="row mt-1" >
+                  <div class="col-5">
+                      <div style="border-color: #ffe2e2;">
+                          <img src="/images/<%=row.thumbnailimageurl %>" id="DetailImg" alt="...">
+                      </div>
+                  </div>
+                  <div class="col-7">
+                      <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
+                      <div class="row mt-4">
+                          <h5>made by <%= row.sellerId %>
+                            <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
+                              <i class="bi bi-arrow-right-circle"></i>
+                            </button>
+                          </h5>
+                          <h6>구매후기</h6>
+                      </div>
+                      <hr />
+                      <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
+                      <div class="row " style="margin-right: -20px;">
+                          <div class="col-8"></div>
+                          <div class="col-4 mt-2" >
+                              <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
+                              <button class="btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
+                               onclick="buy(<%= row.id %>)">구매하기</button>
+
+                              <!-- Modal -->
+                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h1 class="modal-title fs-5" id="exampleModalLabel">🛍️ 장바구니 담기 완료 ! ✨</h1>
+                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                      <%= row.name %> 을 장바구니에 담았습니다!
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" onclick="not()" data-bs-dismiss="modal">쇼핑 계속하기</button>
+                                      <button type="button" onclick="gotoCart()" class="btn btn-primary">장바구니 확인</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+                          </div>
+                      </div>
+                  </div>
+              </div>
             </div>
             <div class="row mt-3">
               <div class="container">
@@ -83,12 +104,8 @@
                   </ul>
                   <!-- 탭 메뉴 내용 시작 -->
                   <div id="tab-1" class="tab-content current">
-                    <h1>탭 메뉴 1 내용입니다.</h1>
-                    <p>모든 국민은 법률이 정하는 바에 의하여 국방의 의무를 진다. 공공필요에 의한 재산권의 수용·사용 또는 제한 및 그에 대한 보상은 법률로써 하되, 정당한 보상을 지급하여야 한다. 법관은 탄핵 또는 금고 이상의 형의 선고에 의하지 아니하고는 파면되지 아니하며, 징계처분에 의하지 아니하고는 정직·감봉 기타 불리한 처분을 받지 아니한다. 대통령이 임시회의 집회를 요구할 때에는 기간과 집회요구의 이유를 명시하여야 한다. 대통령은 제1항과 제2항의 처분 또는 명령을 한 때에는 지체없이 국회에 보고하여 그 승인을 얻어야 한다. 대통령은 국무총리·국무위원·행정각부의 장 기타 법률이 정하는 공사의 직을 겸할 수 없다.</p>
-                
-                <p>공무원은 국민전체에 대한 봉사자이며, 국민에 대하여 책임을 진다. 공개하지 아니한 회의내용의 공표에 관하여는 법률이 정하는 바에 의한다. 형사피의자 또는 형사피고인으로서 구금되었던 자가 법률이 정하는 불기소처분을 받거나 무죄판결을 받은 때에는 법률이 정하는 바에 의하여 국가에 정당한 보상을 청구할 수 있다. 헌법개정안은 국회가 의결한 후 30일 이내에 국민투표에 붙여 국회의원선거권자 과반수의 투표와 투표자 과반수의 찬성을 얻어야 한다. 헌법개정안이 제2항의 찬성을 얻은 때에는 헌법개정은 확정되며, 대통령은 즉시 이를 공포하여야 한다. 대통령은 국민의 보통·평등·직접·비밀선거에 의하여 선출한다.</p>
-                
-                
+                    <h5> 📌 상세 정보 </h5>
+                    <h6><%= row.detail %></h6>
                   </div>
                   <div id="tab-2" class="tab-content">
                   <h1>  탭 메뉴 2 내용입니다.  </h1>
@@ -133,5 +150,15 @@
 <script>
   function buy(id){
     location.href="/consumer/buy/" + id;
+  }
+
+  function intoMycart(id){
+    location.href="/consumer/mycart/" + id;
+  }
+  function gotoCart() {
+    location.href="/consumer/mycartlist";
+  }
+  function not() {
+    location.reload();
   }
 </script>

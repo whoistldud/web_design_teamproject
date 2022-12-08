@@ -1,4 +1,3 @@
-<!-- 상품 상세 페이지 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -18,6 +17,7 @@
     <!-- Bootstrap icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
     
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -35,43 +35,56 @@
     <% include ./../layout/category.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
-          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
         </div>
-        <div class="col-10">
-          <!-- 내용 들어갈 자리 !!! -->
-
-          <div class="row mt-5">
-            <div class="col"></div>
-            <div class="col-8 col-md-6">
-              <div class="row" style="border-radius: 20px; background-color: #f0d8d8;">
-                <h5 class="text-center mt-3">결제되었습니다.</h5>
-                <h5 class="text-center mt-2 mb-3">구매해주셔서 감사합니다 😊</h5>
-              </div>
-              <div class="text-center mt-2">
-                <button class="btn" onclick="back()" style="font-weight:bold; color:#ff00a2;">쇼핑 계속하기</button>
-                <button class="btn" onclick="myorder()" style="font-weight:bold; color:#ff00a2;">구매내역 확인하기</button>
-              </div>
+        <div class="col-10" >
+          <div class="row">
+            <h6 id="navtext">HOME > 장바구니</h6>
             </div>
-            <div class="col"></div>
-            
+            <div class="row">
+                <h5>"할 수 있으면 사용자 이름 가져다가 OO 님의 장바구니"</h5>
+            </div>
+            <form class="validation-form"  id = "mycart" action="mycart" method = "post" >
+              <div id="main">
+                
+                <table id="myordertable" width="600">
+                  <tbody>
+                    <tr bgcolor="#DFE7F6" align="center">  
+                      <th>번호</th>
+                      <th>상품명</th>
+                      </tr>
+                  <% for(var i=0; i < info.length; i++) {  
+                    %>
+                    <tr>
+                      <td align="center"><p alt="번호"></p><%= i+1 %></td>
+                      <td align="center"><p alt="상품명"  onclick="toproduct(<%= info[i].id %>)"></p><%= info[i].prodName %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+
+               
+            </div>
+                  </form>
+
           </div>
 
-         </div>
-        
+          
+            
+
+        </div>
       </div>
     </div>
-
+  
+  
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
 <script>
-  function back(){
-    history.go(-2);
-  }
-  function myorder(){
-    location.href="/consumer/myorder";
-  }
-</script>
+    function toproduct(id){
+      console.log(id);
+      location.href="/consumer/mycart/" +id;
+    }
+  </script>

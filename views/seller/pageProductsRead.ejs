@@ -44,42 +44,36 @@
           <div class="container">
             <div class="input-form-backgroud row">
               <div class="input-form col-md-12 mx-auto">
-                <div class="row">
-                  <h6 id="navtext">HOME > 마이페이지 > 상세 조회</h6>
+                <div class="row mb-3">
+                  <h6 id="navtext">HOME > 상품 조회 > 상품 상세</h6>
                 </div>
                 <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRead" action="delete/:id" method = "post" ></form>
                 <table class="table">
-                 
                     <tbody>
-                        <tr>  
-                            <td>이름</td>
+                        <tr style="border-top: solid 1px rgb(48, 48, 60);">  
+                            <th >이름</th>
                             <td><p alt="이름"><%=row.name %></p></td>
                         </tr>
                         <tr>  
-                            <td>카테고리</td>
+                            <th>카테고리</th>
                             <td><p alt="카테고리"><%=row.category %></p></td>
                         </tr>
                         <tr>
-                            <td>상세정보</td>
+                            <th>상세정보</th>
                             <td><%=row.detail %> </br></br>
                               <img src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/></td>
                               <!-- <iframe src= "/images/<%=row.imageurl %>"></iframe> -->
                             <!-- <td>파일 들어갈 부분</td> -->
                         </tr>
-                        <tr>  
-                            <td>가격</td>
+                        <tr style="border-bottom: solid 1px rgb(48, 48, 60);">  
+                            <th>가격</th>
                             <td><p alt="가격"><%=row.price %>원</p></td>
                         </tr>
-                      
-                        
-                        
                     </tbody>
-                  
                   </table>
 
-                 
-                  <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="deleteProduct()">삭제</button>
-                  <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="editProduct()">수정</button>
+                  <button type="submit" class="btn mb-3" style="float:right; color: #ffffff; background-color : #191B5E;" onclick="deleteProduct()">삭제</button>
+                  <button type="submit" class="btn mb-3" style="float:right; margin-right:5px; color: #ffffff; background-color : #191B5E;" onclick="editProduct()">수정</button>
                 </div>
                 </div>
             </div>
