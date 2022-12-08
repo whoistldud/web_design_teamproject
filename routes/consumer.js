@@ -12,6 +12,7 @@ require('dotenv').config({
 
 router.get('/', function(req, res, next) {
   if(!req.session.user) res.redirect('/');
+  
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   res.render('consumer/home', { title: 'able'});
 });
@@ -19,6 +20,7 @@ router.get('/', function(req, res, next) {
 // 장바구니 (상품 목록)
 router.get('/mycartlist', async (req, res, next) => {
   if(!req.session.user) res.redirect('/');
+  else{
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
   let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("userLogin", consumerID);
@@ -35,6 +37,7 @@ router.get('/mycartlist', async (req, res, next) => {
   // 장바구니에 등록하려는 상품이 이미 같은 아이디에 있으면 막기
 
   res.render('consumer/mycart', { title: 'able', info: result1, consum: result});
+  }
 });
 
 // 장바구니 상품 상세 (상세페이지로 연결)
