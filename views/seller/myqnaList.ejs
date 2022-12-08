@@ -64,7 +64,7 @@
                       <tr align="center">
                         <td ><p alt="번호"><%= row[i].id %></p></td>                      
                         <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
-                          !!비밀!!
+                          🔒
                         <%}%> <%= row[i].title %></p>  
                         </td>
                         <td><p alt="작성일"><%= row[i].date %></p></td>
