@@ -214,7 +214,7 @@ router.get('/qna/register', (req,res,next) => {
   if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   
-  res.render('seller/qnaRegister', { title: 'able' });
+  res.render('seller/qnaRegister', { title: 'Q&A' });
 });
 
 router.post("/qna/register", async(req,res) => {
@@ -249,12 +249,8 @@ router.get("/qna/delete/:id", async (req,res,next) => {
   if(!req.session.user) res.redirect('/');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   const id = req.params.id;
-  console.log(' 아디',id);
   const result = await mysql.query("qnaDelete", id);
-  // console.log(result);
-  // res.render('/')
   res.send("<script>alert('질문삭제완료.');location.href='/seller/myqnaList';</script>"); 
-  // res.redirect('/')
 });
 
 
@@ -263,9 +259,7 @@ router.get('/myqnalist', async (req,res,next) => {
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
 
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-  console.log("아이디", userId);
   const result = await mysql.query("myqnaRead", userId);
-  // console.log(result[1]);
 
   res.render('seller/myqnaList', { title: "내 qna 목록", row: result});
   

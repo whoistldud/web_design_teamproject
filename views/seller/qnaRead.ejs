@@ -31,8 +31,15 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <% include ./../layout/header.ejs %>
-    
+    <% include ./../layout/loginheader.ejs %>
+    <% include ./../layout/category.ejs %>
+
+    <div>
+      <div class="row" style="height: 500px;">
+        <div class="col-2" >
+          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
+          <% include ./../layout/mypgmenubar.ejs %>
+        </div>
     <div class="container">
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
@@ -70,7 +77,7 @@
   function deleteQnA() {
     
     if (confirm("질문을 삭제하시겠습니까?") == true) {
-      location.href = "/seller/qna/delete/<%=row.id %>"
+      location.href = "/consumer/qna/delete/<%=row.id %>"
     }
   }
 </script>

@@ -6,6 +6,7 @@ module.exports = {
     userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
     userLogin : 'select * from user where id = ?',
     userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
+    userName : 'select name from user where id=?',
 
     //product
     cateProduct : 'SELECT * FROM product WHERE category=?',
