@@ -91,6 +91,7 @@ ul.tabs li{
   text-align: center;
 }
 
+
 #contentbody {
   height: 100%;
   position : absolute;
@@ -98,7 +99,7 @@ ul.tabs li{
   left: 150px;
   top: -359px;
   border : 1px solid red;
-}*/
+}
 
 
 /*채팅 관련 CSS*/
@@ -140,7 +141,6 @@ ul.tabs li{
 	width: 50%;
 	text-align: left;
 }
-
 ul.tabs li.current{
   border-top-right-radius: 5px;
 	background: #ffefef;

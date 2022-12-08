@@ -59,7 +59,7 @@
 
   </script>
     <title>able</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='../stylesheets/style.css' />
   </head>
   <body>
 
@@ -80,7 +80,7 @@
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6">
               <!-- 채팅 코드 -->
-                <div class="col-12" id="msgArea" style="float: none; width: 100%;">
+                <div class="col-12" id="msgArea">
                   <% for(var i=0; i<chats.length; i++){ var chat =  chats[i]; %>
                     <% if(chat.senderId == senderId) { %>
                           <div class='col-12'>
@@ -108,7 +108,7 @@
                           </div>
                           <%}}%>
                 </div>
-                <div class="col-12" style = "display:inline-block;">
+                <div class="col-12" >
                   <input id="textMessage" class="textMessage" type="text" style="float: none; width:85%;"
                         onkeyup="if(window.event.keyCode==13){sendMessage()}"/>
                   <input onclick="sendMessage()" value="Send" type="button" style="float: right; width: auto;">

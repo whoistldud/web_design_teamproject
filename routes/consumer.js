@@ -256,9 +256,6 @@ router.get('/details/:id', async function(req, res, next) {
   const result = await mysql.query("productlisRead", id);
   const result2 = await mysql.query("reviewlis", id);
   console.log(result[0]);
-<<<<<<< HEAD
-  res.render("index/goodsDetail", { title: "able "+result[0].name+ " 's Detail", row : result[0]});
-=======
   console.log('result2!! : ',result2);
 
   var starSum = 0;
@@ -283,7 +280,6 @@ router.get('/details/:id', async function(req, res, next) {
   starAvg = starSum / result2.length;
   console.log("평점 평균 : ",starAvg);
   res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr});
->>>>>>> origin/jisoo
 });
 
 
@@ -358,6 +354,26 @@ router.post('/buy/downcount/:id', async (req,res,next) => {
   console.log('흠.. :', req.rescount);
   // res.redirect('/');
 });
+
+
+
+//채팅리스트
+router.get('/chatlist', async (req, res) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{  
+    const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const room = await mysql.query("chatroomList",[userId,userId]);
+    var product = [];
+    for(var i=0; i<room.length; i++){
+      product[i] = await mysql.query("productlisRead",room[i].productId);
+    }
+    console.log(product);
+    res.render('chatroom', {rooms:room,products:product});
+  }  
+});
+
 
 
 

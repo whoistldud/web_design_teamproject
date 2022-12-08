@@ -62,7 +62,7 @@
                     <% for(var i=0; i < row.length; i++) {  
                       %>
                       <tr align="center">
-                        <td ><p alt="번호"></p><%= row[i].id %></td>                      
+                        <td ><p alt="번호"><%= row[i].id %></p></td>                      
                         <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
                           !!비밀!!
                         <%}%> <%= row[i].title %></p>  

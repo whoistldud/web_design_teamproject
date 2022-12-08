@@ -55,8 +55,8 @@
                   <% for(var i=0; i < row.length; i++) {  
                     %>
                     <tr>
-                      <td align="center"><p alt="번호"></p><%= row[i].productId %></td>
-                      <td><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"></p><%= row[i].productName %></td>
+                      <td align="center" ><p alt="번호"><%= row[i].productId %></p></td>
+                      <td align="center" ><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"><%= row[i].productName %></p></td>
                     </tr>
                     <% } %>
                   </tbody>

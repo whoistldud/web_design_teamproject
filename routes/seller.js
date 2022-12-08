@@ -196,6 +196,9 @@ router.get("/product/delete/:id", async (req,res,next) => {
 
 /* qna */
 router.get('/qna', async(req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+
   const sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("qnaListRead");
   res.render('seller/qnaList', { title: 'able', row:result, loginId:sellerId});
@@ -208,10 +211,15 @@ var today = new Date();
 
 /* GET qna 등록 page. */
 router.get('/qna/register', (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+  
   res.render('seller/qnaRegister', { title: 'able' });
 });
 
 router.post("/qna/register", async(req,res) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
 
@@ -229,6 +237,8 @@ router.post("/qna/register", async(req,res) => {
 });
 
 router.get('/qna/read/:id', async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   const id = req.params.id;
   const result = await mysql.query("qnaDetRead", id);
   res.render('seller/qnaRead', { title: "문의 조회", row: result[0] });
@@ -236,6 +246,8 @@ router.get('/qna/read/:id', async (req,res,next) => {
 });
 
 router.get("/qna/delete/:id", async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   const id = req.params.id;
   console.log(' 아디',id);
   const result = await mysql.query("qnaDelete", id);
@@ -247,6 +259,9 @@ router.get("/qna/delete/:id", async (req,res,next) => {
 
 
 router.get('/myqnalist', async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("아이디", userId);
   const result = await mysql.query("myqnaRead", userId);
@@ -258,7 +273,7 @@ router.get('/myqnalist', async (req,res,next) => {
 
 router.get('/mypage', async (req, res, next) => {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/mypage');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
   const result = await mysql.query("userLogin", sellerID);
@@ -268,7 +283,7 @@ router.get('/mypage', async (req, res, next) => {
 
 router.get('/mypage/pageShopinfo', async (req, res, next) => {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
   const result = await mysql.query("userLogin", sellerID);
@@ -278,20 +293,20 @@ router.get('/mypage/pageShopinfo', async (req, res, next) => {
 
 router.get('/mygoods', function(req, res, next) {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageProducts');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   res.render('seller/pageProducts', { title: 'able' });
 });
 
 router.get('/shopqna', function(req, res, next) {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopqna');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   res.render('seller/pageShopqna', { title: 'able' });
 });
 
 // seller 매장 정보 수정
 router.get('/mypage/editShopinfo', async (req, res, next) => {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
   const result = await mysql.query("userLogin", sellerID);
@@ -301,7 +316,7 @@ router.get('/mypage/editShopinfo', async (req, res, next) => {
 
 router.post('/mypage/editShopinfo/done', async (req, res, next) => {
   if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/pageShopinfo');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   let sellerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   console.log("sellerID :", sellerID);
 

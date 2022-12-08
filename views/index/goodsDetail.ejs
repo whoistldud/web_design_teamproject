@@ -67,6 +67,8 @@
                                 onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
                               <button class="btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
                                onclick="buy(<%= row.id %>)">구매하기</button>
+                               <button class="btn" id="chatbtn" style="background-color: #191B5E; color: #ffffff;"
+                               onclick="location.href='/chat/enter/<%=row.id%>'">1:1 문의</button>
 
                               <!-- Modal -->
                               <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
