@@ -156,7 +156,15 @@ router.get('/mypurchase/:id', async (req, res, next) => {
   const review = await mysql.query("reviewRead",  [productId, id]);
   console.log("리뷰:",review[0]);
 
-  res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0], review:review[0]});  
+
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+  var day = ('0' + today.getDate()).slice(-2);
+  var todayString = year + '-' + month  + '-' + day;
+
+
+  res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0], review:review[0], today:todayString});  
   console.log("product : ",result2[0]);
 });
 
@@ -199,6 +207,16 @@ router.get('/reviewRead/:id', async (req, res, next) => {
   console.log("id:",id);
   const result = await mysql.query("reviewMyRead", id);
   res.render("consumer/pageReviewRead", { title: "리뷰읽기", row:result[0]});
+});
+
+/* 리뷰 삭제 */
+
+router.get("/review/delete/:id", async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  const id = req.params.id;
+  const result = await mysql.query("reviewDelete", id);
+  res.send("<script>alert('리뷰삭제완료.');location.href='/consumer/myorder';</script>"); 
 });
 
 router.get('/myqna', async (req, res, next) => {
@@ -411,14 +429,16 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
 
   console.log("구매 날짜:",dateString);
 
-  downpos.setDate(today.getDate()+30);
-
+  downpos.setDate(today.getDate()+100);
 
   var year2 = downpos.getFullYear();
   var month2 = ('0' + (downpos.getMonth() + 1)).slice(-2);
   var day2 = ('0' + downpos.getDate()).slice(-2);
   var dateString2 = year2 + '-' + month2  + '-' + day2;
   console.log("다운로드 가능 기한:",dateString2);
+
+
+
 
   const resultN1 = await mysql.query("productlisRead", id);
   resultN1[0].price = Number( resultN1[0].price.replace(",",""));

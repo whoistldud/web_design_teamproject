@@ -45,9 +45,15 @@
                   <td><p alt="상품명" onclick="toproduct(<%= row.productId %>)"><%=row.productName %></p></td>
                   <td><p alt="다운로드">
                     <!-- <input type="hidden" name="count" id="count" value=""> -->
+                    <%if(today <= row.downEndDate) {%>
                     <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
                       <button type="button" id="downloadfile" class="btn btn-primary mb-3"
-                      onclick="btnClick()">다운받기</button>
+                      >다운받기</button>
+                    <%}%>  
+                    <%if(today > row.downEndDate) {%>
+                        <button type="button" id="downloadfile" class="btn btn-primary mb-3"
+                        onclick="btnClick()">다운받기</button>
+                      <%}%> 
                     </a><p><%=row.date %> ~ <%=row.downEndDate%></p>
                   </p>
                     
@@ -82,14 +88,7 @@
   var max = 7;
   var count = 0;
   function btnClick(){
-    // var countnum = document.getElementById("count").value;
-
-    // countnum++;
-
-    count++;
-    alert(count + "회 다운받으셨습니다." );
-
-    // document.getElementById("rescount").innerHTML = countnum;
+    alert('다운로드 기한이 끝났습니다.');
   }
 
   function toproduct(id){

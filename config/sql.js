@@ -65,5 +65,5 @@ module.exports = {
     reviewRead : 'select * from review where productId=? and purchaseId=?',
     reviewlis : 'select * from review where productId=?',
     reviewMyRead : 'select * from review where purchaseId=?',
-
+    reviewDelete : 'delete from review where id=?',
 };
