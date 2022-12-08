@@ -190,6 +190,14 @@ router.post('/reviewrite/:id', async (req,res,next) => {
   res.redirect('/consumer/myorder')
 });
 
+/* 리뷰 보기 */
+router.get('/reviewRead/:id', async (req, res, next) => {
+  var id = req.params.id;
+  console.log("id:",id);
+  const result = await mysql.query("reviewMyRead", id);
+  res.render("consumer/pageReviewRead", { title: "리뷰읽기", row:result[0]});
+});
+
 router.get('/myqna', async (req, res, next) => {
   if(!req.session.user) res.redirect('/pagemyqna');
   if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
