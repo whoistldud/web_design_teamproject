@@ -39,7 +39,7 @@
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
         </div>
-        <div class="col-10" style=" margin-left: -20px;">
+        <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
             <h6 id="navtext">HOME > 다이어리</h6>
@@ -48,8 +48,8 @@
             <div class="row row-cols-1 row-cols-md-4 g-5 mb-3">
             <% for (var i=0; i< row.length; i++) { %>
                     <div class="col">
-                        <div class="card h-100" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                            <img src="/images/<%=row[i].imageurl %>" class="card-img-top" alt="...">
+                      <div class="card h-100" onclick="goDetails(<%=row[i].id%>)" style="border-color: #ffe2e2; background-color: #F9F6F6">
+                        <img src="/images/<%=row[i].thumbnailimageurl %>" class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h6 class="card-title"><%=row[i].name%></h6>
                             </div>
@@ -63,3 +63,8 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+<script>
+  function goDetails(id) {
+    location.href="/consumer/details/" + id;
+  }
+</script>

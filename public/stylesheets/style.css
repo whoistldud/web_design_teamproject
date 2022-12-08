@@ -7,7 +7,7 @@ li {
 }
 
 a {
-  color: #00B7FF;
+  color: #ff00a2;
 }
 
 #footer {
@@ -21,10 +21,10 @@ a {
 
 #menubar {
   position: relative;
-  width: 200px;
+  width: 100%;
   height: 100%;
   display: flex;
-  margin-left: 0px;
+
   
 }
 
@@ -35,6 +35,16 @@ a {
   border-radius: 5px;
 }
 
+#DetailImg{
+  margin: 0px auto;
+  object-fit: contain;
+  max-width: 100%;
+  height: 400px;
+  background-color: #f7f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .card-title {
   margin-top: -5px;
   margin-left: -10px;
@@ -61,15 +71,24 @@ a {
 hr {
   width: 95%;
 }
-/*
-.wrap1 {
-  width : calc(90%);
-  border : 1px solid black;
+
+
+ul.tabs{
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
 }
 
-.wrap2 {
-  position : relative;
-  width : 100%;
+ul.tabs li{
+  display: inline-block;
+  width: 34.68%;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+	background: #f0d8d8;
+	color: rgb(0, 0, 0);
+	padding: 10px 15px;
+	cursor: pointer;
+  text-align: center;
 }
 
 #contentbody {
@@ -120,4 +139,35 @@ hr {
 	background-color : aliceblue;
 	width: 50%;
 	text-align: left;
+}
+
+ul.tabs li.current{
+  border-top-right-radius: 5px;
+	background: #ffefef;
+	color: #222;
+}
+
+.tab-content{
+  display: none;
+	background: #ffefef;
+	padding: 15px;
+}
+
+.tab-content.current{
+	display: inherit;
+}
+
+#myordertable {
+  border-top : solid 1px rgb(48, 48, 60);
+  border-bottom : solid 0.5px rgb(48, 48, 60);
+}
+
+#mygoodslist {
+  border-top : solid 1px rgb(48, 48, 60);
+  border-bottom : solid 0.5px rgb(48, 48, 60);
+}
+
+#myQNAlist {
+  border-top : solid 1px rgb(48, 48, 60);
+  border-bottom : solid 0.5px rgb(48, 48, 60);
 }

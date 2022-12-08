@@ -43,35 +43,43 @@
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 매장정보</h6>
+            <h6 id="navtext">HOME > 마이페이지 > 매장정보 수정</h6>
           </div>
           <div class="row">
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6">
-              <table width="600px" height="300px" style="margin-top: 30px;">
-                <th></th> <!-- 1열-->
-                <th></th> <!-- 2열-->
-                <tr> <!-- 첫번째 줄 시작-->
-                  <td>매장명</td>
-                  <td style="font-weight: bold;"><%= info[0].name %></td>
-                </tr>
-                <tr>
-                  <td>회원유형</td>
-                  <td style="font-weight: bold;"><%= info[0].role %></td>
-                </tr>
-                <tr>
-                  <td>전화번호</td>
-                  <td style="font-weight: bold;"><%= info[0].phonenum %></td>
-                </tr>
-                <tr>
-                  <td>이메일</td>
-                  <td style="font-weight: bold;"><%= info[0].email %></td>
-                </tr>
-                <tr>
-                  <td></td>
-                  <td><button class="btn" id="editbtn" onclick="editInfo()" style="background-color: #DFE7F6;">수정하기</button></td>
-                </tr>
-              </table>
+                <form class="validation-form" action="/seller/mypage/editShopinfo/done" method = "post" >
+                    <table width="600px" height="300px" style="margin-top: 30px;">
+                      <th></th> <!-- 1열-->
+                      <th></th> <!-- 2열-->
+                      <tr> <!-- 첫번째 줄 시작-->
+                          <td>매장명</td>
+                          <td style="font-weight: bold;">
+                              <input class="form-control form-control-sm" name="newname" type="text" value="<%= info[0].name%>" style="width: 200px;">
+                          </td>
+                      </tr>
+                      <tr>
+                        <td>회원유형</td>
+                        <td style="font-weight: bold;"><%= info[0].role%></td>
+                      </tr>
+                      <tr>
+                        <td>전화번호</td>
+                        <td style="font-weight: bold;">
+                          <input class="form-control form-control-sm" name="newphonenum" type="text" value="<%= info[0].phonenum%>" style="width: 200px;">
+                      </td>
+                      </tr>
+                      <tr>
+                        <td>이메일</td>
+                        <td style="font-weight: bold;">
+                          <input type="email" name="newemail" class="form-control form-control-sm" value="<%= info[0].email%>" style="width: 200px;">
+                      </td>
+                      </tr>
+                      <tr>
+                        <td></td>
+                        <td><button class="btn" type="submit" id="editsavebtn" style="background-color: #cbdbf9;">수정 완료</button></td>
+                      </tr>
+                    </table>
+                  </form>
 
             </div>
             <div class="col-2 col-lg-3"></div>
@@ -79,13 +87,6 @@
         </div>
       </div>
     </div>
-  
-    <script>
-      // 수정하기 버튼 onclick 이벤트 함수
-      function editInfo() {
-        location.href="/seller/mypage/editShopinfo";
-      }
-    </script>
   
   </body>
   <% include ./../layout/footer.ejs %>

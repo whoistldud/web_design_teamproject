@@ -45,35 +45,54 @@
             <div class="input-form-backgroud row">
               <div class="input-form col-md-12 mx-auto">
                 <div class="row mb-3">
-                  <h6 id="navtext">HOME > 상품 조회 > 상품 상세</h6>
+                  <h6 id="navtext">HOME > 마이페이지 > 상품 수정</h6>
                 </div>
-                <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRead" action="delete/:id" method = "post" ></form>
+                <form class="validation-form"  action="/seller/product/edit/done/<%=row.id%>" method = "post" >
                 <table class="table">
+                 
                     <tbody>
                         <tr style="border-top: solid 1px rgb(48, 48, 60);">  
-                            <th >이름</th>
-                            <td><p alt="이름"><%=row.name %></p></td>
+                            <th>이름</th>
+                            <td><p alt="이름">
+                                <input type="text" class="form-control" id="newname" name="newname" value="<%=row.name %>" required>
+                            </p></td>
                         </tr>
                         <tr>  
                             <th>카테고리</th>
-                            <td><p alt="카테고리"><%=row.category %></p></td>
+                            <td><p alt="카테고리">
+                                <select class="form-select" aria-label="Default select example" id="newcategory" name="newcategory">
+                                    <option selected><%=row.category %></option>
+                                    <option value="1">다이어리</option>
+                                    <option value="2">필기노트</option>
+                                    <option value="3">스티커</option>
+                                    <option value="4">배경화면</option>
+                                  </select>
+                                </p></td>
                         </tr>
                         <tr>
                             <th>상세정보</th>
-                            <td><%=row.detail %> </br></br>
+                            <td>
+                                <textarea class="form-control" aria-label="With textarea" 
+                                id="newdetail", name="newdetail"><%=row.detail %> </textarea></br></br>
                               <img src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/></td>
-                              <!-- <iframe src= "/images/<%=row.imageurl %>"></iframe> -->
-                            <!-- <td>파일 들어갈 부분</td> -->
+                            
                         </tr>
                         <tr style="border-bottom: solid 1px rgb(48, 48, 60);">  
-                            <th>가격</th>
-                            <td><p alt="가격"><%=row.price %>원</p></td>
+                            <th ">가격</th>
+                            <td><p alt="가격"><input type="text" class="form-control" id="newprice" name="newprice" value="<%=row.price %>"
+                                required></p></td>
                         </tr>
+                      
+                        
+                        
                     </tbody>
+                  
                   </table>
 
-                  <button type="submit" class="btn mb-3" style="float:right; color: #ffffff; background-color : #191B5E;" onclick="deleteProduct()">삭제</button>
-                  <button type="submit" class="btn mb-3" style="float:right; margin-right:5px; color: #ffffff; background-color : #191B5E;" onclick="editProduct()">수정</button>
+                  <button type="submit" class="btn btn-primary mb-3" style="float:right; color: #ffffff; background-color : #191B5E;">수정 완료</button>
+                </form>
+               <button type="button" class="btn btn-primary mb-3" style="float:right; margin-right: 5px; color: #ffffff; background-color : #191B5E;" onclick="back()">취소</button> 
+
                 </div>
                 </div>
             </div>
@@ -89,17 +108,21 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+
 <script>
-  function deleteProduct() {
-    
-    if (confirm("상품을 삭제하시겠습니까?") == true) {
-      location.href = "/seller/product/delete/<%=row.id %>";
+    const input = document.querySelector('#newprice');
+    input.addEventListener('keyup', function(e) {
+    let value = e.target.value;
+    value = Number(value.replaceAll(',', ''));
+    if(isNaN(value)) {
+        input.value = 0;
+    }else {
+        const formatValue = value.toLocaleString('ko-KR');
+        input.value = formatValue;
     }
-  }
+    });
 
-  function editProduct() {
-    location.href = "/seller/product/edit/<%=row.id %>";
-  }
-
-  
+    function back() {
+        location.href='/seller/product/read/<%=row.id%>'
+    }
 </script>

@@ -46,22 +46,23 @@
             <div class="input-form-backgroud row">
               <div class="input-form col-md-12 mx-auto">
                 <!-- <h4 class="mb-3">등록 상품 목록</h4> -->
-                <div class="row">
+                <div class="row mb-3">
                     <h6 id="navtext">HOME > 마이페이지 > 내 Q&A</h6>
                   </div>
-                  <button type="button" class="btn btn-primary mb-3" style="float:right" onclick="newqna()">글쓰기</button>
-                  <table>
+                  <button type="button" class="btn btn-primary mb-3" style="float:right; color: #ffffff; background-color : #191B5E;"
+                          onclick="newqna()">글쓰기</button>
+                  <table id="myQNAlist" width="1000px">
                     <tbody>
-                      <tr>  
-                        <td>번호</td>
-                        <td>제목</td>
-                        <td>작성일</td>
-                        <td>작성자</td>
+                      <tr bgcolor="#DFE7F6" align="center">  
+                        <th>번호</th>
+                        <th>제목</th>
+                        <th>작성일</th>
+                        <th>작성자</th>
                         </tr>
                     <% for(var i=0; i < row.length; i++) {  
                       %>
-                      <tr>
-                        <td><p alt="번호"></p><%= row[i].id %></td>                      
+                      <tr align="center">
+                        <td ><p alt="번호"></p><%= row[i].id %></td>                      
                         <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
                           !!비밀!!
                         <%}%> <%= row[i].title %></p>  

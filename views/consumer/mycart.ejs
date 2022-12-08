@@ -1,4 +1,3 @@
-<!-- 포인트 충전 -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,41 +35,56 @@
     <% include ./../layout/category.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
-          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/mypgmenubar.ejs %>
+          <% include ./../layout/menubar.ejs %>
         </div>
         <div class="col-10" >
-          <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 포인트 충전</h6>
+            <h6 id="navtext">HOME > 장바구니</h6>
+            </div>
+            <div class="row">
+                <h5>"할 수 있으면 사용자 이름 가져다가 OO 님의 장바구니"</h5>
+            </div>
+            <form class="validation-form"  id = "mycart" action="mycart" method = "post" >
+              <div id="main">
+                
+                <table id="myordertable" width="600">
+                  <tbody>
+                    <tr bgcolor="#DFE7F6" align="center">  
+                      <th>번호</th>
+                      <th>상품명</th>
+                      </tr>
+                  <% for(var i=0; i < info.length; i++) {  
+                    %>
+                    <tr>
+                      <td align="center"><p alt="번호"></p><%= i+1 %></td>
+                      <td align="center"><p alt="상품명"  onclick="toproduct(<%= info[i].id %>)"></p><%= info[i].prodName %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+
+               
+            </div>
+                  </form>
+
           </div>
-          <form class="validation-form" id="addpnt" onsubmit= "return confirm('포인트를 충전하시겠습니까?');" action="/consumer/addPoint" method = "post" >
-          <table width="600px" height="200px" style="margin-top: 30px;">
-            <th></th> <!-- 1열-->
-            <th></th> <!-- 2열-->
-            <tr> <!-- 첫번째 줄 시작-->
-              <td>보유 포인트</td>
-              <td style="font-weight: bold;"><%= row[0].point %></td>
-            </tr>
-            <tr>
-              <td>충전할 포인트</td>
-              <td style="font-weight: bold;">
-                <input class="form-control form-control-sm" name="addpoint" type="int" style="width: 200px;">
-            </td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><button class="btn" id="addbtn" type="submit" style="background-color: #DFE7F6;">포인트 충전</button></td>
-            </tr>
-          </table></form>
+
+          
+            
 
         </div>
       </div>
     </div>
-    
+  
   
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+<script>
+    function toproduct(id){
+      console.log(id);
+      location.href="/consumer/mycart/" +id;
+    }
+  </script>

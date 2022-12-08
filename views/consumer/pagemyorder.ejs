@@ -41,10 +41,31 @@
           <% include ./../layout/mypgmenubar.ejs %>
         </div>
         <div class="col-10" >
-          <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
             <h6 id="navtext">HOME > 마이페이지 > 구매내역</h6>
-            
+            <form class="validation-form"  id = "myorder" action="myorder" method = "post" >
+              <div id="main">
+                
+                <table id="myordertable" width="600">
+                  <tbody>
+                    <tr bgcolor="#DFE7F6" align="center">  
+                      <th>번호</th>
+                      <th>상품명</th>
+                      </tr>
+                  <% for(var i=0; i < row.length; i++) {  
+                    %>
+                    <tr>
+                      <td align="center"><p alt="번호"></p><%= row[i].id %></td>
+                      <td><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"></p><%= row[i].productName %></td>
+                    </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+
+               
+            </div>
+                  </form>
+
           </div>
 
           
@@ -58,3 +79,11 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+
+<script>
+  function toproduct(id){
+    console.log(id);
+    alert(id);
+    location.href="/consumer/mypurchase/" +id;
+  }
+</script>

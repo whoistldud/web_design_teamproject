@@ -37,23 +37,26 @@
     <div>
       <div class="row" >
         <div class="col-2" >
-          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellerpgmenubar.ejs %>
         </div>
         <div class="col-10" >
-            <div class="container">
+          <div class="row">
+            <h6 id="navtext">HOME > 상품 등록</h6>
+          </div>
+            <div class="container mt-2">
+              <div class="col-10">
                 <div class="input-form-backgroud row">
                   <div class="input-form col-md-12 mx-auto">
-                    <h4 class="mb-3">상품등록</h4>
+                    <h4 class="mb-3">🪄 새로운 상품을 등록합니다</h4>
                     <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRegister" action="product/write" method = "post" >
                         <div class="row">
                           <div class="col-md-6 mb-3">
-                              <label for="floatingTextarea">이름</label>
+                              <label for="floatingTextarea">🖍️ 상품 이름</label>
                               <input type="text" class="form-control" id="name" name="name" placeholder="상품 이름을 입력하세요." required>
             
                           </div>
                           <div class="col-md-6 mb-3">
-                            <label for="category">카테고리</label>
+                            <label for="category">🏷️ 카테고리</label>
                             <select class="form-select" aria-label="Default select example" id="category" name="category">
                                 <option selected>상품 카테고리 선택</option>
                                 <option value="1">다이어리</option>
@@ -65,36 +68,48 @@
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="input-group">상세정보</label>
-                            <textarea class="form-control" aria-label="With textarea" 
-                            placeholder="상품 상세정보를 입력하세요." id="detail", name="detail"></textarea>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="formFileMultiple" class="form-label">파일 첨부</label>
-                            <input class="form-control" type="file" id="formFileMultiple" name="imageurl" multiple>
+                            <label for="formFileMultiple" class="form-label">📌 대표 이미지</label>
+                            <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" >
+                            <img id="previewThumbnailImg" width="400" alt="이미지 영역" />
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="floatingTextarea">가격</label>
-                              <input type="text" class="form-control" id="price" name="price"
-                              required>
-                               
+                            <label for="input-group">📑 상세정보</label>
+                            <textarea class="form-control" aria-label="With textarea" 
+                            placeholder="상품 상세정보를 입력하세요." id="detail", name="detail"></textarea>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="formFileMultiple" class="form-label">📑 상세 정보에 첨부할 사진</label>
+                            <input class="form-control" type="file" id="detailimageurl" name="detailimageurl" >
                         </div>
                       </div>
-                      <div class="mb-4"></div>
-                      <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit"
-                      >
-                        상품 등록</button>
-        
-                      </form>
+                      <div class="row">
+                        <div class="col-md-6 mb-3">
+                          <label for="floatingTextarea">💰 가격</label>
+                            <input type="text" class="form-control" id="price" name="price"
+                            required>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                          <label for="formFileMultiple" class="form-label">🖇️ 업로드할 파일 첨부 🔓</label>
+                          <input class="form-control" type="file" id="fileurl" name="fileurl" >
+                        </div>
+                      </div>
+                      <div class="row mt-2 mb-3">
+                        <div class="col-4">
+                          <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit"
+                                  onclick="register()" style="color: #ffffff; background-color : #191B5E;">상품 등록</button>
+                        </div>
+
                             
-          
-                  </div>
+                      </div>
+                    </div>
+                    </form>
                 </div>
-          <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 등록</h6>
-          </div>
+              </div>
+              </div>
+              <div class="col-2"></div>
+          
           
         </div>
       </div>
@@ -107,89 +122,32 @@
 
 <script>
 
-const input = document.querySelector('#price');
-input.addEventListener('keyup', function(e) {
-  let value = e.target.value;
-  value = Number(value.replaceAll(',', ''));
-  if(isNaN(value)) {
-    input.value = 0;
-  }else {
-    const formatValue = value.toLocaleString('ko-KR');
-    input.value = formatValue;
-  }
-})
+  const input = document.querySelector('#price');
+  input.addEventListener('keyup', function(e) {
+    let value = e.target.value;
+    value = Number(value.replaceAll(',', ''));
+    if(isNaN(value)) {
+      input.value = 0;
+    }else {
+      const formatValue = value.toLocaleString('ko-KR');
+      input.value = formatValue;
+    }
+  });
 
-//   window.sStorage = (function() {
-//         var winObj = opener || window;  
-//         var data = JSON.parse(winObj.top.name || '{}');
-//   var fn = {
-//             length : Object.keys(data).length,
-//             setItem : function(key, value) {
-//             data[key]  = value + '';
-//             winObj.top.name = JSON.stringify(data);
-//             fn.length++;
-//             },
-//             getItem : function(key) {
-//             return data[key] || null;
-//             },
-//             key : function(idx) {
-//             return Object.keys(data)[idx] || null;
-//             },
-//             removeItem : function(key) {
-//             delete data[key];
-//             winObj.top.name = JSON.stringify(data);
-//             fn.length--;
-//             },
-//             clear : function() {
-//             winObj.top.name = '{}';
-//             fn.length = 0;
-//             }
-//         };
-//         return fn;
-//         })();
+  const fileInput = document.getElementById("thumbnailimageurl");
 
-//         var sellerId = sStorage.getItem("sellerId");
-//         console.log(sellerId);
+  const handleFiles = (e) => {
+    const selectedFile = [...fileInput.files];
+    const fileReader = new FileReader();
 
+    fileReader.readAsDataURL(selectedFile[0]);
 
+    fileReader.onload = function () {
+      document.getElementById("previewThumbnailImg").src = fileReader.result;
+    };
+  };
 
+  fileInput.addEventListener("change", handleFiles);
 
-//     jQuery(document).ready(function($){    
-//     $('#price').on('focus', function(){
-//         var val = $('#price').val();
-//         if(!isEmpty(val)){
-//             val = val.replace(/,/g,'');
-//             $('#price').val(val);
-//         }
-//     });
-    
-//     $('#price').on('blur', function(){
-//         var val = $('#price').val();
-//         if(!isEmpty(val) && isNumeric(val)){
-//             val = currencyFormatter(val);
-//             $('#price').val(val);
-//         }
-//     });    
-// });
-
-// function isEmpty(value){
-//         if(value.length == 0 || value == null){
-//             return true;
-//         }else {
-//             return false;
-//         }
-//     }
-//     // Number check with Regular expression
-//     function isNumeric(value){
-//         var regExp = /^[0-9]+$/g;
-//         return regExp.test(value);
-//     }
-//     // 숫자 세자리 마다 콤마를 추가하여 금액 표기 형태로 변환
-//     function currencyFormatter(amount){
-//         return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-//     }
-
-
-    
 
 </script>

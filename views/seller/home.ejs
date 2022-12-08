@@ -36,16 +36,7 @@
       <div class="col-2" >
         <% include ./../layout/sellermenubar.ejs %>
       </div>
-      <div class="col-10" style="margin-left: -20px;">    
-        <div class="container">
-          <div class="justify-content-center">
-            
-            <form class="validation-form"  id = "home" action="product/write" method = "post" >
-              <button type="button" class="btn btn-primary" onclick="registerProduct()">상품 등록</button>
-            </form>
-            
-          </div>
-        </div>
+      <div class="col-10" >    
         <!-- 내용 들어갈 자리 !!! -->
         <div class="row" style="height: 20px;"></div>
         <button class="btn" id="newgoodsbtn" onclick="registerProduct()" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">새로운 상품 등록하러 가기
@@ -66,6 +57,7 @@
 
 <script>
   function registerProduct() {
+    // 새로운 상품 등록하러 가기
     location.href="seller/product"
   }
 </script>

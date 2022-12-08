@@ -11,6 +11,15 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
     crossorigin="anonymous">
 
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -22,53 +31,64 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <% include ./../layout/header.ejs %>
-    
-    <div class="container">
-        <div class="input-form-backgroud row">
-          <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">Q&A</h4>
-            <form class="validation-form"  id = "qnaRegister" action="register" method = "post" >
-                <div class="row">
-                    <div class="col-md-8 mb-3">
-                        <label for="input-group">제목</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요." required>
-                    </div>
-                    <div class="col-md-4  mb-3">
-                        <label for="input-group">이름</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." required>
-                    </div>
-                </div>
-                <div class="row">
-                  <div class="col mb-3">
-                      <label for="input-group">문의 내용</label>
-                      <textarea class="form-control" aria-label="With textarea" 
-                      placeholder="문의 내용을 입력하세요." id="content", name="content"></textarea>
-                  </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4  mb-3">
-                    <label for="lock">비공개</label>
-                    <select class="form-select" aria-label="Default select example" id="lock_post" name="lock_post">
-                        <option value="1"selected>공개</option>
-                        <option value="2">비공개</option>
-                      </select>
-                    </div>
-                </div>
-                <div class="row">
-                <div class="col-md-4  mb-3">
-                    <label for="input-group">비밀번호</label>
-                    <input type="text" class="form-control" id="password" name="password" 
-                    placeholder="비밀번호를 입력하세요." required disabled>
-                </div>
-                </div>
+    <% include ./../layout/sellerloginheader.ejs %>
+    <% include ./../layout/sellercategory.ejs %>
 
-               
-                <div class="mb-4"></div>
-                <button class="btn btn-primary btn-lg btn-block" id="productregister" type="submit">문의 등록</button>
-                  </form>
-          </div>
+    <div>
+      <div class="row">
+        <div class="col-2" >
+          <% include ./../layout/sellerpgmenubar.ejs %>
         </div>
+        <div class="col-10" >
+          <!-- 내용 들어갈 자리 !!! -->
+          <div class="row mb-2">
+            <h6 id="navtext">HOME > 마이페이지 > 내 Q&A > Q&A 등록</h6>
+          </div>
+          <div class="container">
+              <div class="input-form-backgroud row">
+                <div class="input-form col-md-12 mx-auto">
+                  <h4 class="mb-3" style="font-weight: bold;">Q&A</h4>
+                  <form class="validation-form"  id = "qnaRegister" action="register" method = "post" >
+                      <div class="row">
+                          <div class="col-md-8 mb-3">
+                              <label for="input-group">✉️ 제목</label>
+                              <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요." required>
+                          </div>
+                          <div class="col-md-4  mb-3">
+                              <label for="input-group">👤 이름</label>
+                              <input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요." required>
+                          </div>
+                      </div>
+                      <div class="row">
+                        <div class="col mb-3">
+                            <label for="input-group">📄 문의 내용</label>
+                            <textarea class="form-control" aria-label="With textarea" style="height: 100px;"
+                            placeholder="문의 내용을 입력하세요." id="content", name="content"></textarea>
+                        </div>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-4  mb-3">
+                          <label for="lock">🔏 비공개</label>
+                          <select class="form-select" aria-label="Default select example" id="lock_post" name="lock_post">
+                              <option value="1"selected>공개</option>
+                              <option value="2">비공개</option>
+                            </select>
+                          </div>
+                      </div>
+                      <div class="row">
+                      <div class="col-md-4  mb-3">
+                          <label for="input-group">🔑 비밀번호</label>
+                          <input type="text" class="form-control" id="password" name="password" 
+                          placeholder="비밀번호를 입력하세요." required disabled>
+                      </div>
+                      </div>
+
+                      <button class="btn btn-lg btn-block mb-3" id="productregister"
+                              style="color: #ffffff; background-color : #191B5E;" type="submit">문의 등록</button>
+                        </form>
+                </div>
+              </div></div>
+            </div>
   </body>
 </html>
 </body>
