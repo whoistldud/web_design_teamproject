@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+      <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+<style>
+#myform fieldset{
+    display: inline-block; /* 하위 별점 이미지들이 있는 영역만 자리를 차지함.*/
+    direction: rtl; /* 이모지 순서 반전 */
+    border: 0; /* 필드셋 테두리 제거 */
+}
+
+#myform input[type=radio]{
+    display: none; /* 라디오박스 감춤 */
+}
+#myform label{
+    font-size: 2em; /* 이모지 크기 */
+    color: transparent; /* 기존 이모지 컬러 제거 */
+    text-shadow: 0 0 0 #dbd5d5; /* 새 이모지 색상 부여 */
+}
+#myform label:hover{
+    text-shadow: 0 0 0 rgb(11, 0, 170); /* 마우스 호버 */
+}
+#myform label:hover ~ label{
+    text-shadow: 0 0 0 rgb(11, 0, 170); /* 마우스 호버 뒤에오는 이모지들 */
+}
+#myform input[type=radio]:checked ~ label{
+    text-shadow: 0 0 0 rgb(11, 0, 170); /* 마우스 클릭 체크 */
+}
+</style>
+  
+  <body>
+    <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
+      무엇이든 클릭하면 회원가입으로 넘어가도록!-->
+    <% include ./../layout/loginheader.ejs %>
+    <% include ./../layout/category.ejs %>
+
+    <div>
+      <div class="row" style="height: 500px;">
+        <div class="col-2" >
+          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
+          <% include ./../layout/mypgmenubar.ejs %>
+        </div>
+        <div class="col-10" >
+          <!-- 내용 들어갈 자리 !!! -->
+          <div class="row">
+            <h6 id="navtext">HOME > 리뷰쓰기</h6>
+            <form name="myform" id="myform" method="post" action="/consumer/reviewrite/<%=row.id%>">
+                <h5 class="mt-3">상품은 만족하셨나요?</h5>
+                <fieldset name="star">
+                    <input type="radio" name="star" value="5" id="rate1"><label for="rate1">⭐</label>
+                    <input type="radio" name="star" value="4" id="rate2"><label for="rate2">⭐</label>
+                    <input type="radio" name="star" value="3" id="rate3"><label for="rate3">⭐</label>
+                    <input type="radio" name="star" value="2" id="rate4"><label for="rate4">⭐</label>
+                    <input type="radio" name="star" value="1" id="rate5"><label for="rate5">⭐</label>
+                </fieldset>
+                <p class="mt-1">선택하세요.</p>
+                <div class="col-md-6 mb-3">
+                    <label for="input-group"></label>
+                    <h5 class="mt-2">어떤 점이 좋았나요?</h5>
+                    <textarea rows="4"
+                    class="form-control" aria-label="With textarea" minlength="10" maxlength="200"
+                    placeholder="최소 10자 이상 입력해주세요." id="content" name="content"></textarea>
+                    <p class="textCount" style="float: left;" >0자</p><p class="textTotal" style="float: left;">/200자</p>
+                </div>
+                <br/>
+                <button class="btn btn-primary btn-lg btn-block" id="reviewregister" type="submit"
+                      onclick="register()">리뷰 등록하기</button>
+            </form>
+          </div>
+
+          
+            
+
+        </div>
+      </div>
+    </div>
+  
+  
+  </body>
+  <% include ./../layout/footer.ejs %>
+</html>
+
+<script>
+
+    var starcheck = document.querySelector("input[name='star']:checked")
+    console.log(starcheck);
+    if (starcheck == 0) {
+        alert("별점을 선택해주세요!");
+    }
+    
+
+    $('#content').keyup(function (e) {
+	let content = $(this).val();
+    
+    // 글자수 세기
+    if (content.length == 0 || content == '') {
+    	$('.textCount').text('0자');
+    } else {
+    	$('.textCount').text(content.length + '자');
+    }
+    
+    // 글자수 제한
+    if (content.length > 20050) {
+    	// 200자 부터는 타이핑 되지 않음
+        $(this).val($(this).val().substring(0, 200));
+        // 200자 넘으면 알림창이 뜸
+        alert('글자수는 200자까지 입력 가능합니다.');
+    };
+});
+
+    
+    
+  </script>

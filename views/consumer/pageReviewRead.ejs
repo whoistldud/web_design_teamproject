@@ -28,6 +28,8 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
+
+  
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
@@ -41,31 +43,9 @@
           <% include ./../layout/mypgmenubar.ejs %>
         </div>
         <div class="col-10" >
+          <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 구매내역</h6>
-            <form class="validation-form"  id = "myorder" action="myorder" method = "post" >
-              <div id="main">
-                
-                <table>
-                  <tbody>
-                    <tr>  
-                      <td>번호</td>
-                      <td>상품명</td>
-                      </tr>
-                  <% for(var i=0; i < row.length; i++) {  
-                    %>
-                    <tr>
-                      <td><p alt="번호"></p><%= row[i].productId %></td>
-                      <td><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"><%= row[i].productName %></p></td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-
-               
-            </div>
-                  </form>
-
+            
           </div>
 
           
@@ -81,8 +61,7 @@
 </html>
 
 <script>
-  function toproduct(id){
-    console.log(id);
-    location.href="/consumer/mypurchase/" +id;
-  }
-</script>
+
+    
+    
+  </script>

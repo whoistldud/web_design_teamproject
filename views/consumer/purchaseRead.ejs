@@ -28,29 +28,46 @@
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
             <h4 class="mb-3">구매 내역</h4>
-            <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="/consumer/buy/downcount/<%=row.id%>" method = "post" >
+            <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="" method = "post" >
             <table class="table">
                 <tbody>
-                    <tr>  
-                        <td>상품 번호</td>
-                        <td><p alt="제목"><%=row.productId %></p></td>
-                    </tr>
-                    <tr>  
-                        <td>상품명</td>
-                        <td><p alt="이름"><%=row.productName %></p></td>
-                    </tr>
-                    <tr>  
-                      <td>다운 받기</td>
-                      <td><p alt="다운 받기">
-                        <input type="hidden" name="count" id="count" value="">
-                        <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
-                          <button type="submit" id="downloadfile" class="btn btn-primary mb-3"
-                          onclick="btnClick()">다운 받기</button>
-                        </a>
-                      </p></td>
-                      <p id="rescount" name="rescount"></p>
-                  </tr>
+                   
+                  <tr>  
+                    <th>구매일</th>
+                    <th>상품 번호</th>
+                    <th>상품명</th>
+                    <th>다운로드</th>
+                    <th>리뷰/문의</th>
+                </tr>
+                <tr>  
+                  <td><p alt="구매일"><%=row.date %></p></td>
+                  <td><p alt="상품 번호" ><%=row.productId %></p></td>
+                  <td><p alt="상품명" onclick="toproduct(<%= row.productId %>)"><%=row.productName %></p></td>
+                  <td><p alt="다운로드">
+                    <!-- <input type="hidden" name="count" id="count" value=""> -->
+                    <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
+                      <button type="button" id="downloadfile" class="btn btn-primary mb-3"
+                      onclick="btnClick()">다운받기</button>
+                    </a><p><%=row.date %> ~ <%=row.downEndDate%></p>
+                  </p>
                     
+                  </td>
+                  <td><p alt="리뷰쓰기">
+                    <%if (review==null){
+                      %>
+                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="reviewWrite(<%= row.id %>)">리뷰쓰기</button>
+                    <%}%>
+
+                    <%if (review!=null){
+                      %>
+                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="">리뷰보기</button>
+                    <%}%>
+
+                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3">문의하기</button>
+
+                  </p>
+                  <p id="rescount" name="rescount"></p>
+              </tr>
                     
                 </tbody>
               </table>
@@ -63,13 +80,24 @@
 
 <script>
   var max = 7;
-
+  var count = 0;
   function btnClick(){
-    var countnum = document.getElementById("count").value;
+    // var countnum = document.getElementById("count").value;
 
-    countnum++;
+    // countnum++;
+
+    count++;
     alert(count + "회 다운받으셨습니다." );
 
-    document.getElementById("rescount").innerHTML = countnum;
+    // document.getElementById("rescount").innerHTML = countnum;
+  }
+
+  function toproduct(id){
+    console.log(id);
+    location.href="/consumer/details/" +id;
+  }
+
+  function reviewWrite(id){
+    location.href="/consumer/reviewrite/" + id;
   }
 </script>
