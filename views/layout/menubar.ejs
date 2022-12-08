@@ -12,15 +12,16 @@
           </svg> HOME
         </p>
         <br/>
-        <p class=h6 id="diary" onclick="category1()">다이어리</p> <br/>
-        <p class=h6 id="note" onclick="category2()">필기노트</p><br/>
-        <p class=h6 id="sticker" onclick="category3()">스티커</p><br/>
-        <p class=h6 id="wallpaper" onclick="category4()">배경화면</p>
+        <p class="nav-item active h6" id="diary" onclick="category1()">다이어리</p> <br/>
+        <p class="nav-item h6" id="note" onclick="category2()">필기노트</p><br/>
+        <p class="nav-item h6" id="sticker" onclick="category3()">스티커</p><br/>
+        <p class="nav-item h6" id="wallpaper" onclick="category4()">배경화면</p>
     </div>
   </div>
 </div>
 <script>
   function gohome() {
+
       const home = document.getElementById("home");
       location.href = "/consumer";
   }
