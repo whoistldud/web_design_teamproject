@@ -17,7 +17,7 @@ module.exports = {
 
     // productRead : 'select * from product ',
     productRead : 'select * from product where sellerId=?',
-    productUpdate : 'update product set name=?, category=?, detail=?, price=? where id=?' ,
+    productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',
     qnaListRead : 'select * from qnaboard ',
@@ -46,4 +46,12 @@ module.exports = {
     mycartList : 'SELECT * from cart where userId=?',
     intoMycart : 'INSERT INTO cart(userId,productId,prodName) value (?,?,?)',
     search : 'select * from product where name like "" or sellerId like ""',
+    newPurchase : 'insert into purchase(productId,userId,productName,date,downEndDate) value (?,?,?,?,?)',
+    purchaseRead : 'select * from purchase where userId=?',
+    mypurchaseRead : 'select * from purchase where id=? and userId=?',
+    reiviewWrite : 'insert into review(userId,productId,content,star,date,purchaseId) value(?,?,?,?,?,?)',
+    reviewRead : 'select * from review where productId=? and purchaseId=?',
+    reviewlis : 'select * from review where productId=?',
+    
+
 };

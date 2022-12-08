@@ -47,7 +47,7 @@
                 <div class="row mb-3">
                   <h6 id="navtext">HOME > 마이페이지 > 상품 수정</h6>
                 </div>
-                <form class="validation-form"  action="/seller/product/edit/done/<%=row.id%>" method = "post" >
+                <form class="validation-form" enctype="multipart/form-data" action="/seller/product/edit/done/<%=row.id%>" method = "post" >
                 <table class="table">
                  
                     <tbody>
@@ -69,13 +69,47 @@
                                   </select>
                                 </p></td>
                         </tr>
-                        <tr>
-                            <th>상세정보</th>
-                            <td>
-                                <textarea class="form-control" aria-label="With textarea" 
-                                id="newdetail", name="newdetail"><%=row.detail %> </textarea></br></br>
-                              <img src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/></td>
+                        <tr>  
+                            <td>대표 사진</td>
+                            <td><p alt="대표 사진">
+                                <img id="thumbnailimageurl" src= "/images/<%=row.thumbnailimageurl %>" alt="상세정보" width="300"/>
+                                <img class = "mb-2" id="previewnewThumbnailImg" width="300" />
+                                <p id="changethumbnail">변경할 사진을 선택하세요</p>                            
+                                <label for="formFileMultiple" class="form-label">대표 사진</label>
+                                <input class="form-control" type="file" id="newthumbnailimageurl" name="newthumbnailimageurl" accept="image/*" 
+                                onchange="imagefilecheck(this)">
+                                
+
+
+                            </p></td>
                             
+
+                          </tr>
+                          <tr>  
+                            <td>등록한 상품</td>
+                            <td><p alt="등록한 상품">
+                              <button type="button" id="view" class="btn btn-primary mb-3" onclick="viewproduct('<%=row.fileurl%>')">보기</button>
+                              <!-- <button type="button" id="downloadfile" class="btn btn-primary mb-3" onclick="downproduct('%=row.fileurl%>')">다운 받기</button> -->
+                              <a href="/images/<%=row.fileurl%>" download="<%=row.name %>">
+                                <button type="button" id="downloadfile" class="btn btn-primary mb-3">다운 받기</button>
+                              </a>
+                            </br>
+                            <p>변경할 파일을 선택하세요</p>
+                            <input class="form-control" type="file" id="newfileurl" name="newfileurl"  accept=".pdf"
+                            onchange="pdffilecheck(this)">
+                          </tr>
+                        <tr>                           
+                            <th>상세정보</th>
+                            <td><textarea class="form-control" aria-label="With textarea" 
+                              id="newdetail", name="newdetail"><%=row.detail %> </textarea></br></br>
+                              <% if (row.detailimageurl != "null") {%>
+                              <img id="detailimageurl"src= "/images/<%=row.detailimageurl %>"  width="300"/>     
+                              <%}%>
+                              <img class = "mb-2 mt-2" id="previewnewDetailImg" width="300" />
+                              <p class="mt-4">등록 혹은 변경할 사진을 선택하세요</p>
+                              <input class="form-control" type="file" id="newdetailimageurl" name="newdetailimageurl" accept="image/*" 
+                              onchange="imagefilecheck(this)">
+                            </td>                            
                         </tr>
                         <tr style="border-bottom: solid 1px rgb(48, 48, 60);">  
                             <th ">가격</th>
@@ -110,6 +144,9 @@
 </html>
 
 <script>
+
+    
+
     const input = document.querySelector('#newprice');
     input.addEventListener('keyup', function(e) {
     let value = e.target.value;
@@ -125,4 +162,77 @@
     function back() {
         location.href='/seller/product/read/<%=row.id%>'
     }
+
+
+
+    
+   
+
+    const fileInput = document.getElementById("newthumbnailimageurl");
+
+        const handleFiles = (e) => {
+        const selectedFile = [...fileInput.files];
+        const fileReader = new FileReader();
+
+        fileReader.readAsDataURL(selectedFile[0]);
+
+        fileReader.onload = function () {
+        document.getElementById("previewnewThumbnailImg").src = fileReader.result;
+        $("#thumbnailimageurl").hide();
+        };
+    };
+
+  const reload = fileInput.addEventListener("change", handleFiles);
+
+ 
+
+  const fileInput2 = document.getElementById("newdetailimageurl");
+
+        const handleFiles2 = (e) => {
+        const selectedFile = [...fileInput2.files];
+        const fileReader = new FileReader();
+
+        fileReader.readAsDataURL(selectedFile[0]);
+
+        fileReader.onload = function () {
+        document.getElementById("previewnewDetailImg").src = fileReader.result;
+        $("#detailimageurl").hide();
+        };
+    };
+
+  const reload2 = fileInput2.addEventListener("change", handleFiles2);
+
+
+    function viewproduct(file){
+    console.log(file);
+    var view = file;
+    window.open('/images/' + view);
+  }
+
+
+  function imagefilecheck(obj){
+    pathpoint = obj.value.lastIndexOf('.');
+    filepoint = obj.value.substring(pathpoint+1, obj.length);
+    filetype = filepoint.toLowerCase();
+    if(filetype != 'jpg' || filetype !='png' ||filetype !='gif' || filetype !='jpeg'){
+        alert("이미지 파일만 선택 가능합니다.");
+        parentObj = obj.parentNode;
+        node = parentObj.replaceChild(obj.cloneNode(true),obj);
+        return null;
+    }
+    
+  }
+
+  function pdffilecheck(obj){
+    pathpoint = obj.value.lastIndexOf('.');
+    filepoint = obj.value.substring(pathpoint+1, obj.length);
+    filetype = filepoint.toLowerCase();
+    if(filetype != 'pdf'){
+        alert("pdf 파일만 선택 가능합니다.");
+        parentObj = obj.parentNode;
+        node = parentObj.replaceChild(obj.cloneNode(true),obj);
+        return false;
+    }
+    
+  }
 </script>
