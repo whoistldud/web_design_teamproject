@@ -80,3 +80,44 @@ hr {
   top: -359px;
   border : 1px solid red;
 }*/
+
+
+/*채팅 관련 CSS*/
+
+#msgArea {
+	display: flex;
+	flex-direction: column-reverse;
+	width: 550px;
+	height: 380px;
+	border: 2px solid #777777;
+	overflow: auto;
+	position: center;
+	text-align: center;
+}
+
+#msgArea::-webkit-scrollbar {
+	width: 10px;
+}
+#msgArea::-webkit-scrollbar-thumb {
+	background-color: #2f3542;
+	border-radius: 10px;
+}
+#msgArea::-webkit-scrollbar-track {
+	background-color: grey;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}
+
+.message-me{
+	float : right;
+	background-color : beige;
+	width: 50%;
+	text-align: left;
+}
+
+.message{
+	float : left;
+	background-color : aliceblue;
+	width: 50%;
+	text-align: left;
+}

@@ -24,4 +24,16 @@ module.exports = {
     readPoint : 'select point from user where id=?',
     qnaDelete: 'delete from qnaboard where id=?',
 
+    //chat
+    enterRoom : 'select * from chatroom where productId = ? and (sellerId = ? or userId = ?)',
+    createRoom : 'Insert into chatroom(productId, sellerId, userId) value (?,?,?)',
+    findSeller : 'select sellerId from product where id = ?',
+    checkRoom : 'select  * from chatroom where chatroomId = ? and (sellerId = ? or userId = ?)',
+    chat : 'Insert into chat(chatroomId, senderId, message, createdDate) value (?,?,?,?)',
+    chatroom : 'select * from chat where chatroomId = ?',
+    chatroomList : 'select * from chatroom where sellerId = ? or userId = ?',
+
+    //draw
+    saveImage : 'Update work set Imageurl = ? where workId = 1',
+    
 };
