@@ -54,10 +54,10 @@
                 <img src="images/openimg.png" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item" data-bs-interval="3000">
-                <img src="/images/merrychristmas.png" class="d-block w-100" alt="...">
+                <img src="/images/merrychristmas.png" onclick="towp()" href="/index/wallpaper" class="d-block w-100" alt="...">
               </div>
               <div class="carousel-item" data-bs-interval="3000">
-                <img src="/images/hello2023.png" class="d-block w-100" alt="...">
+                <img src="/images/hello2023.png" onclick="todiary()" href="/index/diary" class="d-block w-100" alt="...">
               </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -149,3 +149,11 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+<script>
+  function towp() {
+    location.href ="/consumer/wallpaper";
+  }
+  function todiary() {
+    location.href ="/consumer/diary";
+  }
+</script>
