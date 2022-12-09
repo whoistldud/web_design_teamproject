@@ -31,35 +31,36 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./layout/loginheader.ejs %>
-    <% include ./layout/category.ejs %>
+    <% include ./../layout/loginheader.ejs %>
+    <% include ./../layout/sellercategory.ejs %>
 
     <div>
       <div class="row" style="height: 500px;">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./layout/mypgmenubar.ejs %>
+          <% include ./../layout/sellermenubar.ejs %>
         </div>
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 내 정보</h6>
+            <h6 id="navtext">HOME > 상품제작 </h6>
           </div>
           <div class="row">
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6">
               <table width="600px" height="300px" style="margin-top: 30px;">
                 <th></th> <!-- 1열-->
-                <th></th> <!-- 2열-->
+                <button class="btn" id="newgoodsbtn" onclick="location.href='/seller/creatework';" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">상품 제작하러 가기
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                  </svg>
+                </button>
                 <!-- 채팅방 코드 -->
-                <% for(var i=0; i<rooms.length; i++){ var room = rooms[i]; var product = products[i]; %>
+                <% for(var i=0; i<rooms.length; i++){ var room = rooms[i];  %>
                 <tr> 
-                  <td>상품이름</td>
-                  <td style="font-weight: bold;"><%= product[0].name %></td>
-                  <td>판매자</td>
-                  <td style="font-weight: bold;"><%= room.sellerId %></td>
+                  <td style="font-weight: bold;"><%= room.sellerId %>님의 작업실</td>               
                   <td>
-                    <button type="button" class="btn" id="enterbtn" onclick="location.href='/chat/room/<%=room.chatroomId%>';" style="color: #DFE7F6;">참여하기</button>
+                    <button type="button" class="btn" id="enterbtn" onclick="location.href='/draw/<%=room.workId%>';" style="color: black;">참여하기</button>
                   </td>
                 </tr>
                 <% } %>
@@ -73,5 +74,5 @@
     </div>
   
   </body>
-  <% include ./layout/footer.ejs %>
+  <% include ./../layout/footer.ejs %>
 </html>

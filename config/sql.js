@@ -42,8 +42,12 @@ module.exports = {
     chatroomList : 'select * from chatroom where sellerId = ? or userId = ?',
 
     //draw
-    saveImage : 'Update work set Imageurl = ? where workId = 1',
-    
+    saveImage : 'Update work set Imageurl = ? where workId = ?',
+    setImage : 'Select * from work where workId = ?',
+    workRoomList : 'Select * from work',
+    creatework : 'Insert work(sellerId) value (?)',
+
+
     //purchase
     newPurchase : 'insert into purchase(productId,userId,productName) value (?,?,?)',
     purchaseRead : 'select * from purchase where userId=?',
@@ -57,7 +61,7 @@ module.exports = {
     intoMycart : 'INSERT INTO cart(userId,productId,prodName) value (?,?,?)',
 
     //search
-    search : 'select * from product where name like "" or sellerId like ""',
+    search : 'select * from product where name like ? or sellerId like ?',
 
     //review
     reiviewWrite : 'insert into review(userId,productId,content,star,date,purchaseId) value(?,?,?,?,?,?)',

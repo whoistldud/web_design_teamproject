@@ -18,11 +18,16 @@ const socketHandler = (server) => {
     // 접속 시 서버에서 실행되는 코드
 
     let roomId;
+    let drawId;
 
     socket.on("disconnect", () => {
     });
 
     socket.on("connect", (msg) => {
+    });
+
+    socket.on("workroomId", (msg) => {
+      drawId = msg;
     });
 
     socket.on("roomId", (msg) => {
@@ -31,20 +36,20 @@ const socketHandler = (server) => {
 
 
     socket.on("drawstart", (msg) => {
-      socket.broadcast.emit("draw_start", msg);
+      socket.broadcast.emit("draw_start"+drawId, msg);
     }); 
 
     socket.on("drawing", (msg) => {
-      socket.broadcast.emit("draw", msg);
+      socket.broadcast.emit("draw"+drawId, msg);
     }); 
 
     socket.on("drawend", (msg) => {
-      socket.broadcast.emit("draw_end");
+      socket.broadcast.emit("draw_end"+drawId);
     }); 
 
 
     socket.on("drawclear", (msg) => {
-      socket.broadcast.emit("draw_clear");
+      socket.broadcast.emit("draw_clear"+drawId);
     }); 
 
     socket.on("chat", async (data) => {
