@@ -557,7 +557,7 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
 
     console.log("구매 날짜:",dateString);
 
-    downpos.setDate(today.getDate()+100);
+    downpos.setDate(today.getDate()+3);
 
     var year2 = downpos.getFullYear();
     var month2 = ('0' + (downpos.getMonth() + 1)).slice(-2);
