@@ -62,14 +62,22 @@
     <link rel='stylesheet' href='../stylesheets/style.css' />
   </head>
   <body>
-
+<% if(role == 'consumer') { %>
     <% include ./layout/loginheader.ejs %>
     <% include ./layout/category.ejs %>
+    <%} else {%>
+      <% include ./layout/sellerloginheader.ejs %>
+      <% include ./layout/sellercategory.ejs %>
+      <% } %>
     <div>
       <div class="row" style="height: 500px;">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./layout/mypgmenubar.ejs %>
+          <% if(role == 'consumer') { %>
+            <% include ./layout/mypgmenubar.ejs %>
+            <%} else {%>
+              <% include ./layout/sellerpgmenubar.ejs %>
+              <% } %>
         </div>
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->

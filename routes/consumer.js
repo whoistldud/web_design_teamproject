@@ -187,6 +187,8 @@ router.get('/mypurchase/:id', async (req, res, next) => {
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  
+
     var id = req.params.id;
     console.log("purchaseId : ",req.params );
     const result = await mysql.query("mypurchaseRead", [id, consumerID]);
@@ -197,7 +199,15 @@ router.get('/mypurchase/:id', async (req, res, next) => {
     const review = await mysql.query("reviewRead",  [productId, id]);
     console.log("리뷰:",review[0]);
 
-    res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0], review:review[0]});  
+
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = ('0' + (today.getMonth() + 1)).slice(-2);
+    var day = ('0' + today.getDate()).slice(-2);
+    var todayString = year + '-' + month  + '-' + day;
+
+
+    res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0], review:review[0], today:todayString});  
     console.log("product : ",result2[0]);
   }
 });
@@ -260,6 +270,16 @@ router.get('/reviewRead/:id', async (req, res, next) => {
   }
 });
 
+/* 리뷰 삭제 */
+
+router.get("/review/delete/:id", async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  const id = req.params.id;
+  const result = await mysql.query("reviewDelete", id);
+  res.send("<script>alert('리뷰삭제완료.');location.href='/consumer/myorder';</script>"); 
+});
+
 router.get('/myqna', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
@@ -270,6 +290,7 @@ router.get('/myqna', async (req, res, next) => {
   }
 });
 
+/* 리뷰 */
 router.get('/reviewRead', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
@@ -279,6 +300,81 @@ router.get('/reviewRead', async (req, res, next) => {
     res.render("consumer/pageReviewRead", { title: "리뷰읽기"});
   }
 });
+
+/* q&a 등록 */
+router.get('/qna/register', (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  
+  res.render('consumer/qnaRegister', { title: 'able' });
+});
+
+router.post("/qna/register", async(req,res) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+  var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+  var today = new Date();
+  var year = today.getFullYear();
+  var month = ('0' + (today.getMonth() + 1)).slice(-2);
+  var day = ('0' + today.getDate()).slice(-2);
+  var dateString = year + '-' + month  + '-' + day;
+
+  console.log("날짜", dateString);
+  var data = [req.body.name,req.body.password,req.body.title,req.body.content,dateString,req.body.lock_post, userId]; 
+
+  const result = await mysql.query("qnaWrite", data);
+  console.log(result[0]);
+  res.redirect('/consumer/myqnalist');
+  }
+});
+
+router.get('/qna', async(req,res,next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+
+  const consumerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("qnaListRead");
+  res.render('consumer/qnaList', { title: 'able', row:result, loginId:consumerId});
+  console.log('loginId', consumerId);
+  // console.log("qna",result[0]);
+  }
+});
+var today = new Date();
+
+
+router.get('/qna/read/:id', async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  const id = req.params.id;
+  const result = await mysql.query("qnaDetRead", id);
+  res.render('consumer/qnaRead', { title: "문의 조회", row: result[0] });
+  console.log(result[0]);
+});
+
+router.get("/qna/delete/:id", async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  const id = req.params.id;
+  const result = await mysql.query("qnaDelete", id);
+  res.send("<script>alert('질문삭제완료.');location.href='/consumer/myqnaList';</script>"); 
+});
+
+router.get('/myqnalist', async (req,res,next) => {
+  if(!req.session.user) res.redirect('/');
+  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+
+  var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const result = await mysql.query("myqnaRead", userId);
+
+  res.render('consumer/myqnaList', { title: "내 qna 목록", row: result});
+  
+});
+
 
 router.get('/addPoint', async (req, res, next) => {
   if(req.session.user == undefined)  {
@@ -366,7 +462,6 @@ router.get('/details/:id', async function(req, res, next) {
   }
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
-
     const id = req.params.id;
     console.log(id);
     const result = await mysql.query("productlisRead", id);
@@ -395,7 +490,12 @@ router.get('/details/:id', async function(req, res, next) {
 
     starAvg = starSum / result2.length;
     console.log("평점 평균 : ",starAvg);
-    res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr});
+
+    const result3 = await mysql.query("userName", result[0].sellerId);
+    console.log("result3 : ",result3);
+    var storeName = result3[0].name;
+
+    res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
   }
 });
 
@@ -457,13 +557,16 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
 
     console.log("구매 날짜:",dateString);
 
-    downpos.setDate(today.getDate()+30);
+    downpos.setDate(today.getDate()+100);
 
     var year2 = downpos.getFullYear();
     var month2 = ('0' + (downpos.getMonth() + 1)).slice(-2);
     var day2 = ('0' + downpos.getDate()).slice(-2);
     var dateString2 = year2 + '-' + month2  + '-' + day2;
     console.log("다운로드 가능 기한:",dateString2);
+
+
+
 
     const resultN1 = await mysql.query("productlisRead", id);
     resultN1[0].price = Number( resultN1[0].price.replace(",",""));
@@ -477,7 +580,7 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
     // // res.render("index/purchage", { title: "상품 구매" ,row : resultN1[0], consum : resultN2[0], point:resultN3[0]});
     const resultN3 = await mysql.query("newPurchase", data);
     res.send("<script>alert('상품 구매 완료.');location.href='/consumer/buycomplete';</script>"); 
-    }
+  }
 })
 
 router.post('/buy/downcount/:id', async (req,res,next) => {

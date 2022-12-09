@@ -57,12 +57,13 @@ router.get('/room/:id', async (req, res) => {
   else{  
     const {id} = req.params;
     const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const role = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role;
     const room = await mysql.query("checkRoom",[id,userId,userId]);
     if(room[0] == undefined)  {
       res.send("<script>alert('방에 대한 권한이 없습니다.');location.href='/';</script>");
     }else{
         const chat = await mysql.query("chatroom",id);
-        res.render('chat', {id : id, chats : chat, senderId : userId});
+        res.render('chat', {id : id, chats : chat, senderId : userId, role :role });
     }
   }    
 

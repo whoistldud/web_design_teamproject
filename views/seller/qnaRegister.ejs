@@ -48,7 +48,7 @@
               <div class="input-form-backgroud row">
                 <div class="input-form col-md-12 mx-auto">
                   <h4 class="mb-3" style="font-weight: bold;">Q&A</h4>
-                  <form class="validation-form"  id = "qnaRegister" action="register" method = "post" >
+                  <form class="validation-form"  id = "qnaRegister" action="register" method = "post" onsubmit="return checkForm() >
                       <div class="row">
                           <div class="col-md-8 mb-3">
                               <label for="input-group">✉️ 제목</label>
@@ -83,8 +83,8 @@
                       </div>
                       </div>
 
-                      <button class="btn btn-lg btn-block mb-3" id="productregister"
-                              style="color: #ffffff; background-color : #191B5E;" type="submit">문의 등록</button>
+                      <input class="btn btn-lg btn-block mb-3" id="productregister" value="문의 등록"
+                              style="color: #ffffff; background-color : #191B5E;" type="submit"></input>
                         </form>
                 </div>
               </div></div>
@@ -107,5 +107,27 @@
   }
 });
 
+function checkForm() {
+  if(document.getElementById('title').value = ''){
+    alert('제목을 입력하세요.');
+    return false;
+  }
+  if(document.getElementById('name').value = ''){
+    alert('이름을 입력하세요.');
+    return false;
+  }
+  if(document.getElementById('content').value = ''){
+    alert('문의내용을 입력하세요.');
+    return false;
+  }
+  if(lock_post.options[lock_post.selectedIndex].value == 2){
+    if (document.getElementById('password').value = ''){
+      alert('비밀번호를 입력하세요.');
+    return false;
+    }
+  }
+
+  return true;
+}
 
 </script>

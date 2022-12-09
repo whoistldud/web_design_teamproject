@@ -51,7 +51,7 @@
                   <div class="col-7">
                       <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
                       <div class="row mt-4">
-                          <h5>made by <%= row.sellerId %>
+                          <h5>made by <%= storename %>
                             <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
                               <i class="bi bi-arrow-right-circle"></i>
                             </button>
@@ -110,7 +110,12 @@
                   </div>
                   <div id="tab-2" class="tab-content">
                   <h5> 사용자 총 평점 </h5>
-                  <h2 style="font-weight:900;"><%=staravg%></h2>
+                  <% if (isNaN(staravg)) { %>
+                    <h2 style="font-weight:900;">아직 작성된 리뷰가 없습니다.</h2>
+                  <%}%>
+                  <% if (!isNaN(staravg)) { %>
+                    <h2 style="font-weight:900;"><%=staravg%></h2>
+                    <%}%>
                   <!-- <div class="star-ratings">
                     <div style='position:absolute; width:max-content; overflow:hidden; color:#dbd5d5;'>
                       <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>

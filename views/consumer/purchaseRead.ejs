@@ -22,8 +22,16 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <% include ./../layout/header.ejs %>
-    
+    <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
+      무엇이든 클릭하면 회원가입으로 넘어가도록!-->
+      <% include ./../layout/loginheader.ejs %>
+      <% include ./../layout/category.ejs %>
+  
+      <div>
+        <div class="row" style="height: 500px;">
+          <div class="col-2" >
+            <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
+            <% include ./../layout/mypgmenubar.ejs %>    
     <div class="container">
         <div class="input-form-backgroud row">
           <div class="input-form col-md-12 mx-auto">
@@ -45,9 +53,15 @@
                   <td><p alt="상품명" onclick="toproduct(<%= row.productId %>)"><%=row.productName %></p></td>
                   <td><p alt="다운로드">
                     <!-- <input type="hidden" name="count" id="count" value=""> -->
+                    <%if(today <= row.downEndDate) {%>
                     <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
                       <button type="button" id="downloadfile" class="btn btn-primary mb-3"
-                      onclick="btnClick()">다운받기</button>
+                      >다운받기</button>
+                    <%}%>  
+                    <%if(today > row.downEndDate) {%>
+                        <button type="button" id="downloadfile" class="btn btn-primary mb-3"
+                        onclick="btnClick()">다운받기</button>
+                      <%}%> 
                     </a><p><%=row.date %> ~ <%=row.downEndDate%></p>
                   </p>
                     
@@ -82,14 +96,7 @@
   var max = 7;
   var count = 0;
   function btnClick(){
-    // var countnum = document.getElementById("count").value;
-
-    // countnum++;
-
-    count++;
-    alert(count + "회 다운받으셨습니다." );
-
-    // document.getElementById("rescount").innerHTML = countnum;
+    alert('다운로드 기한이 끝났습니다.');
   }
 
   function toproduct(id){

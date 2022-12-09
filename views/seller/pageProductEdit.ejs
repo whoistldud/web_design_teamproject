@@ -31,7 +31,7 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./../layout/loginheader.ejs %>
+    <% include ./../layout/sellerloginheader.ejs %>
     <% include ./../layout/sellercategory.ejs %>
 
     <div>
@@ -61,11 +61,27 @@
                             <th>카테고리</th>
                             <td><p alt="카테고리">
                                 <select class="form-select" aria-label="Default select example" id="newcategory" name="newcategory">
-                                    <option selected><%=row.category %></option>
-                                    <option value="1">다이어리</option>
-                                    <option value="2">필기노트</option>
-                                    <option value="3">스티커</option>
-                                    <option value="4">배경화면</option>
+                                    
+                                      <% if (row.category == 1) {%>
+                                        <option value="1">다이어리</option>
+                                        <option value="2">필기노트</option>
+                                        <option value="3">스티커</option>
+                                        <option value="4">배경화면</option><%}%>
+                                      <% if (row.category == 2) {%>
+                                        <option value="1">다이어리</option>
+                                        <option selected value="2">필기노트</option>
+                                        <option value="3">스티커</option>
+                                        <option value="4">배경화면</option><%}%>
+                                      <% if (row.category == 3) {%>
+                                        <option value="1">다이어리</option>
+                                        <option value="2">필기노트</option>
+                                        <option selected value="3">스티커</option>
+                                        <option value="4">배경화면</option><%}%>
+                                      <% if (row.category == 4) {%>
+                                        <option value="1">다이어리</option>
+                                        <option value="2">필기노트</option>
+                                        <option value="3">스티커</option>
+                                        <option selected value="4">배경화면</option><%}%>
                                   </select>
                                 </p></td>
                         </tr>

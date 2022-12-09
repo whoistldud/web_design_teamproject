@@ -160,40 +160,26 @@ router.post('/product/edit/done/:id', upload.fields([{name:"newthumbnailimageurl
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
-    const id = req.params.id;
-    console.log("모야1",Object.keys(req.files));
-    console.log("모야2",req.files[Object.keys(req.files)[0]]);
-    const temp = await mysql.query("readImage", id);
-    
-    console.log("temp",temp[0].thumbnailimageurl);
-    if (req.files.length == 3){
-      var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.detail,
-      req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-    }
+  const id = req.params.id;
+  console.log("모야1",Object.keys(req.files));
+  console.log("모야2",req.files[Object.keys(req.files)[0]]);
+  const temp = await mysql.query("readImage", id);
+  
+  console.log("temp",temp[0].thumbnailimageurl);
+  if (req.files.length == 3){
+    var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.newdetail,
+    req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
+  }
 
-    else if (req.files.length== 2){
-      if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
-        if(Object.keys(req.files)[1] == 'newdetailimageurl'){
-          var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].temp[0].fileurl,req.body.detail,
-          req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-        }
-        else if(Object.keys(req.files)[1] == 'newfileurl'){
-          var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.detail,
-          temp[0].detailimageurl,req.body.newprice, id]; 
-        }
-
-      }
-      else if (Object.keys(req.files)[0] == 'newfileurl'){
-        var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.detail,
+  else if (req.files.length== 2){
+    if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
+      if(Object.keys(req.files)[1] == 'newdetailimageurl'){
+        var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].temp[0].fileurl,req.body.newdetail,
         req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
         
       }
-    }
-
-    else if (Object.keys(req.files).length == 1) {
-      console.log("1개 업로드 됨", req.files);
-      if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
-        var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,temp[0].fileurl,req.body.detail,
+      else if(Object.keys(req.files)[1] == 'newfileurl'){
+        var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.newdetail,
         temp[0].detailimageurl,req.body.newprice, id]; 
       }
       else if (Object.keys(req.files)[0] == 'newfileurl'){
@@ -206,14 +192,33 @@ router.post('/product/edit/done/:id', upload.fields([{name:"newthumbnailimageurl
       }
 
     }
-    else {
-      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.detail,
+    else if (Object.keys(req.files)[0] == 'newfileurl'){
+      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.newdetail,
+      req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
+      
+    }
+  }
+
+  else if (Object.keys(req.files).length == 1) {
+    console.log("1개 업로드 됨", req.files);
+    if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
+      var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,temp[0].fileurl,req.body.newdetail,
       temp[0].detailimageurl,req.body.newprice, id]; 
     }
+    else if (Object.keys(req.files)[0] == 'newfileurl'){
+      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.newdetail,
+      temp[0].detailimageurl,req.body.newprice, id]; 
+    }
+    else {
+      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.newdetail,
+      req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
+    }
 
-
-
-
+  }
+  else {
+    var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.newdetail,
+    temp[0].detailimageurl,req.body.newprice, id]; 
+  }
     console.log("상품 수정 data : ", data);
     await mysql.query("productUpdate", data); //수정
     const result = await mysql.query("readImage", id);
@@ -265,7 +270,7 @@ router.get('/qna/register', (req,res,next) => {
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
-    res.render('seller/qnaRegister', { title: 'able' });
+    res.render('seller/qnaRegister', { title: 'Q&A' });
   }
 });
 

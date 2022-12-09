@@ -49,9 +49,8 @@
                 </div>
                 <div class="row">
                   <div class="col-12 col-md-10" style="margin-left: 20px;">
-                    <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/bycom/<%=row.id%>" method = "post" >
-
-                    <!-- <form class="validation-form"  enctype="multipart/form-data" id = "pageProductsRegister" action="" method = "post"  > -->
+                    <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/bycom/<%=row.id%>" 
+                      onsubmit="return buy(<%= point.point%>, <%= row.price %>,<%=row.id%>)" method = "post" >
                     <div class="row mt-3 mb-3">
                         <h5 >주문 상품 정보</h5>
                         <hr />
@@ -86,7 +85,7 @@
                         <hr />
                         <div class="col-7">
                             <h4 id="goodsName" style="font-weight: bold;"> <%= point.point%></h4>
-                            <button class="btn btn-block" id="pointadd" style="background-color: #DFE7F6;"
+                            <button type="button"  class="btn btn-block" id="pointadd" style="background-color: #DFE7F6;"
                             onclick="location.href = '/consumer/addPoint'"
                             >포인트 충전</button>
                             
@@ -104,9 +103,10 @@
                           </div>
                     </div>
                     
-                  <button class="btn btn-lg btn-block mb-3" id="tobuy" type="submit"
+                  <input class="btn btn-lg btn-block mb-3" id="tobuy" type="submit"
                         style="background-color: #191B5E; color: #ffffff;"
-                        onclick="buy(<%= point.point%>, <%= row.price %>)">결제하기</button>
+                        value="결제하기"
+                        ></input>
 
                   </form>
                   </div>
@@ -132,11 +132,34 @@
 <script>
 
 
-// function addPoint(){
-//   location.href = "/consumer/addPoint";
-// }
+function addPoint(){
+  location.href = "/consumer/addPoint";
+}
 
-  function buy(point, price){
+
+// document.querySelector('tobuy').onclick = function(event){
+//         if(!document.getElementById('check').checked)
+//         {
+//           alert("약관에 동의하세요");
+//           return false;
+//         }
+//         else{
+//         // if (point >= price){
+//         //   if(confirm("정말 구매하시겠습니까?") == true){
+//         //         }
+//         // }
+//         // else {
+//         //   alert("구매 불가.", location.href='/consumer/addpoint');
+//         // }
+
+//     // alert("구매하기");
+//     }
+//     };
+     
+
+
+
+  function buy(point, price,id){
     const check = document.getElementById('check');
     const is_checked = check.checked;
 
@@ -151,14 +174,14 @@
     else{
         if (point >= price){
           if(confirm("정말 구매하시겠습니까?") == true){
-                    // location.href = "/consumer/buy/<%=row.id%>/bycom";
-                    location.href = "/consumer/buy/bycom/<%=row.id%>";
+                    return true;
                 }
         }
         else {
           alert("구매 불가.", location.href='/consumer/addpoint');
         }
 
+        
     // alert("구매하기");
     }
   }

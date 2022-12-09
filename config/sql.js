@@ -6,6 +6,7 @@ module.exports = {
     userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
     userLogin : 'select * from user where id = ?',
     userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
+    userName : 'select name from user where id=?',
 
     //product
     cateProduct : 'SELECT * FROM product WHERE category=?',
@@ -68,5 +69,5 @@ module.exports = {
     reviewRead : 'select * from review where productId=? and purchaseId=?',
     reviewlis : 'select * from review where productId=?',
     reviewMyRead : 'select * from review where purchaseId=?',
-
+    reviewDelete : 'delete from review where id=?',
 };
