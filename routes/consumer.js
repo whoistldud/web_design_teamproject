@@ -3,6 +3,7 @@ const mysql = require("../config/database.js");
 const crypto= require("crypto");
 const jwt = require("jsonwebtoken");
 const session = require("express-session");
+const { myqnaRead } = require('../config/sql.js');
 
 var router = express.Router();
 
@@ -52,10 +53,40 @@ router.get('/mycartlist/:id', async (req, res, next) => {
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-    const id = req.params.id; // 이건 상품 아이디!
+    const id = req.params.id;
+    console.log(id);
     const result = await mysql.query("productlisRead", id);
-    console.log("result", result[0]);
-    res.render('index/goodsDetail', { title: 'able', info: result[0]});
+    const result2 = await mysql.query("reviewlis", id);
+    console.log(result[0]);
+    console.log('result2!! : ',result2);
+
+    var starSum = 0;
+    var starAvg = 0.0;
+    var namelock = '';
+    var resname = '';
+    var tnum = 0;
+    var resnameArr = [];
+    var tost = '';
+
+    for (let i=0; i<result2.length; i++){
+      starSum += result2[i].star;
+      tnum = result2[i].userId.length;
+      namelock = result2[i].userId.substr(2);
+      tost = '*'.repeat(namelock.length);
+      resname = result2[i].userId.replace(namelock, tost);
+      resnameArr.push(resname);
+    }
+
+    console.log(resnameArr);
+
+    starAvg = starSum / result2.length;
+    console.log("평점 평균 : ",starAvg);
+
+    const result3 = await mysql.query("userName", result[0].sellerId);
+    console.log("result3 : ",result3);
+    var storeName = result3[0].name;
+
+    res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
   }
 });
 
@@ -81,7 +112,6 @@ router.get('/mycart/:id', async function(req,res,next) {
     console.log("장바구니 확인!!", incart);
 
     res.render("/index/goodsDetail");
-    //res.send("<script> console.log('🎈 장바구니에 상품을 담았습니다 ✨');</script>");
   }
 });
 
@@ -175,8 +205,9 @@ router.get('/myorder', async (req, res, next) => {
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
     const result = await mysql.query("purchaseRead",  consumerID);
+    const user = await mysql.query("userLogin", consumerID);
     console.log("상품 : ", result);
-    res.render('consumer/pagemyorder', { title: 'able' , row:result});
+    res.render('consumer/pagemyorder', { title: 'able' , user: user[0], row:result});
   }
 });
 
@@ -191,13 +222,15 @@ router.get('/mypurchase/:id', async (req, res, next) => {
 
     var id = req.params.id;
     console.log("purchaseId : ",req.params );
+    const user = await mysql.query("userLogin", consumerID);
+    
     const result = await mysql.query("mypurchaseRead", [id, consumerID]);
     var productId = result[0].productId;
-    console.log("result : ",result);
+    //console.log("result : ",result);
     const result2 = await mysql.query("readImage", productId);
 
     const review = await mysql.query("reviewRead",  [productId, id]);
-    console.log("리뷰:",review[0]);
+    //console.log("리뷰:",review[0]);
 
 
     var today = new Date();
@@ -206,9 +239,9 @@ router.get('/mypurchase/:id', async (req, res, next) => {
     var day = ('0' + today.getDate()).slice(-2);
     var todayString = year + '-' + month  + '-' + day;
 
-
-    res.render('consumer/purchaseRead', {title: 'able', row:result[0], product:result2[0], review:review[0], today:todayString});  
-    console.log("product : ",result2[0]);
+    console.log("user[0].name", user[0].name);
+    res.render('consumer/purchaseRead', {title: 'able', user: user[0], row:result[0], product:result2[0], review:review[0], today:todayString});  
+    //console.log("product : ",result2[0]);
   }
 });
 

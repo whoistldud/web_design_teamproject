@@ -11,6 +11,10 @@
     integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
     crossorigin="anonymous">
 
+        
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
@@ -32,66 +36,73 @@
           <div class="col-2" >
             <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
             <% include ./../layout/mypgmenubar.ejs %>    
-    <div class="container">
-        <div class="input-form-backgroud row">
-          <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">구매 내역</h4>
-            <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="" method = "post" >
-            <table class="table">
-                <tbody>
-                   
-                  <tr>  
-                    <th>구매일</th>
-                    <th>상품 번호</th>
-                    <th>상품명</th>
-                    <th>다운로드</th>
-                    <th>리뷰/문의</th>
-                </tr>
-                <tr>  
-                  <td><p alt="구매일"><%=row.date %></p></td>
-                  <td><p alt="상품 번호" ><%=row.productId %></p></td>
-                  <td><p alt="상품명" onclick="toproduct(<%= row.productId %>)"><%=row.productName %></p></td>
-                  <td><p alt="다운로드">
-                    <!-- <input type="hidden" name="count" id="count" value=""> -->
-                    <%if(today <= row.downEndDate) {%>
-                    <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
-                      <button type="button" id="downloadfile" class="btn btn-primary mb-3"
-                      >다운받기</button>
-                    <%}%>  
-                    <%if(today > row.downEndDate) {%>
-                        <button type="button" id="downloadfile" class="btn btn-primary mb-3"
-                        onclick="btnClick()">다운받기</button>
-                      <%}%> 
-                    </a><p><%=row.date %> ~ <%=row.downEndDate%></p>
-                  </p>
-                    
-                  </td>
-                  <td><p alt="리뷰쓰기">
-                    <%if (review==null){
-                      %>
-                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="reviewWrite(<%= row.id %>)">리뷰쓰기</button>
-                    <%}%>
-
-                    <%if (review!=null){
-                      %>
-                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3" onclick="reviewRead(<%= row.id %>)">리뷰보기</button>
-                    <%}%>
-
-                    <button type="button" id="reviewwrite" class="btn btn-primary mb-3">문의하기</button>
-
-                  </p>
-                  <p id="rescount" name="rescount"></p>
-              </tr>
-                    
-                </tbody>
-              </table>
-              </form>
-
           </div>
-        </div>
+          <div class="col-10">
+            <div class="row">
+              <h6 id="navtext">HOME > 마이페이지 > 구매내역</h6>
+            </div>
+
+            <div class="container">
+              <div class="input-form-backgroud row">
+                <div class="input-form col-md-12 mx-auto">
+                  <h5 class="mt-2 mb-3" style="font-weight: bold;">💖 <%= user.name %> 님의 구매 내역 💖</h5>
+                  <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="" method = "post" >
+                  <table class="table" id="mypurchase">
+                      <tbody>
+                        
+                        <tr>  
+                          <th>구매일</th>
+                          <th>상품 번호</th>
+                          <th>상품명</th>
+                          <th>다운로드</th>
+                          <th>리뷰/문의</th>
+                      </tr>
+                      <tr>  
+                        <td><p alt="구매일"><%=row.date %></p></td>
+                        <td><p alt="상품 번호" ><%=row.productId %></p></td>
+                        <td><p alt="상품명" onclick="toproduct(<%= row.productId %>)"><%=row.productName %></p></td>
+                        <td><p alt="다운로드">
+                          <!-- <input type="hidden" name="count" id="count" value=""> -->
+                          <%if(today <= row.downEndDate) {%>
+                          <a href="/images/<%=product.fileurl%>" download="<%=product.name %>">
+                            <button type="button" id="downloadfile" class="btn btn-primary mb-3"
+                            >다운받기</button>
+                          <%}%>  
+                          <%if(today > row.downEndDate) {%>
+                              <button type="button" id="downloadfile" class="btn btn-primary mb-3"
+                              onclick="btnClick()">다운받기</button>
+                            <%}%> 
+                          </a><p><%=row.date %> ~ <%=row.downEndDate%></p>
+                        </p>
+                          
+                        </td>
+                        <td><p alt="리뷰쓰기">
+                          <%if (review==null){
+                            %>
+                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewWrite(<%= row.id %>)">리뷰쓰기</button>
+                          <%}%>
+
+                          <%if (review!=null){
+                            %>
+                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewRead(<%= row.id %>)">리뷰보기</button>
+                          <%}%>
+
+                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;">문의하기</button>
+
+                        </p>
+                        <p id="rescount" name="rescount"></p>
+                    </tr>
+                          
+                      </tbody>
+                    </table>
+                    </form>
+                </div>
+              </div>
+          </div>
+    </div></div></div>
   </body>
 </html>
-
+<% include ./../layout/footer.ejs %>
 <script>
   var max = 7;
   var count = 0;

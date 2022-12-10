@@ -43,10 +43,13 @@
         <div class="col-10" >
           <div class="row">
             <h6 id="navtext">HOME > 마이페이지 > 구매내역</h6>
+            </div>
             <form class="validation-form"  id = "myorder" action="myorder" method = "post" >
               <div id="main">
-                
-                <table id="myordertable" width="600">
+                <div class="col-md-12">
+                  <h5 class="mt-2 mb-3" style="font-weight: bold;">💖 <%= user.name %> 님의 구매 내역 💖</h5>
+                  <h6 style="font-size: 10pt;"> 상품명을 클릭하면 상세내역을 확인할 수 있습니다.</h6>
+                <table id="myordertable" width="90%">
                   <tbody>
                     <tr bgcolor="#DFE7F6" align="center">  
                       <th>번호</th>
@@ -55,18 +58,20 @@
                   <% for(var i=0; i < row.length; i++) {  
                     %>
                     <tr>
-                      <td align="center" ><p alt="번호"><%= row[i].productId %></p></td>
+                      <td align="center" ><p alt="번호"  onclick="toproduct(<%= row[i].id %>)"><%= row[i].productId %></p></td>
                       <td align="center" ><p alt="상품명" onclick="toproduct(<%= row[i].id %>)"><%= row[i].productName %></p></td>
                     </tr>
                     <% } %>
                   </tbody>
                 </table>
 
-               
+               </div>
             </div>
-                  </form>
-
+            </form>
           </div>
+        </div>
+      </div>
+          
 
           
             

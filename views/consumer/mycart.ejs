@@ -59,7 +59,7 @@
                     %>
                     <tr>
                       <td align="center"><p alt="번호"></p><%= i+1 %></td>
-                      <td align="center"><p alt="상품명"  onclick="toproduct(<%= info[i].id %>)"></p><%= info[i].prodName %></td>
+                      <td align="center"><p alt="상품명"  onclick="toproduct(<%= info[i].productId %>)"><%= info[i].prodName %></p></td>
                     </tr>
                     <% } %>
                   </tbody>
@@ -85,6 +85,6 @@
 <script>
     function toproduct(id){
       console.log(id);
-      location.href="/consumer/mycart/" +id;
+      location.href="/consumer/mycartlist/" +id;
     }
   </script>
