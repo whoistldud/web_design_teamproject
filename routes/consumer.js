@@ -32,14 +32,6 @@ router.get('/mycartlist', async (req, res, next) => {
     const result1 = await mysql.query("mycartList", consumerID);
     console.log("가져온 result1", result1);
     
-    let prodID = [];
-    for(var i=0; i < result1.length ; i++){
-      let pid = result1[i].productId;
-      prodID.push(pid);
-    };
-    console.log("prodID", prodID);
-    //const result2 = await mysql.query("productlisRead", prodID);
-    // 장바구니에 등록하려는 상품이 이미 같은 아이디에 있으면 막기
 
     res.render('consumer/mycart', { title: 'able', info: result1, consum: result});
   }
@@ -90,6 +82,24 @@ router.get('/mycartlist/:id', async (req, res, next) => {
   }
 });
 
+
+// 장바구니에서 삭제
+router.get('/outofcart', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    
+    const rm = req.body;
+    console.log("삭제할 상품", rm);
+
+    const del = await mysql.query("outofcart", [rm, consumerID]);
+    res.render('consumer/mycart', { title: 'able'});
+  }
+});
+
 // 장바구니에 상품 추가
 router.get('/mycart/:id', async function(req,res,next) {
   if(req.session.user == undefined)  {
@@ -98,20 +108,32 @@ router.get('/mycart/:id', async function(req,res,next) {
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     const id = req.params.id;
-    console.log("상품 id", id);
+    console.log("지금 장바구니에 담을 상품 id", id);
 
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-    
-    const resultN2 = await mysql.query("userLogin", consumerID);
-    const prod = await mysql.query("productlisRead", id);
-    const prodname = prod[0].name;
-    console.log("prodname", prodname);
-    const inputdata = [consumerID, id, prodname];
-    const result = await mysql.query("intoMycart", inputdata);
-    const incart = await mysql.query("mycartList", consumerID);
-    console.log("장바구니 확인!!", incart);
 
-    res.render("/index/goodsDetail");
+    let Mycart = []; // 이미 카트에 있는 상품들 productId 배열
+    const inmycart = await mysql.query("mycartList", consumerID);
+    for(var i=0; i < inmycart.length ; i++){
+      let pid = inmycart[i].productId;
+      Mycart.push(pid);
+    };
+    console.log("Mycart 확인", Mycart);
+
+
+    if(Mycart.includes(id)){ // id가 이미 cart에 있으면!
+      //let isit = true; // 이미 있다!
+      res.send("<script>alert('⚠️ 이미 담겨있는 상품입니다!'); history.back();</script>");
+    } else {
+      //isit = false;
+      const productname = await mysql.query("productlisRead", id);
+      console.log("담을 상품", productname[0].name);
+      const prodname = productname[0].name;
+      const inputdata = [consumerID, id, prodname];
+      const result = await mysql.query("intoMycart", inputdata);
+      //console.log("장바구니 확인!!", result);
+      res.send("<script>alert('🎁 장바구니에 담겼습니다!'); history.back();</script>");
+    }
   }
 });
 
@@ -528,6 +550,7 @@ router.get('/details/:id', async function(req, res, next) {
     console.log("result3 : ",result3);
     var storeName = result3[0].name;
 
+    
     res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
   }
 });

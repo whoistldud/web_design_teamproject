@@ -43,37 +43,34 @@
           <div class="row">
             <h6 id="navtext">HOME > 장바구니</h6>
             </div>
-            <div class="row">
-                <h5>"할 수 있으면 사용자 이름 가져다가 OO 님의 장바구니"</h5>
+            <div class="row mb-2">
+                <h5 style="font-weight: bold;">🛍️ <%= consum[0].name %> 님의 장바구니 🎈</h5>
             </div>
+            <div class="container">
             <form class="validation-form"  id = "mycart" action="mycart" method = "post" >
-              <div id="main">
-                
-                <table id="myordertable" width="600">
+              
+                <table id="myordertable" width="800">
                   <tbody>
-                    <tr bgcolor="#DFE7F6" align="center">  
+                    <tr bgcolor="#DFE7F6" align="center"> 
+
                       <th>번호</th>
                       <th>상품명</th>
                       </tr>
                   <% for(var i=0; i < info.length; i++) {  
                     %>
                     <tr>
-                      <td align="center"><p alt="번호"></p><%= i+1 %></td>
+                     
+                      <td align="center"><p alt="번호"><%= i+1 %></p></td>
                       <td align="center"><p alt="상품명"  onclick="toproduct(<%= info[i].productId %>)"><%= info[i].prodName %></p></td>
                     </tr>
                     <% } %>
                   </tbody>
                 </table>
-
-               
-            </div>
-                  </form>
-
+            </form>
           </div>
-
-          
             
-
+            <div> <br/></div>
+          </div>
         </div>
       </div>
     </div>
@@ -87,4 +84,36 @@
       console.log(id);
       location.href="/consumer/mycartlist/" +id;
     }
+/*
+    // 전체 선택 체크버튼 동작
+    $('input[name=_selected_all_]').on('change', function(){
+  $('input[name=_selected_]').prop('checked', this.checked);
+});
+			
+
+  $("#rmbtn").click(function(){ 
+			
+			let rowData = [];
+			var checkbox = $("input[name=_selected_]:checked");
+			
+			// 체크된 체크박스 값을 가져온다
+			checkbox.each(function(i) {
+	
+				// checkbox.parent() : checkbox의 부모는 <td>이다.
+				// checkbox.parent().parent() : <td>의 부모이므로 <tr>이다.
+				var tr = checkbox.parent().parent().eq(i);
+				var td = tr.children();
+				let real = document.getElementById("cb").value;
+
+				//rowData.push(tr.text());
+				rowData.push(real);
+        console.log("real", real);
+
+			});
+			
+			console.log(rowData);	
+      location.href ="/consumer/outofcart";
+      //rowData= [];
+		});
+*/
   </script>

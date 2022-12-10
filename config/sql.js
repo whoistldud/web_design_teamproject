@@ -62,6 +62,7 @@ module.exports = {
     //cart
     mycartList : 'SELECT * from cart where userId=?',
     intoMycart : 'INSERT INTO cart(userId,productId,prodName) value (?,?,?)',
+    outofcart : 'delete from cart where productId=? and userId=?',
 
     //search
     search : 'select * from product where name like ? or sellerId like ?',

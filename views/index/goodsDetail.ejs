@@ -60,6 +60,7 @@
                             </button>
                           </h5>
                           <h6>구매후기</h6>
+                          
                       </div>
                       <hr />
                       <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
@@ -68,30 +69,12 @@
                           <div class="col-4 mt-2" >
                               <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
                                 onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
+
                               <button class="btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
                                onclick="buy(<%= row.id %>)">구매하기</button>
+
                                <button class="btn" id="chatbtn" style="background-color: #191B5E; color: #ffffff;"
                                onclick="location.href='/chat/enter/<%=row.id%>'">1:1 문의</button>
-
-                              <!-- Modal -->
-                              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h1 class="modal-title fs-5" id="exampleModalLabel">🛍️ 장바구니 담기 완료 ! ✨</h1>
-                                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <%= row.name %> 을 장바구니에 담았습니다!
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" onclick="not()" data-bs-dismiss="modal">쇼핑 계속하기</button>
-                                      <button type="button" onclick="gotoCart()" class="btn btn-primary">장바구니 확인</button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-
 
                           </div>
                       </div>
@@ -157,16 +140,15 @@
     <script>
       $(document).ready(function(){
 	
-	$('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
-		var tab_id = $(this).attr('data-tab');
+    $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
+      var tab_id = $(this).attr('data-tab');
 
-		$('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
-		$('.tab-content').removeClass('current');		
+      $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
+      $('.tab-content').removeClass('current');		
 
-		$(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
-		$("#" + tab_id).addClass('current');
-	})
-
+      $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
+      $("#" + tab_id).addClass('current');
+	  })
 });
 
     </script>
