@@ -9,6 +9,7 @@ module.exports = {
     userName : 'select name from user where id=?',
 
     //product
+    productAll : 'select * from product ',
     cateProduct : 'SELECT * FROM product WHERE category=?',
     productWrite : 'Insert into product(name,sellerId,category,detail,price,thumbnailimageurl,detailimageurl,fileurl) value (?,?,?,?,?,?,?,?)',
     productlisRead : 'select * from product where id=?',
@@ -20,6 +21,7 @@ module.exports = {
     productRead : 'select * from product where sellerId=?',
     productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
+    aroundprod : 'select id, name, price,thumbnailimageurl from product where sellerId=?',
 
     //QNA
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',

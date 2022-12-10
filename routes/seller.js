@@ -38,6 +38,73 @@ router.get('/product', (req,res,next) => {
   }
 });
 
+// 둘러보기 
+router.get('/lookAround', async (req,res,next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{  
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    
+    var LoginId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+    // allprod : 모든 상품 불러오기
+    const allprod = await mysql.query("productAll");
+    let array =[]; 
+    for (var i=0; i<allprod.length; i++){
+      let sellerId = allprod[i].sellerId;
+      array.push(sellerId);
+    };
+    let seller = [...new Set(array)]; // 중복 없이 모든 판매자 저장한 리스트
+    
+
+    let wprod = [];
+
+    // 특정 판매자의 판매상품 불러오기
+    for(var j=0; j<seller.length ; j++){
+
+      console.log(seller[j]);
+      // seller[j]의 상품 정보 모두 불러옴
+      const myprod = await mysql.query("aroundprod", seller[j]);
+      //console.log("seller[j]의 상품", myprod);
+      console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
+      const sellername = await mysql.query("userName", seller[j]);
+      myprod.unshift(sellername[0].name);
+      //console.log("myprod", myprod); 
+      wprod.push(myprod);
+      
+    }
+    //console.log("wprod", wprod);
+    //console.log("wprod2", wprod.tldud.prod.RowDataPacket);
+
+
+    res.render('seller/lookAround', { title: "able", loginid : LoginId, seller: seller, res: wprod });
+  }
+});
+
+// 판매자별 상품 보기
+router.get('/sellers/:id', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    
+    console.log(req.body);
+    const id = req.body;
+      // seller[j]의 상품 정보 모두 불러옴
+      const myprod = await mysql.query("aroundprod", id);
+      
+      //console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
+      const sellername = await mysql.query("userName", id);
+      myprod.unshift(sellername[0].name);
+      console.log("myprod", myprod); 
+
+    res.render("sellers", { title: id+"의 상품", res: myprod});
+  }
+});
+
+
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
       cb(null, "public/images/");

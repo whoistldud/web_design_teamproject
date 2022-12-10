@@ -171,3 +171,8 @@ ul.tabs li.current{
   border-top : solid 1px rgb(48, 48, 60);
   border-bottom : solid 0.5px rgb(48, 48, 60);
 }
+
+#LAcard {
+  
+  overflow-x : auto;
+}
