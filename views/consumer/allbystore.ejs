@@ -35,6 +35,10 @@
         function sellers(sid) {
           location.href="/consumer/storegoods/" + sid;
         }
+
+        function allproduct() {
+            location.href="/consumer/allprod";
+        }
       </script>
 
     <% include ./../layout/loginheader.ejs %>
@@ -52,10 +56,16 @@
         </div>
         <!-- js에서 넘어본 데이터들 정리 : seller: seller, res: wprod
              seller는 sellerId 모아놓은 배열, res는 sellerId+ 상품정보 담긴 배열 -->
-
-        <h6 style="font-size: 15pt; font-weight: bold;">🔎 매장별 상품 보기 </h6>
+        <div class="row mt-2 mx-2">
+            <div class="col-8 col-md-8">
+                <h6 style="font-size: 15pt; font-weight: bold;">🔎 매장별 상품 보기 </h6>
+            </div>
+            <div class="col-4 col-md-4">
+                <button type="button" style="float: right; margin-right: 10px; border-radius: 10px; color: #7a6666; background-color : #ffe2e2;"
+                        class="btn  mb-3" onclick="allproduct()">전체 상품 보기</button>
+            </div>
+                
         <% for(var i=0; i< seller.length ; i++){ %>
-        
         <div class="container mb-2 " >
             <div> <a class="on" onclick="sellers('<%= seller[i]%>')"> made by <%= res[i][0]%></a></div>
             <div class="container mt-2 mb-2 border border-top border-bottom" >
