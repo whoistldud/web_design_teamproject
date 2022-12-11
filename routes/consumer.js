@@ -500,7 +500,7 @@ router.get('/bystore', async (req, res, next) => {
       myprod.unshift(sellername[0].name);
       wprod.push(myprod);
     }
-    console.log("wprod", wprod);
+    //console.log("wprod", wprod);
       
     res.render("consumer/allbystore", { title: "able", loginid : LoginId,  seller: seller, res: wprod});
   }
@@ -512,17 +512,13 @@ router.get('/storegoods/:id', async (req, res, next) => {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     
     const id = req.params.id; // sellerID
     console.log("받은 id", id);
       // seller의 상품 정보 모두 불러옴
       const myprod = await mysql.query("aroundprod", id);
-      console.log("sellers/", myprod);
-
       const sellername = await mysql.query("userName", id);
-      console.log("sellername[0].name ", sellername[0].name);
-      console.log("myprod", myprod); 
 
     res.render("consumer/storegoods", { title: sellername[0].name+"의 상품", sellername : sellername[0].name, res: myprod});
   }
@@ -588,8 +584,7 @@ router.get('/details/:id', async function(req, res, next) {
     console.log(id);
     const result = await mysql.query("productlisRead", id);
     const result2 = await mysql.query("reviewlis", id);
-    console.log(result[0]);
-    console.log('result2!! : ',result2);
+
 
     var starSum = 0;
     var starAvg = 0.0;
@@ -608,16 +603,13 @@ router.get('/details/:id', async function(req, res, next) {
       resnameArr.push(resname);
     }
 
-    console.log(resnameArr);
+    
 
     starAvg = starSum / result2.length;
-    console.log("평점 평균 : ",starAvg);
-
+  
     const result3 = await mysql.query("userName", result[0].sellerId);
-    console.log("result3 : ",result3);
     var storeName = result3[0].name;
 
-    
     res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
   }
 });
