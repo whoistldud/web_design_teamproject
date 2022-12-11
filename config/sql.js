@@ -2,8 +2,8 @@ const { useDebugValue } = require("react");
 
 module.exports = {
     //user
-    userVertifyId : 'select id from user where id = ?',
-    userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
+    userVertifyId : `select id from user where id = ?`,
+    userJoin : 'Insert into user value (?,?,?,?,?,?,?,?)',
     userLogin : 'select * from user where id = ?',
     userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
     userName : 'select name from user where id=?',
@@ -34,6 +34,7 @@ module.exports = {
     addPoint: 'update user set point = point + ? where id = ?',
     minusPoint: 'update user set point = point - ? where id = ?',
     readPoint : 'select point from user where id=?',
+    addreviewPoint : 'update user set point = point + 2000 where id = ?',
 
     //chat
     enterRoom : 'select * from chatroom where productId = ? and (sellerId = ? or userId = ?)',

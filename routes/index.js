@@ -15,6 +15,8 @@ router.get('/', function(req, res, next) {
   if(!req.session.user) res.render('index', { title: 'able' });
   else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role == 'consumer') res.redirect('/consumer');
   else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role == 'seller') res.redirect('/seller');
+  else if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role == 'manager') res.redirect('/manager');
+
 });
 
 /* GET  page. */
@@ -45,7 +47,9 @@ router.post("/join", async (req, res) => {
   }else{
     crypto.pbkdf2(req.body.password, process.env.CRYPTO_SALT, 100000, 64, 'sha512', async (err, key) =>{
       var password = key.toString('base64');
-      var data = [req.body.id,password,req.body.name,req.body.email,req.body.phoneNum,req.body.birthday,req.body.role]; 
+      var point=1000;
+
+      var data = [req.body.id,password,req.body.name,req.body.email,req.body.phoneNum,req.body.birthday,req.body.role,point]; 
       const result = await mysql.query("userJoin", data);
     });
     res.send("<script>alert('🎈 환영합니다! 회원가입이 완료되었습니다 ✨');location.href='login';</script>");
