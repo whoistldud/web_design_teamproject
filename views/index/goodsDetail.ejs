@@ -93,6 +93,9 @@
                   <div id="tab-1" class="tab-content current">
                     <h5> 📌 상세 정보 </h5>
                     <h6><%= row.detail %></h6>
+                    <% if(row.detailimageurl != 'null'){ %>
+                    <img src="/images/<%=row.detailimageurl %>" width="500px" alt="...">
+                    <%}%>
                   </div>
                   <div id="tab-2" class="tab-content">
                   <h5> 사용자 총 평점 </h5>
