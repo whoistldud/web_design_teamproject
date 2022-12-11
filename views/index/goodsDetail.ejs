@@ -42,7 +42,7 @@
         <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > <%= row.name%> 제품 상세</h6>
+            <h6 id="navtext">HOME > <%= row.name %> 제품 상세</h6>
           </div>
             <div class="container">
               <div class="row mt-1" >
@@ -52,52 +52,55 @@
                       </div>
                   </div>
                   <div class="col-7">
-                      <h3 id="goodsName" style="font-weight: bold;"> </h3>
+                      <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
                       <div class="row mt-4">
                           <h5>made by <%= storename %>
-                            <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
+                            <button class="btn btn-sm " id="gotoShop" onclick="byStore('<%= row.sellerId %>')" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
                               <i class="bi bi-arrow-right-circle"></i>
                             </button>
                           </h5>
-                          <h6>구매후기</h6>
+                          <h6>구매후기 (<%=review.length%>)</h6>
                           
                       </div>
                       <hr />
                       <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
-                      <div class="row " style="margin-right: -20px;">
-                          <div class="col-8"></div>
-                          <div class="col-4 mt-2" >
-                              <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
+                      <div class="row ">
+                          <div class="col-6"></div>
+                          <div class="col-6 mt-2">
+                            <button class="btn" id="chatbtn" style="margin-left: 20px; background-color: #DFE7F6;"
+                              onclick="location.href='/chat/enter/<%=row.id%>'"> 1:1 문의</button>
 
-                              <button class="btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
+                            
+
+                            <button class="btn btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#exampleModal"
+                            onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
+
+                            <button class="btn" id="buybtn" style=" background-color: #191B5E; color: #ffffff;"
                                onclick="buy(<%= row.id %>)">구매하기</button>
-
-                               <button class="btn" id="chatbtn" style="background-color: #191B5E; color: #ffffff;"
-                               onclick="location.href='/chat/enter/<%=row.id%>'">1:1 문의</button>
 
                           </div>
                       </div>
-                  </div>
+                          
+                    </div>
               </div>
             </div>
-            <div class="row mt-3">
+            
+            <div class="row mt-3 mb-3">
               <div class="container">
                 <!-- 탭 메뉴 상단 시작 -->
                   <ul class="tabs" style="margin-left :20px;">
                     <li class="tab-link current" data-tab="tab-1">상세정보</li>
                     <li class="tab-link" data-tab="tab-2">리뷰</li>
-                    <li class="tab-link" data-tab="tab-3">Q&A</li>
                   </ul>
                   <!-- 탭 메뉴 내용 시작 -->
                   <div id="tab-1" class="tab-content current">
-                    <h5> 📌 상세 정보 </h5>
+                    <h5 style="font-weight:bold;"> 📌 상세 정보 </h5>
                     <h6><%= row.detail %></h6>
                   </div>
                   <div id="tab-2" class="tab-content">
                   <h5> 사용자 총 평점 </h5>
                   <% if (isNaN(staravg)) { %>
-                    <h4 style="font-weight:900;">아직 작성된 리뷰가 없습니다.</h4>
+                    <h5 style="font-weight:900;">아직 작성된 리뷰가 없습니다.</h5>
                   <%}%>
                   <% if (!isNaN(staravg)) { %>
                     <h2 style="font-weight:900;"><%=staravg%></h2>
@@ -120,13 +123,9 @@
                     <p style="font-weight: 700;"><%=review[i].star%></p>
                     <p style="float: left;margin-right: 10px;"><%=userName[i]%></p>
                     <p ><%=review[i].date%></p>
-                    <h5><%=review[i].content%></h5>
+                    <h6><%=review[i].content%></h6>
                     
                   <%}%>
-                  <div id="tab-3" class="tab-content">
-                  <h1>  탭 메뉴 3 내용입니다.  </h1>
-                <p>대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다. 국군의 조직과 편성은 법률로 정한다. 타인의 범죄행위로 인하여 생명·신체에 대한 피해를 받은 국민은 법률이 정하는 바에 의하여 국가로부터 구조를 받을 수 있다. 모든 국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.</p>
-                  </div>
                 <!-- 탭 메뉴 내용 끝 -->
                 </div>
               
@@ -169,5 +168,8 @@
   }
   function not() {
     location.reload();
+  }
+  function byStore(sid) {
+    location.href="/consumer/storegoods/"+ sid;
   }
 </script>

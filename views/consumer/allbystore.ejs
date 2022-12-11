@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
+      무엇이든 클릭하면 회원가입으로 넘어가도록!-->
+
+      <script>
+        function goDetails(id) {
+      location.href="/consumer/details/" + id;
+    }
+        function sellers(sid) {
+          location.href="/consumer/storegoods/" + sid;
+        }
+      </script>
+
+    <% include ./../layout/loginheader.ejs %>
+    <% include ./../layout/category.ejs %>
+    
+    <!-- 안에 들어가는 내용의 height이 500px 미만이면 아래 <div class="row" 옆에 style="height: 500px" 이렇게 설정-->
+    <div class="row" >
+      <div class="col-2" >
+        <% include ./../layout/menubar.ejs %>
+      </div>
+      <div class="col-10" >    
+        <!-- 내용 들어갈 자리 !!! -->
+        <div class="row">
+            <h6 id="navtext">HOME > able의 모든 상품 > 매장별 상품 보기</h6>
+        </div>
+        <!-- js에서 넘어본 데이터들 정리 : seller: seller, res: wprod
+             seller는 sellerId 모아놓은 배열, res는 sellerId+ 상품정보 담긴 배열 -->
+
+        <h6 style="font-size: 15pt; font-weight: bold;">🔎 매장별 상품 보기 </h6>
+        <% for(var i=0; i< seller.length ; i++){ %>
+        
+        <div class="container mb-2 " >
+            <div> <a class="on" onclick="sellers('<%= seller[i]%>')"> made by <%= res[i][0]%></a></div>
+            <div class="container mt-2 mb-2 border border-top border-bottom" >
+            <div class="container px-2" style="border-radius: 15px;">
+                <div  id="LAcard" class="row row-cols-2 row-cols-md-4 g-5 mt-0" style="height:300px;">
+                  <% for (var j=1; j< res[i].length; j++) { %>
+                          <div class="col">
+                              <div class="card h-100" onclick="goDetails(<%=res[i][j].id%>)" style="margin-top : -15px; border-color: #ffe2e2; background-color: #F9F6F6">
+                                  <img src="/images/<%=res[i][j].thumbnailimageurl %>" class="card-img-top" alt="...">
+                                  <div class="card-body">
+                                      <h6 class="card-title"  style="font-weight: bold;"><%=res[i][j].name%></h6>
+                                      <h6 class="card-title"><%= res[i][j].price %>원</h6>
+                                  </div>
+                              </div>
+                          </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+            </div>
+        <% } %>
+      
+    </div>
+  </div>
+
+
+</body>
+  <% include ./../layout/footer.ejs %>
+</html>

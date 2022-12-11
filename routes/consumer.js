@@ -458,12 +458,80 @@ router.post('/addPoint', async (req, res, next) => {
   }
 });
 
-// 카테고리 연결 router를 하나로 할 수 있다면..
-/*
-router.get('category/:category'), async (req, res, next) => {
-  const result = await mysql.query("cateProduct", )
-}
-*/
+// 모든 상품
+router.get('/allprod', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    const result = await mysql.query("productAll");
+    res.render("consumer/allproduct", { title: "able", res: result});
+  }
+});
+
+// 매장별 모든 상품
+router.get('/bystore', async (req,res,next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{  
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    
+    var LoginId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+    // allprod : 모든 상품 불러오기
+    const allprod = await mysql.query("productAll");
+    let array =[]; 
+    for (var i=0; i<allprod.length; i++){
+      let sellerId = allprod[i].sellerId;
+      array.push(sellerId);
+    };
+    let seller = [...new Set(array)]; // 중복 없이 모든 판매자 저장한 리스트
+    
+
+    let wprod = [];
+
+    // 특정 판매자의 판매상품 불러오기
+    for(var j=0; j<seller.length ; j++){
+
+      console.log(seller[j]);
+      // seller[j]의 상품 정보 모두 불러옴
+      const myprod = await mysql.query("aroundprod", seller[j]);
+
+      console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
+      const sellername = await mysql.query("userName", seller[j]);
+      myprod.unshift(sellername[0].name);
+ 
+      wprod.push(myprod);
+      
+    }
+
+    res.render('consumer/allbystore', { title: "able", loginid : LoginId, seller: seller, res: wprod });
+  }
+});
+
+// 특정 매장의 상품만 보기
+router.get('/storegoods/:id', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    
+    const id = req.params.id; // sellerID
+    console.log("받은 id", id);
+      // seller의 상품 정보 모두 불러옴
+      const myprod = await mysql.query("aroundprod", id);
+      console.log("sellers/", myprod);
+
+      const sellername = await mysql.query("userName", id);
+      console.log("sellername[0].name ", sellername[0].name);
+      console.log("myprod", myprod); 
+
+    res.render("consumer/storegoods", { title: sellername[0].name+"의 상품", sellername : sellername[0].name, res: myprod});
+  }
+});
 
 // 다이어리 상품
 router.get('/diary', async (req, res, next) => {

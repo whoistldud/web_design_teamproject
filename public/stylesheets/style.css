@@ -93,7 +93,7 @@ ul.tabs{
 
 ul.tabs li{
   display: inline-block;
-  width: 33.5%;
+  width: 50%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 	background: #f0d8d8;
@@ -160,10 +160,13 @@ ul.tabs li.current{
 }
 
 .tab-content{
-  width: 96.55%;
+  width: 97.23%;
   display: none;
 	background: #ffefef;
 	padding: 15px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
 }
 
 .tab-content.current{
