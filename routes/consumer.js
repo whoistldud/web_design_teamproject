@@ -463,20 +463,6 @@ router.get('/allprod', async (req, res, next) => {
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     const result = await mysql.query("productAll");
-<<<<<<< HEAD
-    res.render("consumer/allproduct", { title: "able", res: result});
-  }
-});
-
-// 매장별 모든 상품
-router.get('/bystore', async (req,res,next) => {
-  if(req.session.user == undefined)  {
-    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
-  }
-  else{  
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
-    
-=======
 
     res.render("consumer/allproduct", { title: "able의 모든 상품", res: result});
   }
@@ -489,7 +475,6 @@ router.get('/bystore', async (req, res, next) => {
   }
   else{
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
->>>>>>> tldud
     var LoginId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
     // allprod : 모든 상품 불러오기
@@ -511,21 +496,6 @@ router.get('/bystore', async (req, res, next) => {
       // seller[j]의 상품 정보 모두 불러옴
       const myprod = await mysql.query("aroundprod", seller[j]);
 
-<<<<<<< HEAD
-      console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
-      const sellername = await mysql.query("userName", seller[j]);
-      myprod.unshift(sellername[0].name);
- 
-      wprod.push(myprod);
-      
-    }
-
-    res.render('consumer/allbystore', { title: "able", loginid : LoginId, seller: seller, res: wprod });
-  }
-});
-
-// 특정 매장의 상품만 보기
-=======
       const sellername = await mysql.query("userName", seller[j]);
       myprod.unshift(sellername[0].name);
       wprod.push(myprod);
@@ -537,7 +507,6 @@ router.get('/bystore', async (req, res, next) => {
 });
 
 // 판매자별 상품 보기
->>>>>>> tldud
 router.get('/storegoods/:id', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
@@ -549,23 +518,11 @@ router.get('/storegoods/:id', async (req, res, next) => {
     console.log("받은 id", id);
       // seller의 상품 정보 모두 불러옴
       const myprod = await mysql.query("aroundprod", id);
-<<<<<<< HEAD
-      console.log("sellers/", myprod);
-
       const sellername = await mysql.query("userName", id);
-      console.log("sellername[0].name ", sellername[0].name);
-      console.log("myprod", myprod); 
-=======
-      const sellername = await mysql.query("userName", id);
->>>>>>> tldud
 
     res.render("consumer/storegoods", { title: sellername[0].name+"의 상품", sellername : sellername[0].name, res: myprod});
   }
 });
-<<<<<<< HEAD
-=======
-
->>>>>>> tldud
 
 // 다이어리 상품
 router.get('/diary', async (req, res, next) => {
