@@ -482,7 +482,7 @@ router.get('/mypage', async (req, res, next) => {
     console.log("sellerID :", sellerID);
     const result = await mysql.query("userLogin", sellerID);
     console.log("result : ", result);
-    res.render('seller/mypage', { title: 'able', info: result });
+    res.render('seller/pageShopinfo', { title: 'able', info: result });
   }
 });
 
