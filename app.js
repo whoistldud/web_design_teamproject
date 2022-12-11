@@ -11,6 +11,7 @@ var consumerRouter = require('./routes/consumer');
 var sellerRouter = require('./routes/seller');
 var chatRouter = require('./routes/chat');
 var drawRouter = require('./routes/draw');
+var managerRouter = require('./routes/manager');
 
 
 var app = express();
@@ -37,6 +38,7 @@ app.use('/consumer',consumerRouter);
 app.use('/seller',sellerRouter);
 app.use('/chat',chatRouter);
 app.use('/draw',drawRouter);
+app.use('/manager',managerRouter);
 
 
 // catch 404 and forward to error handler

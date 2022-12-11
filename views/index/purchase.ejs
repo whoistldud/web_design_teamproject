@@ -178,7 +178,15 @@ function addPoint(){
                 }
         }
         else {
-          alert("구매 불가.", location.href='/consumer/addpoint');
+          if(confirm("포인트가 부족합니다. 포인트를 충전하시겠습니까?") == true){
+            location.href='/consumer/addpoint';
+            return false;
+          }
+          else {
+            location.reload();
+            return false;
+          }
+           
         }
 
         

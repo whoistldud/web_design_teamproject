@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet"
+    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+    crossorigin="anonymous">
+
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+
+
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% include ./../layout/managerloginheader.ejs %>
+
+    <div>
+      <div class="row" >
+        <div class="col-2" >
+          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
+
+        </div>
+        <div class="col-10" >
+          <!-- 내용 들어갈 자리 !!! -->
+          <div class="container">
+              <div class="input-form-backgroud row">
+                <div class="input-form col-md-12 mx-auto">
+                  <h4 class="mb-3">Q&A</h4>
+                  <form class="validation-form"  id = "qnaList" action="qnaList" method = "post" >
+                    <div id="main">
+                      <table id="myQNAlist" width="500px">
+                        <tbody>
+                          <tr>  
+                            <th>번호</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                            <th>작성자</th>
+                            </tr>
+                        <% for(var i=0; i < row.length; i++) {  
+                          %>
+                          <tr>
+                            <td><p alt="번호"><%= row[i].id %></p></td>
+                            <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
+                              🔒
+                            <%}%> <%= row[i].title %></p>  
+                            </td>
+                            <td><p alt="작성일"><%= row[i].date %></p></td>
+                            <td><p alt="작성자"><%= row[i].name %></p></td>
+                          </tr>
+                          <% } %>
+                        </tbody>
+                      </table>
+
+                      
+                  </div>
+                </form>
+                </div>
+              </div></div>
+            </div>
+
+  </body>
+</html>
+</body>
+<% include ./../layout/footer.ejs %>
+</html>
+
+<script>
+  
+  function readQna(id, lock, pw){
+      location.href = "/manager/qna/read/" +id;
+    }
+    
+
+
+</script>
