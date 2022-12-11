@@ -36,13 +36,12 @@
     <div>
       <div class="row">
         <div class="col-2" >
-          <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/menubar.ejs %>
+          <% include ./../layout/sellermenubar.ejs %>
         </div>
         <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > <%= row.name%> 제품 상세</h6>
+            <h6 id="navtext">HOME > 둘러보기 > <%= storename %>의 상품 > <%= row.name%> 제품 상세</h6>
           </div>
             <div class="container">
               <div class="row mt-1" >
@@ -52,32 +51,15 @@
                       </div>
                   </div>
                   <div class="col-7">
-                      <h3 id="goodsName" style="font-weight: bold;"> </h3>
+                      <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
                       <div class="row mt-4">
-                          <h5>made by <%= storename %>
-                            <button class="btn btn-sm " id="gotoShop" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
-                              <i class="bi bi-arrow-right-circle"></i>
-                            </button>
-                          </h5>
+                          <h5>made by <%= storename %></h5>
                           <h6>구매후기</h6>
                           
                       </div>
                       <hr />
                       <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
-                      <div class="row " style="margin-right: -20px;">
-                          <div class="col-8"></div>
-                          <div class="col-4 mt-2" >
-                              <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                onclick="intoMycart(<%= row.id %>)" id="cartbtn">장바구니</button>
-
-                              <button class="btn" id="buybtn" style="background-color: #191B5E; color: #ffffff;"
-                               onclick="buy(<%= row.id %>)">구매하기</button>
-
-                               <button class="btn" id="chatbtn" style="background-color: #191B5E; color: #ffffff;"
-                               onclick="location.href='/chat/enter/<%=row.id%>'">1:1 문의</button>
-
-                          </div>
-                      </div>
+                      
                   </div>
               </div>
             </div>
@@ -155,19 +137,3 @@
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
-
-<script>
-  function buy(id){
-    location.href="/consumer/buy/" + id;
-  }
-
-  function intoMycart(id){
-    location.href="/consumer/mycart/" + id;
-  }
-  function gotoCart() {
-    location.href="/consumer/mycartlist";
-  }
-  function not() {
-    location.reload();
-  }
-</script>

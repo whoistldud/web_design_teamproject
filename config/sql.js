@@ -2,7 +2,7 @@ const { useDebugValue } = require("react");
 
 module.exports = {
     //user
-    userVertifyId : `select id from user where id = ?`,
+    userVertifyId : 'select id from user where id = ?',
     userJoin : 'Insert into user value (?,?,?,?,?,?,?)',
     userLogin : 'select * from user where id = ?',
     userUpdate : 'UPDATE user SET name=?, email=?, phonenum=? WHERE id=?',
@@ -21,7 +21,7 @@ module.exports = {
     productRead : 'select * from product where sellerId=?',
     productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
-    aroundprod : 'select id, name, price,thumbnailimageurl from product where sellerId=?',
+    aroundprod : 'select id,sellerId,name,price,thumbnailimageurl from product where sellerId=?',
 
     //QNA
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',

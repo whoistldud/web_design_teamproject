@@ -28,7 +28,14 @@
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
 
-      
+      <script>
+        function goDetails(id) {
+      location.href="/seller/lookAsellers/details/" + id;
+    }
+        function sellers(sid) {
+          location.href="/seller/lookAsellers/" + sid;
+        }
+      </script>
 
     <% include ./../layout/sellerloginheader.ejs %>
     <% include ./../layout/sellercategory.ejs %>
@@ -45,29 +52,36 @@
         </div>
         <!-- js에서 넘어본 데이터들 정리 : seller: seller, res: wprod
              seller는 sellerId 모아놓은 배열, res는 sellerId+ 상품정보 담긴 배열 -->
+
+        <h6 style="font-size: 15pt; font-weight: bold;">🔎 다른 제작자의 상품을 한눈에 둘러보기 !</h6>
         <% for(var i=0; i< seller.length ; i++){ %>
         <% if (seller[i] == loginid) { %>
           <% break; %>
           <% } else { %>
         
-        <div  class="row mb-2" >
-            <p class="h6 mt-4" onclick="sellers(<%= seller[i]%>)" style=" font-weight: bold;">made by <%= res[i][0]%></p>
-            <div  id="LAcard" class="row row-cols-2 row-cols-md-4 g-5 mt-0" style="height:320px;">
-                <% for (var j=1; j< res[i].length; j++) { %>
-                        <div class="col">
-                            <div class="card h-100" onclick="goDetails(<%=res[i][j].id%>)" style="border-color: #ffe2e2; background-color: #F9F6F6">
-                                <img src="/images/<%=res[i][j].thumbnailimageurl %>" class="card-img-top" alt="...">
-                                <div class="card-body">
-                                    <h6 class="card-title"  style="font-weight: bold;"><%=res[i][j].name%></h6>
-                                    <h6 class="card-title"><%= res[i][j].price %></h6>
-                                </div>
-                            </div>
-                        </div>
-                <% } %>
-        </div>
+        <div class="container mb-2 " >
+            <div> <a class="on" onclick="sellers('<%= seller[i]%>')"> made by <%= res[i][0]%></a></div>
+            <div class="container mt-2 mb-2 border border-top border-bottom" >
+            <div class="container px-2" style="border-radius: 15px;">
+                <div  id="LAcard" class="row row-cols-2 row-cols-md-4 g-5 mt-0" style="height:300px;">
+                  <% for (var j=1; j< res[i].length; j++) { %>
+                          <div class="col">
+                              <div class="card h-100" onclick="goDetails(<%=res[i][j].id%>)" style="margin-top : -15px; border-color: #ffe2e2; background-color: #F9F6F6">
+                                  <img src="/images/<%=res[i][j].thumbnailimageurl %>" class="card-img-top" alt="...">
+                                  <div class="card-body">
+                                      <h6 class="card-title"  style="font-weight: bold;"><%=res[i][j].name%></h6>
+                                      <h6 class="card-title"><%= res[i][j].price %></h6>
+                                  </div>
+                              </div>
+                          </div>
+                  <% } %>
+              </div>
+            </div>
+          </div>
+            </div>
         <% } %>
         <% } %>
-      </div>
+      
     </div>
   </div>
 
@@ -75,13 +89,3 @@
 </body>
   <% include ./../layout/footer.ejs %>
 </html>
-<script>
-        /*function goDetails() {
-          // 상세정보 
-          location.href="seller/product"
-        }*/
-      
-        function sellers(sid) {
-          location.href="seller/sellers/" + sid;
-        }
-      </script>

@@ -14,15 +14,42 @@ require('dotenv').config({
 });
 
 
-router.get('/', function(req, res, next) {
+router.get('/', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
-    var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    var LoginId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
-    res.render('seller/home', { title: '상품 등록', seller:sellerId });
+    // allprod : 모든 상품 불러오기
+    const allprod = await mysql.query("productAll");
+    let array =[]; 
+    for (var i=0; i<allprod.length; i++){
+      let sellerId = allprod[i].sellerId;
+      array.push(sellerId);
+    };
+    let seller = [...new Set(array)]; // 중복 없이 모든 판매자 저장한 리스트
+    
+
+    let wprod = [];
+
+    // 특정 판매자의 판매상품 불러오기
+    for(var j=0; j<seller.length ; j++){
+
+      console.log(seller[j]);
+      // seller[j]의 상품 정보 모두 불러옴
+      const myprod = await mysql.query("aroundprod", seller[j]);
+
+      console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
+      const sellername = await mysql.query("userName", seller[j]);
+      myprod.unshift(sellername[0].name);
+ 
+      wprod.push(myprod);
+      
+    }
+
+    res.render('seller/home', { title: 'HOME for seller', loginid : LoginId, seller: seller, res: wprod});
   }
 
 });
@@ -66,16 +93,15 @@ router.get('/lookAround', async (req,res,next) => {
       console.log(seller[j]);
       // seller[j]의 상품 정보 모두 불러옴
       const myprod = await mysql.query("aroundprod", seller[j]);
-      //console.log("seller[j]의 상품", myprod);
+
       console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
       const sellername = await mysql.query("userName", seller[j]);
       myprod.unshift(sellername[0].name);
-      //console.log("myprod", myprod); 
+ 
       wprod.push(myprod);
       
     }
-    //console.log("wprod", wprod);
-    //console.log("wprod2", wprod.tldud.prod.RowDataPacket);
+    //console.log("seller is ", seller);
 
 
     res.render('seller/lookAround', { title: "able", loginid : LoginId, seller: seller, res: wprod });
@@ -83,27 +109,68 @@ router.get('/lookAround', async (req,res,next) => {
 });
 
 // 판매자별 상품 보기
-router.get('/sellers/:id', async (req, res, next) => {
+router.get('/lookAsellers/:id', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
     
-    console.log(req.body);
-    const id = req.body;
-      // seller[j]의 상품 정보 모두 불러옴
+    const id = req.params.id; // sellerID
+    console.log("받은 id", id);
+      // seller의 상품 정보 모두 불러옴
       const myprod = await mysql.query("aroundprod", id);
-      
-      //console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
+      console.log("sellers/", myprod);
+
       const sellername = await mysql.query("userName", id);
-      myprod.unshift(sellername[0].name);
+      console.log("sellername[0].name ", sellername[0].name);
       console.log("myprod", myprod); 
 
-    res.render("sellers", { title: id+"의 상품", res: myprod});
+    res.render("seller/lookAsellers", { title: sellername[0].name+"의 상품", sellername : sellername[0].name, res: myprod});
   }
 });
 
+// 판매자별 상품 보기 > 제품 상세
+router.get('/lookAsellers/details/:id', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    
+    const id = req.params.id; // productID
+    console.log("받은 id", id);
+
+    const result = await mysql.query("productlisRead", id);
+    const result2 = await mysql.query("reviewlis", id);
+
+    var starSum = 0;
+    var starAvg = 0.0;
+    var namelock = '';
+    var resname = '';
+    var tnum = 0;
+    var resnameArr = [];
+    var tost = '';
+
+    for (let i=0; i<result2.length; i++){
+      starSum += result2[i].star;
+      tnum = result2[i].userId.length;
+      namelock = result2[i].userId.substr(2);
+      tost = '*'.repeat(namelock.length);
+      resname = result2[i].userId.replace(namelock, tost);
+      resnameArr.push(resname);
+    }
+
+    starAvg = starSum / result2.length;
+    console.log("평점 평균 : ",starAvg);
+
+    const result3 = await mysql.query("userName", result[0].sellerId);
+    var storeName = result3[0].name;
+
+    
+    res.render("index/lookAgoods", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
+  }
+});
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
@@ -160,8 +227,6 @@ router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount
     const id = req.params.id;
     var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
-    console.log("흠", req.files.thumbnailimageurl);
-    console.log("흠", req.files['thumbnailimageurl'][0]);
     if (req.files.length == 3){
       var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
         req.files['thumbnailimageurl'][0].filename,req.files['detailimageurl'][0].filename,req.files['fileurl'][0].filename]; 
@@ -171,7 +236,7 @@ router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount
         req.files['thumbnailimageurl'][0].filename,'null',req.files['fileurl'][0].filename]; 
     }
     
-    console.log(data);
+    //console.log(data);
     const result = await mysql.query("productWrite", data);
     res.send("<script>alert('상품등록완료.');location.href='/seller/productlist';</script>"); 
   }
@@ -187,7 +252,6 @@ router.get('/productlist', async (req,res,next) => {
     var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
     const result = await mysql.query("productRead", sellerId);
     categoryToch(result);
-    // console.log(result[1]);
 
     res.render('seller/pageProductsList', { title: "등록 상품 목록", row: result});
   }
@@ -228,8 +292,7 @@ router.post('/product/edit/done/:id', upload.fields([{name:"newthumbnailimageurl
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
   const id = req.params.id;
-  console.log("모야1",Object.keys(req.files));
-  console.log("모야2",req.files[Object.keys(req.files)[0]]);
+
   const temp = await mysql.query("readImage", id);
   
   console.log("temp",temp[0].thumbnailimageurl);
@@ -286,7 +349,7 @@ router.post('/product/edit/done/:id', upload.fields([{name:"newthumbnailimageurl
     var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.newdetail,
     temp[0].detailimageurl,req.body.newprice, id]; 
   }
-    console.log("상품 수정 data : ", data);
+    //console.log("상품 수정 data : ", data);
     await mysql.query("productUpdate", data); //수정
     const result = await mysql.query("readImage", id);
     console.log("수정 결과 : ", result[0]);
@@ -304,10 +367,9 @@ router.get("/product/delete/:id", async (req,res,next) => {
     const id = req.params.id;
     console.log(' 아디',id);
     const result = await mysql.query("productDelete", id);
-    // console.log(result);
-    // res.render('/')
+
     res.send("<script>alert('상품 삭제 완료.');location.href='/seller/productlist';</script>"); 
-  // res.redirect('/')
+
   }
 });
 
@@ -323,7 +385,7 @@ router.get('/qna', async(req,res,next) => {
     const result = await mysql.query("qnaListRead");
     res.render('seller/qnaList', { title: 'able', row:result, loginId:sellerId});
     console.log('loginId', sellerId);
-  // console.log("qna",result[0]);
+
   }
 });
 var today = new Date();
