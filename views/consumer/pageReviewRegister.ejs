@@ -71,6 +71,7 @@
           <div class="row">
             <h6 id="navtext">HOME > 마이페이지 > 구매내역 > 리뷰쓰기</h6>
             <form name="myform" id="myform" method="post" action="/consumer/reviewrite/<%=row.id%>">
+              <h4><%=row.productName%></h4>
                 <h5 class="mt-3">상품은 만족하셨나요?</h5>
                 <fieldset name="star" >
                     <input type="radio" name="star" value="5" id="rate1" ><label for="rate1">⭐</label>

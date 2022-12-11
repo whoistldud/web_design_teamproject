@@ -307,6 +307,9 @@ router.post('/reviewrite/:id', async (req,res,next) => {
 
     var data = [consumerID,productId, req.body.content, req.body.star, dateString,id];
     await mysql.query("reiviewWrite", data);
+
+    await mysql.query("addreviewPoint",consumerID);
+
     res.redirect('/consumer/myorder');
   }
 });

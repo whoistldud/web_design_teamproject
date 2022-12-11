@@ -34,6 +34,7 @@ module.exports = {
     addPoint: 'update user set point = point + ? where id = ?',
     minusPoint: 'update user set point = point - ? where id = ?',
     readPoint : 'select point from user where id=?',
+    addreviewPoint : 'update user set point = point + 2000 where id = ?',
 
     //chat
     enterRoom : 'select * from chatroom where productId = ? and (sellerId = ? or userId = ?)',
