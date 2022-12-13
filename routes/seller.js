@@ -203,18 +203,6 @@ function categoryToch(result) {
 }
 
 
-
-router.get('/shopqna', function(req, res, next) {
-  if(req.session.user == undefined)  {
-    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
-  }
-  else{  
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
-     res.render('seller/pageShopqna', { title: 'able' });
-  }
-});
-
-
 /* 상품 등록 */
 
 router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount:1}, {name:"detailimageurl", maxCount:1}, {name:"fileurl", maxCount:1}]), async(req, res, next) => {

@@ -121,7 +121,9 @@ ul.tabs li{
 	flex-direction: column-reverse;
 	width: 550px;
 	height: 380px;
-	border: 2px solid #777777;
+  background-color: #ffefef;
+	border: 2px dashed #c77575;
+  border-radius: 5px;
 	overflow: auto;
 	position: center;
 	text-align: center;
@@ -142,16 +144,22 @@ ul.tabs li{
 
 .message-me{
 	float : right;
-	background-color : beige;
-	width: 50%;
-	text-align: left;
+	background-color : rgb(251, 239, 189);
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+	width: auto;
+	text-align: right;
+  padding : 2px;
 }
 
 .message{
 	float : left;
-	background-color : aliceblue;
-	width: 50%;
+	background-color : rgb(248, 187, 176);
+	width: auto;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 	text-align: left;
+  padding : 2px;
 }
 ul.tabs li.current{
   border-top-right-radius: 5px;
@@ -228,4 +236,11 @@ ul.tabs li.current{
 #madeby {
   position:absolute;
      z-index:1;
+}
+
+nav a:hover:not(.active) {
+  background-color: #7d95c3;
+  color: #191B5E;
+  font-weight: bold;
+  border-radius: 5px;
 }

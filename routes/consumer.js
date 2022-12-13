@@ -335,15 +335,6 @@ router.get("/review/delete/:id", async (req,res,next) => {
   res.send("<script>alert('리뷰삭제완료.');location.href='/consumer/myorder';</script>"); 
 });
 
-router.get('/myqna', async (req, res, next) => {
-  if(req.session.user == undefined)  {
-    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
-  }
-  else{
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');  
-    res.render('consumer/pagemyqna', { title: 'able' });
-  }
-});
 
 /* 리뷰 */
 router.get('/reviewRead', async (req, res, next) => {
