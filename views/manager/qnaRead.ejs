@@ -58,9 +58,41 @@
                     
                 </tbody>
               </table>
+             
+              <section class="mb-5">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <!-- Comment form-->
+                        <form class="validation-form mb-4"  id = "commentregister" action="/manager/qna/comment/<%=row.id %>" method = "post" >
+                          <textarea class="form-control" id="comment" name="comment" rows="3" placeholder="댓글을 입력하세요."></textarea>
+                          <br/>
+                          <button type="submit" class="btn btn-primary mb-3" style="float:right; color: #ffffff; background-color : #191B5E;">입력</button></form>
+                        
+                        <div class="d-flex mb-4">
+                            <div class="col">
+                              <% if(commentlist.length > 0 ){ %>
+                              <% for(let i=0;i<commentlist.length; i++) {%>
+                                <div class="mb-3 col">
 
+                                  <i class="bi bi-person-circle" style="float: left;"></i><div class="fw-bold">
+                                    관리자</div>
+                                    <div class="row-10"><p><%=commentlist[i].content%></p>
+                                  </div>
+                                    <hr/>
+
+                                <%}%>
+                                <%}%>
+                              </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+            </section>
+                </a>
+              </div>
           </div>
         </div>
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
+

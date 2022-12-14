@@ -35,7 +35,7 @@
     <% include ./../layout/sellercategory.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellerpgmenubar.ejs %>
@@ -67,8 +67,30 @@
                     
                 </tbody>
               </table>
+              <% if (loginId == row.userId) { %>
               <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="deleteQnA()">삭제</button>
-
+              <%}%>
+              </br></br></br>
+              <% if(commentlist.length > 0 ){ %>
+              <section class="mb-5">
+                <div class="card bg-light">
+                  <div class="card-body">
+                    <div class="d-flex mb-4">
+                      <div class="col">
+                        <% for(let i=0;i<commentlist.length; i++) {%>
+                          <div class="mb-3 col">
+                            <i class="bi bi-person-circle" style="float: left;"></i><div class="fw-bold">
+                              관리자</div>
+                              <div class="row-10"><p><%=commentlist[i].content%></p>
+                              </div>
+                              <hr/>
+                               <%}%>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                </section>
+                <%}%>
           </div>
         </div></div>
   </body>

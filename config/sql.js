@@ -22,6 +22,7 @@ module.exports = {
     productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
     aroundprod : 'select id,sellerId,name,price,thumbnailimageurl from product where sellerId=?',
+    productAll : "select * from product where state = 'y' ",
 
     //QNA
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',
@@ -29,6 +30,8 @@ module.exports = {
     qnaDetRead : 'select * from qnaboard where id=? ',
     myqnaRead : 'select * from qnaboard where userId=?',
     qnaDelete: 'delete from qnaboard where id=?',
+    writeComment : 'Insert into comment(qnaId,content) value (?,?)',
+    readComment : 'select * from comment where qnaId=? ',
 
     //Point
     addPoint: 'update user set point = point + ? where id = ?',
@@ -68,7 +71,7 @@ module.exports = {
     //cart
     mycartList : 'SELECT * from cart where userId=?',
     intoMycart : 'INSERT INTO cart(userId,productId,prodName) value (?,?,?)',
-    outofcart : 'delete from cart where productId=? and userId=?',
+    outofcart : 'delete from cart where id=? and userId=?',
 
     //search
     search : 'select * from product where name like ? or sellerId like ?',

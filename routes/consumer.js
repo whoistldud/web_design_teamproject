@@ -37,6 +37,22 @@ router.get('/mycartlist', async (req, res, next) => {
   }
 });
 
+router.get("/mycartlist/delete/:id", async (req,res,next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const id = req.params.id;
+    const result = await mysql.query("outofcart", [id,consumerID]);
+    console.log(id,consumerID);
+    console.log("삭제할 장바구니 항목 : ",result)
+    res.send("<script>alert('삭제되었습니다.');location.href= '/consumer/mycartlist';</script>");
+  }
+});
+
+
 // 장바구니 상품 상세 (상세페이지로 연결)
 router.get('/mycartlist/:id', async (req, res, next) => {
   if(req.session.user == undefined)  {
@@ -398,31 +414,44 @@ var today = new Date();
 
 
 router.get('/qna/read/:id', async (req,res,next) => {
-  if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
   const id = req.params.id;
   const result = await mysql.query("qnaDetRead", id);
-  res.render('consumer/qnaRead', { title: "문의 조회", row: result[0] });
+  const consumerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+  const loginuser = await mysql.query("userLogin", consumerId);
+  const comment = await mysql.query("readComment", id);
+
+  console.log("loginuser : ",loginuser);
+
+  res.render('consumer/qnaRead', { title: "문의 조회", row: result[0], loginId : loginuser[0].id, commentlist : comment});
   console.log(result[0]);
+  }
 });
 
 router.get("/qna/delete/:id", async (req,res,next) => {
-  if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
   const id = req.params.id;
   const result = await mysql.query("qnaDelete", id);
   res.send("<script>alert('질문삭제완료.');location.href='/consumer/myqnaList';</script>"); 
+  }
 });
 
 router.get('/myqnalist', async (req,res,next) => {
-  if(!req.session.user) res.redirect('/');
-  if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
-
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("myqnaRead", userId);
 
   res.render('consumer/myqnaList', { title: "내 qna 목록", row: result});
-  
+  }
 });
 
 

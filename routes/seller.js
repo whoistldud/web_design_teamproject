@@ -398,8 +398,13 @@ router.get('/qna/read/:id', async (req,res,next) => {
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
     const id = req.params.id;
+    const consumerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const loginuser = await mysql.query("userLogin", consumerId);
+    const comment = await mysql.query("readComment", id);
+    console.log("loginuser : ",loginuser);
+
     const result = await mysql.query("qnaDetRead", id);
-    res.render('seller/qnaRead', { title: "문의 조회", row: result[0] });
+    res.render('seller/qnaRead', { title: "문의 조회", row: result[0], loginId : loginuser[0].id, commentlist : comment});
     console.log(result[0]);
   }
 });

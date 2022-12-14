@@ -34,9 +34,23 @@ router.get('/qna/read/:id', async (req,res,next) => {
     else{ 
     const id = req.params.id;
     const result = await mysql.query("qnaDetRead", id);
-    res.render('manager/qnaRead', { title: "문의 조회", row: result[0] });
+    const comment = await mysql.query("readComment", id);
+    res.render('manager/qnaRead', { title: "문의 조회", row: result[0], commentlist : comment});
     console.log(result[0]);
+    console.log("댓글",comment);
     }
   });
-
+router.post('/qna/comment/:id', async (req,res,next) => {
+  if(req.session.user == undefined)  {
+      res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+    }
+  else{ 
+    const qnaid = req.params.id;
+    console.log("뭐가",req.body);
+    console.log("뭐가",req.params);
+    data = [qnaid, req.body.comment]
+    const result = await mysql.query("writeComment", data);
+    res.redirect("/manager/qna/read/" + qnaid); 
+  }
+});
 module.exports = router;
