@@ -1,26 +1,20 @@
 <!-- 홈 화면 이외의 창에서 항상 있을 메뉴바 -->
 <link rel='stylesheet' href='/stylesheets/style.css' />
 
-<div class="container" id ="menubar" style="background-color: #f0d8d8; ">
-  <div class="container mx-3 mt-3 mb-5">
-      <div>
-        <br/>
-        <br/>
-        <p id="home" onclick="gohome()">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-          <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
-          </svg> HOME
-        </p>
-        <br/>
-        <p class=h6 id="product" onclick="product()">상품 등록</p> <br/>
-        <p class=h6 id="mygoods" onclick="mygoods()">상품 조회</p><br/>
-        <p class=h6 href="/seller/worklist">상품 제작</p><br/>
-        <p class=h6 id="lookaround"  onclick="lookA()" >둘러보기</p><br/>
-        <p class=h6 id="qna" onclick="qna()">Q&A</p><br/>
-
-    </div>
+<div id ="menubar">
+  <ul class="meb">
+  </br>
+    <li><a class="h6" id="diary" href="/">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
+      </svg> Home</a></li>
+    <li><a class="h6" id="product" onclick="product()">상품 등록</a></li>
+    <li><a class="h6" id="mygoods" onclick="mygoods()">상품 조회</a></li>
+    <li><a class="h6" href="/seller/worklist">상품 제작</a></li>
+    <li><a class="h6" id="lookaround"  onclick="lookA()" >둘러보기</a></li>
+    <li><a class="h6" id="qna" onclick="qna()">Q&A</a></li>
+  </ul>
   </div>
-</div>
 
 <script>
   function gohome() {

@@ -48,7 +48,7 @@
 
             <div class="col" style = "float:left" >
             <div>
-            브러쉬 크기<input id="input" type="number" min="0" max="100" value="1"></input>
+            브러쉬 크기 <input id="input" type="number" min="0" max="100" value="1"></input>
             <button onclick="colorChange('black')" style="background-color: black; width: 20px; height: 20px; border: solid 1px;"></button>
             <button onclick="colorChange('blue')" style="background-color: blue; width: 20px; height: 20px; border: solid 1px;"></button>
             <button onclick="colorChange('red')" style="background-color: red; width: 20px; height: 20px; border: solid 1px;"></button>
@@ -58,13 +58,13 @@
             <button onclick="colorChange('skyblue')" style="background-color: skyblue; width: 20px; height: 20px; border: solid 1px;"></button>
             <button onclick="colorChange('violet')" style="background-color: violet; width: 20px; height: 20px; border: solid 1px;"></button>
             <button onclick="colorChange('lime')" style="background-color: lime; width: 20px; height: 20px; border: solid 1px;"></button>
-            <button onclick="colorChange('white')">지우개</button>
-            <button onclick="clearAll()">전체지우기</button>
+            <button class="btn btn-sm btn-outline-secondary" onclick="colorChange('white')">지우개</button>
+            <button class="btn btn-sm btn-outline-secondary" onclick="clearAll()">전체지우기</button>
             </div>
           <br>
-            <canvas id='canvas' width='700' height='450' style="border:1px solid black"></canvas>
-            <button class="save-btn">이미지 저장</button>
-            <button class="save-file-btn" onclick="savefile()" >이미지 파일 저장</button>
+            <canvas id='canvas' width='700' height='450' style="border-radius: 10px; border:2px dashed #191B5E"></canvas>
+            <button class="btn btn-sm save-btn" style="background-color: #191B5E; color: #ffffff;">이미지 저장</button>
+            <button class="btn btn-sm save-file-btn" style="background-color: #191B5E; color: #ffffff;" onclick="savefile()" >이미지 파일 저장</button>
             <br><br>
             </div>
             <div class="col" style = "float:right">

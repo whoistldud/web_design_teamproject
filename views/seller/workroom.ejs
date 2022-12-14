@@ -48,20 +48,25 @@
             <h6 id="navtext">HOME > 상품제작 </h6>
           </div>
             <div class="row" style="height: 20px;"></div>
-                <button class="btn-open" href="#pop_info_1" id="btn-open" onclick="location.href='#pop_info_1';" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">상품 제작하러 가기
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                  </svg>
-                </button>      
-                <div class="col-lg-8"> 
-                <button class="btn" id = "searchbtn" style="float: right; background-color: #cbdbf9; margin-left: 1%;" onclick="search()" >검색</button>    
-                <input type="text" style="float: right;" id = "search" onkeyup="if(window.event.keyCode==13){search()}"/>               
-                </div>        
-                <br />     
+              <button class="btn btn-open" href="#pop_info_1" id="btn-open" onclick="location.href='#pop_info_1';" style="background-color: #DFE7F6; border-radius: 10px; box-shadow: #ced5e0 2px 2px 2px;">상품 제작하러 가기
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg>
+              </button>      
+
+              <div class="row">
+                <div class="col-2"></div>
+                <div class="col-8">
+                  <button class="btn btn-sm" id = "searchbtn" style="float: right; margin-left: 10px; background-color: #cbdbf9; " onclick="search()" >검색</button>    
+                  <input class="form-control form-control-sm" type="text" style="float: right; width:40%;" id = "search" onkeyup="if(window.event.keyCode==13){search()}"/>               
+                </div>
+                <div class="col-2"></div>            
+              </div>
+                   
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6"> 
               <br>
-              <table width="1000px;" id="mygoodslist">
+              <table width="1050px;" id="mygoodslist">
                 <tbody>
                   <tr bgcolor="#DFE7F6" align="center">  
                     <th>번호</th>
@@ -76,7 +81,7 @@
                       <td><p alt="이름"><%= room.title %> (<%= room.currentnum%> / <%= room.maximum%> )</p></td>  
                       <td><p alt="판매자"><%= room.sellerId %></p></td>               
                       <td>
-                        <p> <button type="button" class="btn" id="enterbtn" onclick="location.href='/draw/<%=room.workId%>';"style="background-color: #cbdbf9;">참여하기</button> </p>
+                        <p> <button type="button" class="btn btn-sm" id="enterbtn" onclick="location.href='/draw/<%=room.workId%>';"style="background-color: #cbdbf9;">참여하기</button> </p>
                       </td>
                     </tr>
                     <% } %>
@@ -100,9 +105,10 @@
                                     <input type="radio" id="private" name="private" value="0">비공개
                                 </div>
                             </div>
-                            <button type="submit" class="btn">방 만들기</button>
+                            <button type="submit" class="btn btn-sm  mb-1 mt-1" 
+                                    style="color: #ffffff; background-color : #191B5E;">방 만들기</button>
                         </form>
-                        <button type="button" class="btn_close">닫기</button>
+                        <button type="button" class="btn btn-sm btn-outline-dark btn_close" >닫기</button>
                     </div>
                 </div>
               </table>

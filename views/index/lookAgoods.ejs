@@ -30,8 +30,8 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./../layout/loginheader.ejs %>
-    <% include ./../layout/category.ejs %>
+    <% include ./../layout/sellerloginheader.ejs %>
+    <% include ./../layout/sellercategory.ejs %>
 
     <div>
       <div class="row">
@@ -69,7 +69,6 @@
                   <ul class="tabs" style="margin-left :20px;">
                     <li class="tab-link current" data-tab="tab-1">상세정보</li>
                     <li class="tab-link" data-tab="tab-2">리뷰</li>
-                    <li class="tab-link" data-tab="tab-3">Q&A</li>
                   </ul>
                   <!-- 탭 메뉴 내용 시작 -->
                   <div id="tab-1" class="tab-content current">
@@ -105,10 +104,6 @@
                     <h5><%=review[i].content%></h5>
                     
                   <%}%>
-                  <div id="tab-3" class="tab-content">
-                  <h1>  탭 메뉴 3 내용입니다.  </h1>
-                <p>대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다. 국군의 조직과 편성은 법률로 정한다. 타인의 범죄행위로 인하여 생명·신체에 대한 피해를 받은 국민은 법률이 정하는 바에 의하여 국가로부터 구조를 받을 수 있다. 모든 국민은 법률이 정하는 바에 의하여 공무담임권을 가진다. 모든 국민은 소급입법에 의하여 참정권의 제한을 받거나 재산권을 박탈당하지 아니한다.</p>
-                  </div>
                 <!-- 탭 메뉴 내용 끝 -->
                 </div>
               
