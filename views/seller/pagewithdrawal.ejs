@@ -41,16 +41,37 @@
           <% include ./../layout/sellerpgmenubar.ejs %>
         </div>
         <div class="col-10" >
-          <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
-            <h6 id="navtext">HOME > 마이페이지 > 회원 탈퇴</h6>
-          </div>
-          
-        </div>
-      </div>
-    </div>
+              <h6 id="navtext">HOME > 마이페이지 > 회원 탈퇴</h6>
+            </div>
+            <table width="600px" height="200px" style="margin-top: 30px;">
+              <th></th> <!-- 1열-->
+              <th></th> <!-- 2열-->
+              <tr> <!-- 첫번째 줄 시작-->
+                <td>탈퇴하면 활동하신 모든 데이터가 삭제됩니다.</td>
+              </tr>                
+              <tr>
+              <td style="font-weight: bold;">위의 상황을 숙지하고 동의합니까?</td>
+              </tr>
+              <tr>
+                <td><button class="btn btn-primary"id = "withdrawal-btn" onclick="withdrawalConfirm()">탈퇴하기</button></td>
+              </tr>
+            </table>  
+        </div>            
 
+      </div>
   
-  </body>
-  <% include ./../layout/footer.ejs %>
-</html>
+    
+    </body>
+    <% include ./../layout/footer.ejs %>
+  </html>
+  
+  <script>
+      function withdrawalConfirm() {
+  
+        if (confirm("정말로 탈퇴하시겠습니까?") == true) {
+          location.href = "/withdrawal"
+        }
+      } 
+  
+  </script>

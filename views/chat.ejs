@@ -120,7 +120,7 @@
                   <div class="row mt-1">
                     <input id="textMessage" class="textMessage form-control form-control-sm" type="text" placeholder="메시지를 입력하세요." style="margin-left: 10px; float: right; width:78%;"
                         onkeyup="if(window.event.keyCode==13){sendMessage()}"/>
-                  <input onclick="sendMessage()" class="btn btn-sm ml-1" value="Send" type="button" style="color: #ffffff; background-color : #191B5E; float: right; margin-left: 10px; width: auto; ">
+                  <input id = "sendbtn" onclick="sendMessage()" class="btn btn-sm ml-1" value="Send" type="button" style="color: #ffffff; background-color : #191B5E; float: right; margin-left: 10px; width: auto; ">
                   </div>
                   
                 </div> 
@@ -139,3 +139,9 @@
   </body>
 </html>
 
+<script>
+    if('<%=state%>' == 'n'){
+    document.getElementById('textMessage').disabled = true;
+    document.getElementById('sendbtn').disabled = true;
+  }
+</script>

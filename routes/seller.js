@@ -42,7 +42,10 @@ router.get('/', async (req, res, next) => {
       const myprod = await mysql.query("aroundprod", seller[j]);
 
       console.log("myprod[0] 되나", myprod[0].name); // ㅇㅇ 된다아아앙
-      const sellername = await mysql.query("userName", seller[j]);
+      
+      var sellername = "탈퇴한 회원";
+      var sellername = await mysql.query("userName", seller[j]);
+
       myprod.unshift(sellername[0].name);
  
       wprod.push(myprod);
@@ -612,7 +615,17 @@ router.get('/search/:key/:search', async (req, res, next) => {
   }
 });
 
+//탈퇴
+router.get('/withdrawal', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');    
 
+    res.render('seller/pagewithdrawal', { title: 'able'});
+  }
+});
 
 
 module.exports = router;

@@ -47,7 +47,7 @@ router.get('/room/:id', async (req, res) => {
       res.send("<script>alert('방에 대한 권한이 없습니다.');location.href='/';</script>");
     }else{
         const chat = await mysql.query("chatroom",id);
-        res.render('chat', {id : id, chats : chat, senderId : userId, role :role });
+        res.render('chat', {id : id, chats : chat, senderId : userId, role :role , state : room[0].state});
     }
   }    
 

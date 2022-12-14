@@ -33,12 +33,13 @@ router.get('/:id', async(req, res, next) => {
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
     const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-    const image = await mysql.query("setImage",req.params.id);
+    const image = await mysql.query("setdrawImage",req.params.id);
     const imgurl = image[0].Imageurl;
     console.log()
     const chat = await mysql.query("workchatroom",req.params.id);
 
-    if(userId == image[0].sellerId || image[0].participants.indexOf(','+userId) ==0) res.render('draw', {chats : chat, title : image[0].title, senderId : userId, imgurl, id:req.params.id});
+    console.log(image[0].participants.indexOf(','+userId),','+userId);
+    if(userId == image[0].sellerId || image[0].participants.indexOf(','+userId) != -1) res.render('draw', {chats : chat, title : image[0].title, senderId : userId, imgurl, id:req.params.id});
     else if(image[0].maximum == image[0].currentnum) res.send("<script>alert('방이 꽉 찼습니다.');location.href='/seller/worklist';</script>");
     else{
       const participants = image[0].participants + ',' + userId;

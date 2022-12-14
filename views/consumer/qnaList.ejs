@@ -61,8 +61,7 @@
                             <th>작성일</th>
                             <th>작성자</th>
                             </tr>
-                        <% for(var i=0; i < row.length; i++) {  
-                          %>
+                        <% for(var i=0; i < row.length; i++) {  item = row[i];  %>
                           <tr align="center">
                             <td><p alt="번호"><%= row[i].id %></p></td>
                             <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>

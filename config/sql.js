@@ -9,19 +9,19 @@ module.exports = {
     userName : 'select name from user where id=?',
 
     //product
-    productAll : 'select * from product ',
-    cateProduct : 'SELECT * FROM product WHERE category=?',
+    productAll : "select * from product where state = 'y' ",
+    cateProduct : "SELECT * FROM product where state = 'y'",
     productWrite : 'Insert into product(name,sellerId,category,detail,price,thumbnailimageurl,detailimageurl,fileurl) value (?,?,?,?,?,?,?,?)',
-    productlisRead : 'select * from product where id=?',
-    readImage : 'SELECT id, name, category, detail, price, thumbnailimageurl, detailimageurl, fileurl FROM product WHERE id=?',
-    diaryProduct : 'SELECT * FROM product WHERE category = 1',
-    noteProduct : 'SELECT * FROM product WHERE category = 2',
-    stickerProduct : 'SELECT * FROM product WHERE category = 3',
-    wpaperProduct : 'SELECT * FROM product WHERE category = 4',
+    productlisRead : "select * from product where id=? ",
+    readImage : 'SELECT id, name, category, detail, price, thumbnailimageurl, detailimageurl, fileurl, state FROM product WHERE id=?',
+    diaryProduct : "SELECT * FROM product WHERE category = 1 and state = 'y'",
+    noteProduct : "SELECT * FROM product WHERE category = 2 and state = 'y'",
+    stickerProduct : "SELECT * FROM product WHERE category = 3 and state = 'y'",
+    wpaperProduct : "SELECT * FROM product WHERE category = 4 and state = 'y'",
     productRead : 'select * from product where sellerId=?',
     productUpdate : 'update product set name=?, category=?, thumbnailimageurl=?, fileurl=?, detail=?, detailimageurl=?, price=? where id=?' ,
     productDelete : 'delete from product where id=?',
-    aroundprod : 'select id,sellerId,name,price,thumbnailimageurl from product where sellerId=?',
+    aroundprod : "select id,sellerId,name,price,thumbnailimageurl from product where sellerId=? and state = 'y'",
 
     //QNA
     qnaWrite : 'Insert into qnaboard(name,password,title,content,date,lock_post,userId) value (?,?,?,?,?,?,?)',
@@ -48,6 +48,7 @@ module.exports = {
     //draw
     saveImage : 'Update work set Imageurl = ? where workId = ?',
     setImage : 'Select * from work where workId = ? and private = 1',
+    setdrawImage : 'Select * from work where workId = ?',
     workRoomList : 'Select * from work',
     searchworkRoomList : 'Select * from work where title like ? and private = 1',
     creatework : 'Insert work(title,sellerId,maximum,private) value (?,?,?,?)',
@@ -79,4 +80,17 @@ module.exports = {
     reviewlis : 'select * from review where productId=?',
     reviewMyRead : 'select * from review where purchaseId=?',
     reviewDelete : 'delete from review where id=?',
+
+    // withdrawal
+    deletecart : 'delete from cart where userId = ?',
+    deletechatroom : 'delete from chatroom where userId = ?',
+    deletechat : 'delete from chat where chatroomId = ?',
+    deleteuser : 'delete from user where id =?',
+    updatechatstate : 'update chatroom set state = "n" where sellerId = ?',
+    productstate : 'update product set state = "n" where sellerId = ?',
+    deleteworkchat : 'delete from workchat where workroomId = ?',
+    deletworkroom : 'delete from work where sellerId = ?',
+
+
+
 };
