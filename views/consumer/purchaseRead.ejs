@@ -47,7 +47,7 @@
                 <div class="input-form col-md-12 mx-auto">
                   <h5 class="mt-2 mb-3" style="font-weight: bold;">💖 <%= user.name %> 님의 구매 내역 💖</h5>
                   <form name="read" class="validation-form"  enctype="multipart/form-data" id = "pageRead" action="" method = "post" >
-                  <table class="table" id="mypurchase">
+                  <table class="table" id="mypurchase" style="width: 1200px; ">
                       <tbody>
                         
                         <tr>  
@@ -79,7 +79,7 @@
                         <td><p alt="리뷰쓰기">
                           <%if (review==null){
                             %>
-                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewWrite(<%= row.id %>)">리뷰쓰기</button>
+                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewWrite(<%=row.productId %>)">리뷰쓰기</button>
                           <%}%>
 
                           <%if (review!=null){
