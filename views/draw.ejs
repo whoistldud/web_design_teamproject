@@ -301,7 +301,6 @@
       pos.y = e.touches[0].pageY - rect.top
       ctx.moveTo(pos.x, pos.y);
       data = {x:pos.x,y:pos.y,width:ctx.lineWidth,color:ctx.strokeStyle};
-      socket.emit("drawstart",data);
   }
   function draw(e){
       ctx.lineTo(e.offsetX, e.offsetY);
@@ -317,7 +316,6 @@
       pos.y = e.touches[0].pageY - rect.top;
       ctx.stroke();
       data = {x:pos.x,y:pos.y,width:ctx.lineWidth,color:ctx.strokeStyle};
-      socket.emit("drawing",data);
   }
   function drawEnd(){
       pos.drawable = false;
