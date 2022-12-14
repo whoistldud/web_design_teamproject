@@ -46,25 +46,31 @@
             <h6 id="navtext">HOME > 마이페이지 > 일대일채팅내역</h6>
           </div>
           <div class="row">
-            <div class="col-2 col-lg-3"></div>
-            <div class="col-8 col-lg-6">
-              <table width="600px" height="300px" style="margin-top: 30px;">
-                <th></th> <!-- 1열-->
-                <th></th> <!-- 2열-->
-                <!-- 채팅방 코드 -->
-                <% for(var i=0; i<rooms.length; i++){ var room = rooms[i]; var product = products[i][0]; %>
-                <tr> 
-                  <td>상품이름</td>
-                  <td style="font-weight: bold;"><%= product.name %></td>
-                  <td>사용자</td>
-                  <td style="font-weight: bold;"><%= room.userId %></td>
-                  <td>
-                    <button type="button" class="btn" id="enterbtn" onclick="location.href='/chat/room/<%=room.chatroomId%>';" style="color: #000000;">참여하기</button>
-                  </td>
-                </tr>
-                <% } %>
-                 <!-- 채팅방 코드 끝 -->
+            <div class="col-8 col-lg-6"> 
+              <br>
+              <table width="1000px;" id="mygoodslist">
+                <tbody>
+                  <tr bgcolor="#DFE7F6" align="center">  
+                    <th>번호</th>
+                    <th>상품이름</th>
+                    <th>사용자</th>
+                    <th>대화</th>
+                    </tr>
+
+                    <% for(var i=0; i<rooms.length; i++){ var room = rooms[i]; var product = products[i][0]; %>
+                      <tr align="center">
+                      <td><p alt="번호"><%= i+1 %></p></td>                      
+                      <td><p alt="상품이름"><%= product.name %></p></td>  
+                      <td><p alt="사용자"><%= room.userId %></p></td>               
+                      <td>
+                        <p> <button type="button" class="btn" id="enterbtn" onclick="location.href='/chat/room/<%=room.chatroomId%>';" style="color: #000000;">참여하기</button> </p>
+                      </td>
+                    </tr>
+                    <% } %>
+                </tbody>
               </table>
+
+            </div>
             </div>
             <div class="col-2 col-lg-3"></div>
           </div>

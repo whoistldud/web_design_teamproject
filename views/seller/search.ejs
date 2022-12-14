@@ -31,13 +31,13 @@
   <body>
     <!-- index.js는 회원가입이 안 되어 있는 곳 = 홈화면이 보이긴 하나,
       무엇이든 클릭하면 회원가입으로 넘어가도록!-->
-    <% include ./../layout/loginheader.ejs %>
-    <% include ./../layout/category.ejs %>
+    <% include ./../layout/sellerloginheader.ejs %>
+    <% include ./../layout/sellercategory.ejs %>
 
 
       <div class="row">
         <div class="col-2" >
-          <% include ./../layout/menubar.ejs %>
+          <% include ./../layout/sellermenubar.ejs %>
         </div>
         <div class="col-10" >
           <div class="row" style="height: 20px;"></div>
@@ -99,14 +99,16 @@
 <script>    
   document.getElementById("key").value = <%=key%>;
   document.getElementById("search").value = '<%=keyword%>';
+
   const search = () => {
       const id = document.getElementById("search").value;
       const key = document.getElementById("key").value;
 
       if(id == "") alert("검색어를 입력하세요!");
-      else window.location.href = '/consumer/search/'+key+'/'+id;
+      else window.location.href = '/seller/search/'+key+'/'+id;
   };
+
   function goDetails(id) {
-        location.href="/consumer/details/" + id;
-      }
+      location.href="/seller/lookAsellers/details/" + id;
+    }
 </script>

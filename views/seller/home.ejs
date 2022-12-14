@@ -48,7 +48,7 @@
           <h6 class="mt-3 mb-2"><p onclick="gotoLA()" style="font-size: 15pt; font-weight: bold;">🔎 다른 제작자의 상품 둘러보기 </p></h6>
           <% for(var i=0; i< seller.length ; i++){ %>
             <% if (seller[i] == loginid) { %>
-              <% break; %>
+              <% continue; %>
               <% } else { %>
             
             <div class="container mb-2 " >

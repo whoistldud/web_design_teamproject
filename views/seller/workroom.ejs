@@ -40,31 +40,71 @@
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellermenubar.ejs %>
         </div>
-        <div class="col-10" >
+
+        <div class="col-10" >          
+
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
             <h6 id="navtext">HOME > 상품제작 </h6>
           </div>
-          <div class="row">
-            <div class="col-2 col-lg-3"></div>
-            <div class="col-8 col-lg-6">
-              <table width="600px" height="300px" style="margin-top: 30px;">
-                <th></th> <!-- 1열-->
-                <button class="btn" id="newgoodsbtn" onclick="location.href='/seller/creatework';" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">상품 제작하러 가기
+            <div class="row" style="height: 20px;"></div>
+                <button class="btn-open" href="#pop_info_1" id="btn-open" onclick="location.href='#pop_info_1';" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">상품 제작하러 가기
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                   </svg>
-                </button>
-                <!-- 채팅방 코드 -->
-                <% for(var i=0; i<rooms.length; i++){ var room = rooms[i];  %>
-                <tr> 
-                  <td style="font-weight: bold;"><%= room.sellerId %>님의 작업실</td>               
-                  <td>
-                    <button type="button" class="btn" id="enterbtn" onclick="location.href='/draw/<%=room.workId%>';" style="color: black;">참여하기</button>
-                  </td>
-                </tr>
-                <% } %>
-                 <!-- 채팅방 코드 끝 -->
+                </button>      
+                <div class="col-lg-8"> 
+                <button class="btn" id = "searchbtn" style="float: right; background-color: #cbdbf9; margin-left: 1%;" onclick="search()" >검색</button>    
+                <input type="text" style="float: right;" id = "search" onkeyup="if(window.event.keyCode==13){search()}"/>               
+                </div>        
+                <br />     
+            <div class="col-2 col-lg-3"></div>
+            <div class="col-8 col-lg-6"> 
+              <br>
+              <table width="1000px;" id="mygoodslist">
+                <tbody>
+                  <tr bgcolor="#DFE7F6" align="center">  
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>판매자</th>
+                    <th>참여</th>
+                    </tr>
+
+                  <% for(var i=0; i<rooms.length; i++){ var room = rooms[i];  %>
+                    <tr align="center">
+                      <td><p alt="번호"><%= i+1 %></p></td>                      
+                      <td><p alt="이름"><%= room.title %> (<%= room.currentnum%> / <%= room.maximum%> )</p></td>  
+                      <td><p alt="판매자"><%= room.sellerId %></p></td>               
+                      <td>
+                        <p> <button type="button" class="btn" id="enterbtn" onclick="location.href='/draw/<%=room.workId%>';"style="background-color: #cbdbf9;">참여하기</button> </p>
+                      </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+
+                <div id="pop_info_1" class="pop_wrap" style="display:none;">
+                  <div class="pop_inner">
+                    <p class="dsc">공동작업 방 만들기</p>
+                        <form action="creatework" method="post" class="room-form">
+                            <div class="form-group">
+                                <input type="text" name="title" placeholder="방 이름" id="title"
+                                      class="form-username form-control" id="form-username" required>
+                                <br>
+                                <input type="number" name="maximum" placeholder="최대 인원" id="maximum"
+                                      max = 5 min = 2 class="form-username form-control" id="form-username" required>
+                                <br>
+                                <div class="form-username form-control" id="form-username">
+                                    비밀방
+                                    <input type="radio" id="private" name="private" value="1" checked="checked">공개
+                                    <input type="radio" id="private" name="private" value="0">비공개
+                                </div>
+                            </div>
+                            <button type="submit" class="btn">방 만들기</button>
+                        </form>
+                        <button type="button" class="btn_close">닫기</button>
+                    </div>
+                </div>
               </table>
             </div>
             <div class="col-2 col-lg-3"></div>
@@ -75,4 +115,30 @@
   
   </body>
   <% include ./../layout/footer.ejs %>
+
+
+  <script>    
+      const search = () => {
+          const id = document.getElementById("search").value;
+          window.location.href = '/seller/worklist/'+id;
+      };
+
+      var target = document.querySelectorAll('.btn-open');
+      var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+      var targetID;
+      // 팝업 열기
+      for(var i = 0; i < target.length; i++){
+          target[i].addEventListener('click', function(){
+              targetID = this.getAttribute('href');
+              document.querySelector(targetID).style.display = 'block';
+          });
+      }
+      // 팝업 닫기
+      for(var j = 0; j < target.length; j++){
+          btnPopClose[j].addEventListener('click', function(){
+              this.parentNode.parentNode.style.display = 'none';
+          });
+      }
+  </script>
+
 </html>

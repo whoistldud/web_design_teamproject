@@ -33,22 +33,6 @@ router.get('/enter/:productId', async (req, res) => {
   }
 });
 
-router.get('/', async (req, res) => {
-  if(req.session.user == undefined)  {
-    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
-  }
-  else{  
-    const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-    const room = await mysql.query("chatroomList",[userId,userId]);
-    var product = [];
-    for(var i=0; i<room.length; i++){
-      product[i] = await mysql.query("productlisRead",room[i].productId);
-    }
-    console.log(product);
-    res.render('chatroom', {rooms:room,products:product});
-  }  
-});
-
 
 router.get('/room/:id', async (req, res) => {
   if(req.session.user == undefined)  {

@@ -39,9 +39,36 @@
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/menubar.ejs %>
-        </div>
+        </div>            
+        <div id="pop_info_1" class="pop_wrap" style="display:none;">
+            <div class="pop_inner">
+              <p class="dsc">포인트 충전</p>
+              <form class="validation-form" id="addpnt" onsubmit= "return confirm('포인트를 충전하시겠습니까?');" action="/consumer/addPoint" method = "post" >
+                <table width="600px" height="200px" style="margin-top: 30px;">
+                  <th></th> <!-- 1열-->
+                  <th></th> <!-- 2열-->
+                  <tr> <!-- 첫번째 줄 시작-->
+                    <td>보유 포인트</td>
+                    <td style="font-weight: bold;"><%=point.point %></td>
+                  </tr>
+                  <tr>
+                    <td>충전할 포인트</td>
+                    <td style="font-weight: bold;">
+                      <input class="form-control form-control-sm" name="addpoint" type="int" style="width: 200px;">
+                  </td>
+                  </tr>
+                  <tr>
+                    <td><button class="btn" id="addbtn" type="submit" style="background-color: #DFE7F6;">포인트 충전</button></td>
+                  </tr>
+                </table>
+              </form>
+                  <button type="button" class="btn_close">닫기</button>
+              </div>
+          </div>
         <div class="col-10">
           <!-- 내용 들어갈 자리 !!! -->
+          
+
             <div class="row">
               <!-- <form class="validation-form"  enctype="multipart/form-data" id = "purchase" action="/consumer/buy/<%=row.id%>/bycom" method = "post" > -->
                 <div class="row">
@@ -85,10 +112,7 @@
                         <hr />
                         <div class="col-7">
                             <h4 id="goodsName" style="font-weight: bold;"> <%= point.point%></h4>
-                            <button type="button"  class="btn btn-block" id="pointadd" style="background-color: #DFE7F6;"
-                            onclick="location.href = '/consumer/addPoint'"
-                            >포인트 충전</button>
-                            
+                            <button class="btn-open" href="#pop_info_1" id="btn-open" onclick="location.href='#pop_info_1';"  style="background-color: #DFE7F6;" >포인트 충전</button>
                         </div>
                     </div>
 
@@ -130,7 +154,22 @@
 </html>
 
 <script>
-
+      var target = document.querySelectorAll('.btn-open');
+      var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+      var targetID;
+      // 팝업 열기
+      for(var i = 0; i < target.length; i++){
+          target[i].addEventListener('click', function(){
+              targetID = this.getAttribute('href');
+              document.querySelector(targetID).style.display = 'block';
+          });
+      }
+      // 팝업 닫기
+      for(var j = 0; j < target.length; j++){
+          btnPopClose[j].addEventListener('click', function(){
+              this.parentNode.parentNode.style.display = 'none';
+          });
+      }
 
 function addPoint(){
   location.href = "/consumer/addPoint";

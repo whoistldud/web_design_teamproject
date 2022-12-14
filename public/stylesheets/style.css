@@ -244,3 +244,41 @@ nav a:hover:not(.active) {
   font-weight: bold;
   border-radius: 5px;
 }
+
+
+/* 팝업 */
+@media screen and (max-width: 25em) {
+
+	.codrops-icon span {
+		display: none;
+	}
+
+}.pop_wrap{position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); font-size:0; text-align:center;}
+ .pop_wrap:after{display:inline-block; height:100%; vertical-align:middle; content:'';}
+ .pop_wrap .pop_inner{display:inline-block; padding:20px 30px; background:#fff; width:500px; vertical-align:middle; font-size:15px;}
+
+/*draw 채팅*/
+ #workmsgArea {
+	display: flex;
+	flex-direction: column-reverse;
+	width: 300px;
+	height: 420px;
+  background-color: #ffefef;
+	border: 2px dashed #c77575;
+  border-radius: 5px;
+	overflow: auto;
+	position: center;
+	text-align: center;
+}
+#workmsgArea::-webkit-scrollbar {
+	width: 10px;
+}
+#workmsgArea::-webkit-scrollbar-thumb {
+	background-color: #2f3542;
+	border-radius: 10px;
+}
+#workmsgArea::-webkit-scrollbar-track {
+	background-color: grey;
+	border-radius: 10px;
+	box-shadow: inset 0px 0px 5px white;
+}

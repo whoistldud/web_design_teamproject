@@ -143,16 +143,19 @@ router.get('/search', async (req, res, next) => {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{
-    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');    
+    let keyword = "";
+    let key = 0;
+    let result =[];
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
     console.log("consumerID :", consumerID);
-    res.render('consumer/search', { title: 'able'});
+    res.render('consumer/search', { title: 'able', keyword, result, key});
   }
 });
 
 // 검색 결과 
-router.post('/searchres', async (req, res, next) => {
+router.get('/search/:key/:search', async (req, res, next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
@@ -161,12 +164,13 @@ router.post('/searchres', async (req, res, next) => {
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
 
     console.log("consumerID :", consumerID);
-    let keyword = req.body.keyword;  
-    const data = "'%"+keyword+"%'";
-    console.log("검색 단어", keyword,data);
+
+    let keyword = req.params.search;  
+    const data = "%"+keyword+"%";
+
     const result = await mysql.query("search", [data,data]);
     console.log("result : ", result);
-    res.render('consumer/searchresult', { title: 'able'});
+    res.render('consumer/search', { title: 'able', keyword, result, key:req.params.key});
   }
 });
 
@@ -442,7 +446,7 @@ router.post('/addPoint', async (req, res, next) => {
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/'); 
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
     const result = await mysql.query("addPoint", [req.body.addpoint, consumerID]);
-    res.redirect("/consumer/addpoint");
+    res.send("<script>history.go(-1)</script>");
   }
 });
 

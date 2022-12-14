@@ -44,30 +44,80 @@
             <div class="row">
               <h6 id="navtext">HOME > 상품제작 </h6>
             </div>
+            <div class="row">
+
+            <div class="col" style = "float:left" >
             <div>
-          브러쉬 크기<input id="input" type="number" min="0" max="100" value="1"></input>
-          <button onclick="colorChange('black')" style="background-color: black; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('blue')" style="background-color: blue; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('red')" style="background-color: red; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('green')" style="background-color: green; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('pink')" style="background-color: pink; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('yellow')" style="background-color: yellow; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('skyblue')" style="background-color: skyblue; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('violet')" style="background-color: violet; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('lime')" style="background-color: lime; width: 20px; height: 20px; border: solid 1px;"></button>
-          <button onclick="colorChange('white')">지우개</button>
-          <button onclick="clearAll()">전체지우기</button>
-      </div>
+            브러쉬 크기<input id="input" type="number" min="0" max="100" value="1"></input>
+            <button onclick="colorChange('black')" style="background-color: black; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('blue')" style="background-color: blue; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('red')" style="background-color: red; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('green')" style="background-color: green; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('pink')" style="background-color: pink; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('yellow')" style="background-color: yellow; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('skyblue')" style="background-color: skyblue; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('violet')" style="background-color: violet; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('lime')" style="background-color: lime; width: 20px; height: 20px; border: solid 1px;"></button>
+            <button onclick="colorChange('white')">지우개</button>
+            <button onclick="clearAll()">전체지우기</button>
+            </div>
           <br>
-          <canvas id='canvas' width='700' height='450' style="border:1px solid black"></canvas>
-          <button class="save-btn">이미지 저장</button>
-          <div class="result-image"></div>
-        </div>
+            <canvas id='canvas' width='700' height='450' style="border:1px solid black"></canvas>
+            <button class="save-btn">이미지 저장</button>
+            <button class="save-file-btn" onclick="savefile()" >이미지 파일 저장</button>
+            <br><br>
+            </div>
+            <div class="col" style = "float:right">
+              <!-- 채팅 -->
+              <div>                
+                작업방 채팅
+                <button onclick="invite()" class="btn btn-sm"style="color: #ffffff; background-color : #191B5E; margin-left: 10px; ">초대하기</button>
+              </div>
+              <br>
+              <div class="col-12" id="workmsgArea" style="margin-left: 10px;  width:70%;">
+                <% for(var i=0; i<chats.length; i++){ var chat =  chats[i]; %>
+                  <% if(chat.senderId == senderId) { %>
+                        <div class='col-12'>
+                            <div class='message-me'>
+                                <b>
+                                    <tr>
+                                        <td>🗨️ <%=chat.senderId%></td> 
+                                        <td>:</td>
+                                        <td><%=chat.message%></td>
+                                    </tr>
+                                </b>
+                            </div>
+                        </div>
+                        <%}else{%>
+                        <div class='col-12'>
+                            <div class='message'>
+                                <b>
+                                    <tr>
+                                      <td>🗨️ <%=chat.senderId%></td> 
+                                      <td>:</td>
+                                      <td><%=chat.message%></td>
+                                    </tr>
+                                </b>
+                            </div>
+                        </div>
+                        <%}}%>
+              </div>
+              <br>
+              <div class="col-12" >
+                <div class="row mt-1">
+                  <input id="textMessage" class="textMessage form-control form-control-sm" type="text" placeholder="메시지를 입력하세요." style="margin-left: 10px; float: right; width:60%;"
+                      onkeyup="if(window.event.keyCode==13){sendMessage()}"/>
+                <input onclick="sendMessage()" class="btn btn-sm ml-1" value="Send" type="button" style="color: #ffffff; background-color : #191B5E; float: right; margin-left: 10px; width: auto; ">
+                </div>
+                
+              </div>  
+            </div>
+            </div>
+          </div>
       </div>
 </div>
 </div>
 </div>
-        <br> <br>
 
 </body>
 <% include ./layout/footer.ejs %>
@@ -79,7 +129,45 @@
   socket.on("connect", () => {
     setBackground();
     socket.emit("workroomId",'<%=id%>');
+
   });
+
+  socket.on("drawmsg<%=id%>", (data) => {
+      
+      str = "<div class='col-12'>";
+      str += "<div class='message'>";
+      str += "<b>🗨️" + data.sender + " : " + data.message + "</b>";
+      str += "</div></div>";
+      $("#workmsgArea").prepend(str);
+            
+      //console.log(data.id, "에서 보낸 메시지 : ", data.message);
+    });
+
+  const sendMessage = () => {
+      let data = {roomId : '<%=id%>', sender : '<%=senderId%>', msg : document.getElementById("textMessage").value};
+      str = "<div class='col-12'>";
+      str += "<div class='message-me'>";
+      str += "<b>🗨️" + '<%=senderId%>' + " : " +document.getElementById("textMessage").value+ "</b>";
+      str += "</div></div>";
+      $("#workmsgArea").prepend(str);
+      socket.emit("drawchat", data);
+      document.getElementById("textMessage").value = "";
+    };
+
+    const invite = () => {
+      const str = "http://" + location.host + "/draw/" +<%=id%>;
+      navigator.clipboard.writeText(str);
+      alert("URL이 클립보드에 복사되었습니다");
+    };
+
+    const savefile = () => {
+
+      const url = canvas.toDataURL('image/png',1.0);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "<%=title%>";
+      link.click();
+    };
 
   var pos = {
       drawable : false,

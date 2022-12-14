@@ -55,13 +55,17 @@ router.get('/', async (req, res, next) => {
 });
 
 
-router.get('/product', (req,res,next) => {
+router.get('/product', async (req,res,next) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
-    res.render('seller/pageProductsRegister', { title: '상품 등록' });
+    var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+    const workrooms = await mysql.query("sellerwork",userId);
+
+    res.render('seller/pageProductsRegister', { title: '상품 등록', workrooms });
   }
 });
 
@@ -214,14 +218,18 @@ router.post("/product/write", upload.fields([{name:"thumbnailimageurl", maxCount
  
     const id = req.params.id;
     var sellerId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    console.log(req.files['fileurl'])
+    var fileurl;
+    if(req.files['fileurl']==undefined) fileurl = req.body.workfileurl;
+    else fileurl = req.files['fileurl'][0].filename;
 
     if (req.files.length == 3){
       var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
-        req.files['thumbnailimageurl'][0].filename,req.files['detailimageurl'][0].filename,req.files['fileurl'][0].filename]; 
+        req.files['thumbnailimageurl'][0].filename,req.files['detailimageurl'][0].filename,fileurl]; 
     }
     else {
       var data = [req.body.name,sellerId, req.body.category,req.body.detail,req.body.price,
-        req.files['thumbnailimageurl'][0].filename,'null',req.files['fileurl'][0].filename]; 
+        req.files['thumbnailimageurl'][0].filename,'null',fileurl]; 
     }
     
     //console.log(data);
@@ -267,9 +275,12 @@ router.get('/product/edit/:id', async (req,res,next) => {
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+
+    const workrooms = await mysql.query("sellerwork",userId);
     const id = req.params.id;
     const result = await mysql.query("readImage", id);
-    res.render('seller/pageProductEdit', { title: "상품 수정", row: result[0] });
+    res.render('seller/pageProductEdit', { title: "상품 수정", row: result[0], workrooms });
   }
 });
 
@@ -282,61 +293,27 @@ router.post('/product/edit/done/:id', upload.fields([{name:"newthumbnailimageurl
   const id = req.params.id;
 
   const temp = await mysql.query("readImage", id);
+
+  var newfileurl;
+  var newthumbnailimageurl;
+  var newdetailimageurl;
+
+  if(req.files['newfileurl'] !=undefined) newfileurl = req.files['newfileurl'][0].filename;
+  else if(req.body.newfileurl != undefined) newfileurl = req.body.newfileurl;
+  else newfileurl = temp[0].fileurl;
+
+  if(req.files['newthumbnailimageurl'] !=undefined) newthumbnailimageurl = req.files['newthumbnailimageurl'][0].filename;
+  else newthumbnailimageurl = temp[0].thumbnailimageurl;
   
+  if(req.files['newdetailimageurl'] !=undefined) newdetailimageurl = req.files['newdetailimageurl'][0].filename;
+  else newdetailimageurl = temp[0].detailimageurl;
+
   console.log("temp",temp[0].thumbnailimageurl);
-  if (req.files.length == 3){
-    var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.newdetail,
-    req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-  }
 
-  else if (req.files.length== 2){
-    if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
-      if(Object.keys(req.files)[1] == 'newdetailimageurl'){
-        var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].temp[0].fileurl,req.body.newdetail,
-        req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-        
-      }
-      else if(Object.keys(req.files)[1] == 'newfileurl'){
-        var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,req.files['newfileurl'][0].filename,req.body.newdetail,
-        temp[0].detailimageurl,req.body.newprice, id]; 
-      }
-      else if (Object.keys(req.files)[0] == 'newfileurl'){
-        var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.detail,
-        temp[0].detailimageurl,req.body.newprice, id]; 
-      }
-      else {
-        var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.detail,
-        req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-      }
+  var data = [req.body.newname,req.body.newcategory,newthumbnailimageurl,newfileurl,req.body.newdetail, newdetailimageurl,req.body.newprice, id]; 
 
-    }
-    else if (Object.keys(req.files)[0] == 'newfileurl'){
-      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.newdetail,
-      req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-      
-    }
-  }
+  console.log("data",data);
 
-  else if (Object.keys(req.files).length == 1) {
-    console.log("1개 업로드 됨", req.files);
-    if (Object.keys(req.files)[0] == 'newthumbnailimageurl'){
-      var data = [req.body.newname,req.body.newcategory,req.files['newthumbnailimageurl'][0].filename,temp[0].fileurl,req.body.newdetail,
-      temp[0].detailimageurl,req.body.newprice, id]; 
-    }
-    else if (Object.keys(req.files)[0] == 'newfileurl'){
-      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,req.files['newfileurl'][0].filename,req.body.newdetail,
-      temp[0].detailimageurl,req.body.newprice, id]; 
-    }
-    else {
-      var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.newdetail,
-      req.files['newdetailimageurl'][0].filename,req.body.newprice, id]; 
-    }
-
-  }
-  else {
-    var data = [req.body.newname,req.body.newcategory,temp[0].thumbnailimageurl,temp[0].fileurl,req.body.newdetail,
-    temp[0].detailimageurl,req.body.newprice, id]; 
-  }
     //console.log("상품 수정 data : ", data);
     await mysql.query("productUpdate", data); //수정
     const result = await mysql.query("readImage", id);
@@ -572,17 +549,70 @@ router.get('/worklist', async (req, res) => {
   }  
 });
 
-router.get('/creatework', async (req, res) => {
+router.get('/worklist/:search', async (req, res) => {
   if(req.session.user == undefined)  {
     res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
   }
   else{  
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
     const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
-    const room = await mysql.query("creatework",userId);
-    console.log(room);
+    const data = "%"+req.params.search+"%";
+    console.log(data);
+    const room = await mysql.query("searchworkRoomList",data);
+    res.render('seller/workroom', {rooms:room});
+  }  
+});
+
+
+router.post('/creatework', async (req, res) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{  
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const data = [req.body.title, userId, req.body.maximum,req.body.private]
+    console.log(data);
+    const room = await mysql.query("creatework",data);
+
     res.redirect('/draw/'+room.insertId);
   }  
 });
+
+// 검색 페이징
+router.get('/search', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');    
+    let keyword = "";
+    let key = 0;
+    let result =[];
+
+    res.render('seller/search', { title: 'able', keyword, result, key});
+  }
+});
+
+// 검색 결과 
+router.get('/search/:key/:search', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+
+
+    let keyword = req.params.search;  
+    const data = "%"+keyword+"%";
+
+    const result = await mysql.query("search", [data,data]);
+    console.log("result : ", result);
+    res.render('seller/search', { title: 'able', keyword, result, key:req.params.key});
+  }
+});
+
+
+
 
 module.exports = router;

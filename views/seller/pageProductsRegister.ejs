@@ -91,7 +91,26 @@
                         </div>
                         <div class="col-md-6 mb-2">
                           <label for="formFileMultiple" class="form-label">🔗 업로드할 파일 첨부 🔓</label>
-                          <input class="form-control" type="file" id="fileurl" name="fileurl" accept=".pdf">
+                            <div class="container">
+                            <!-- 탭 메뉴 상단 시작 -->
+                              <ul class="tabs" style="margin-left :20px;">
+                                <li class="tab-link current" data-tab="tab-1">파일첨부</li>
+                                <li class="tab-link" data-tab="tab-2">공동작업</li>
+                              </ul>
+                              <!-- 탭 메뉴 내용 시작 -->
+                              <div id="tab-1" class="tab-content current">
+                                <input class="form-control" type="file" id="fileurl" name="fileurl" accept=".pdf">
+                              </div>
+                              <div id="tab-2" class="tab-content">
+                                <select class="form-select" aria-label="Default select example" id="workfileurl" name="workfileurl">
+                                  <option selected disabled>공동작업을 선택해주세요.</option>
+                                  <% for(var i=0; i<workrooms.length; i++){ var room = workrooms[i];  %>
+                                    <option value="<%=room.Imageurl%>"><%=room.title%></option>
+                                    <% } %>
+                                </select>                              
+                              </div>
+                            <!-- 탭 메뉴 내용 끝 -->
+                            </div>
                         </div>
                       </div>
                       <div class="row mt-2 mb-3">
@@ -120,7 +139,18 @@
 </html>
 
 <script>
+      $(document).ready(function(){
+	
+  $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
+    var tab_id = $(this).attr('data-tab');
 
+    $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
+    $('.tab-content').removeClass('current');		
+
+    $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
+    $("#" + tab_id).addClass('current');
+  })
+});
   const input = document.querySelector('#price');
   input.addEventListener('keyup', function(e) {
     let value = e.target.value;

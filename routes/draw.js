@@ -16,7 +16,7 @@ require('dotenv').config({
 
 var storage = multer.diskStorage({
   destination: function(req, file, cb) {
-      cb(null, "public/drawing/");
+      cb(null, "public/images/");
   },
   filename : function (req, file, cb) {
       const ext = path.extname(file.originalname);
@@ -27,11 +27,25 @@ var storage = multer.diskStorage({
 var upload = multer({storage: storage});
 
 router.get('/:id', async(req, res, next) => {
-  const image = await mysql.query("setImage",req.params.id);
-  const imgurl = image[0].Imageurl;
-  console.log(image,imgurl);
-  res.render('draw', {imgurl, id:req.params.id});
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{  
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'seller') res.redirect('/');
+    const userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
+    const image = await mysql.query("setImage",req.params.id);
+    const imgurl = image[0].Imageurl;
+    console.log()
+    const chat = await mysql.query("workchatroom",req.params.id);
 
+    if(userId == image[0].sellerId || image[0].participants.indexOf(','+userId) ==0) res.render('draw', {chats : chat, title : image[0].title, senderId : userId, imgurl, id:req.params.id});
+    else if(image[0].maximum == image[0].currentnum) res.send("<script>alert('방이 꽉 찼습니다.');location.href='/seller/worklist';</script>");
+    else{
+      const participants = image[0].participants + ',' + userId;
+      await mysql.query("updateMember",[participants,req.params.id]);    
+      res.render('draw', {chats : chat, title : image[0].title, senderId : userId, imgurl, id:req.params.id});
+    }
+  }
 });
  
 

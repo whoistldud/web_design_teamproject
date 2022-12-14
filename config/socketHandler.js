@@ -28,6 +28,7 @@ const socketHandler = (server) => {
 
     socket.on("workroomId", (msg) => {
       drawId = msg;
+      roomId = msg;
     });
 
     socket.on("roomId", (msg) => {
@@ -57,6 +58,13 @@ const socketHandler = (server) => {
       const room = await mysql.query("chat",[data.roomId,data.sender,data.msg,now]);
       console.log(data.roomId,data.msg);
       socket.broadcast.emit("msg"+roomId, { sender : data.sender, message: data.msg });
+    });
+
+    socket.on("drawchat", async (data) => {
+      var now = new Date();
+      const room = await mysql.query("drawchat",[data.roomId,data.sender,data.msg,now]);
+      console.log(data.roomId,data.msg);
+      socket.broadcast.emit("drawmsg"+roomId, { sender : data.sender, message: data.msg });
     });
   });
 };
