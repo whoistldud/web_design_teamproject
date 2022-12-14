@@ -47,9 +47,9 @@ module.exports = {
 
     //draw
     saveImage : 'Update work set Imageurl = ? where workId = ?',
-    setImage : 'Select * from work where workId = ? and private = 1',
+    setImage : 'Select * from work where workId = ? ',
     setdrawImage : 'Select * from work where workId = ?',
-    workRoomList : 'Select * from work',
+    workRoomList : 'Select * from work and private = 1',
     searchworkRoomList : 'Select * from work where title like ? and private = 1',
     creatework : 'Insert work(title,sellerId,maximum,private) value (?,?,?,?)',
     updateMember : 'update work set currentnum = currentnum + 1, participants = ? where workid = ?',
