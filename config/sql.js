@@ -9,7 +9,7 @@ module.exports = {
     userName : 'select name from user where id=?',
 
     //product
-    productAll : 'select * from product ',
+    productAll : "select * from product where state = 'y' ",
     cateProduct : 'SELECT * FROM product WHERE category=?',
     productWrite : 'Insert into product(name,sellerId,category,detail,price,thumbnailimageurl,detailimageurl,fileurl) value (?,?,?,?,?,?,?,?)',
     productlisRead : 'select * from product where id=?',

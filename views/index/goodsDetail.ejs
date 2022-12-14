@@ -65,8 +65,7 @@
                       <hr />
                       <div class="text text-end" style="margin-right: 40px;"><h3 style=" font-weight: bolder;"><%= row.price%>원</h3></div>
                       <div class="row mx-3">
-                          <div class="col-4"></div>
-                          <div class="col-8 mt-2" >
+                          <div class="col-md-12 mt-2" >
                             <button class="btn" id="buybtn" style=" float: right; background-color: #191B5E; color: #ffffff;"
                                onclick="buy(<%= row.id %>)">구매하기</button>
 
@@ -96,7 +95,7 @@
                   <div id="tab-1" class="tab-content current">
                     <h5 style="font-weight: bold;"> 📌 상세 정보 </h5>
                     <h6><%= row.detail %></h6>
-                    <% if(row.detailimageurl != 'null'){ %>
+                    <% if(row.detailimageurl != null){ %>
                     <img src="/images/<%=row.detailimageurl %>" width="500px" alt="...">
                     <%}%>
                   </div>

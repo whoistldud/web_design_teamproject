@@ -325,7 +325,10 @@ router.get('/reviewRead/:id', async (req, res, next) => {
     var id = req.params.id;
     console.log("id:",id);
     const result = await mysql.query("reviewMyRead", id);
-    res.render("consumer/pageReviewRead", { title: "리뷰읽기", row:result[0]});
+    const prodID = result[0].productId;
+    const prod = await mysql.query("productlisRead", prodID);
+
+    res.render("consumer/pageReviewRead", { title: "리뷰읽기", row:result[0], prod : prod[0]});
   }
 });
 

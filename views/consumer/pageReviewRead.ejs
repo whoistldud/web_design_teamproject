@@ -45,13 +45,33 @@
         <div class="col-10" >
           <!-- 내용 들어갈 자리 !!! -->
           <div class="row">
+            <h6 id="navtext">HOME > 마이페이지 > 구매 내역 > <%= prod.name %> 상품 리뷰</h6>
+          </div>
+          <div class="row">
             <!-- <%for (let j=0; j<row.star; j++) {%>
               <span style="float: left;">⭐</span>
             <%}%> -->
-            <p style="font-weight: 700;"><%=row.content%></p>
-            <p><%=row.date%></p>
+
+            <table class="table" style="width: 1200px; ">
+              <tbody>
+                  <tr >  
+                      <th>상품명</th>
+                      <td><p alt="상품명"><%= prod.name %></p></td>
+                  </tr>
+                  <tr>  
+                      <th>작성 날짜</th>
+                      <td><p alt="작성날짜"><%=row.date %></p></td>
+                  </tr>
+                  <tr>  
+                      <th>리뷰 내용</th>
+                      <td><p alt="리뷰"><%=row.content %></p></td>
+                  </tr>
+              </tbody>
+            </table>
+
           </div>
-          <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="deleteReview()">삭제</button>
+          <button type="submit" class="btn mb-3" style="float:right; margin-right : 50px; background-color: #191B5E; color: #ffffff;"
+                  onclick="deleteReview()">삭제</button>
 
           
             
