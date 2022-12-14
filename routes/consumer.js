@@ -440,7 +440,7 @@ router.get("/qna/delete/:id", async (req,res,next) => {
   else{
   const id = req.params.id;
   const result = await mysql.query("qnaDelete", id);
-  res.send("<script>alert('질문삭제완료.');location.href='/consumer/myqnaList';</script>"); 
+  res.send("<script>alert('질문삭제완료.');location.href='/consumer/myqnalist';</script>"); 
   }
 });
 
@@ -452,7 +452,7 @@ router.get('/myqnalist', async (req,res,next) => {
   var userId = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   const result = await mysql.query("myqnaRead", userId);
 
-  res.render('consumer/myqnaList', { title: "내 qna 목록", row: result});
+  res.render('consumer/myqnalist', { title: "내 qna 목록", row: result});
   }
 });
 
