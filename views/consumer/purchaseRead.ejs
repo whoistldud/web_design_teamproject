@@ -79,7 +79,7 @@
                         <td><p alt="리뷰쓰기">
                           <%if (review==null){
                             %>
-                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewWrite(<%=row.productId %>)">리뷰쓰기</button>
+                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewWrite(<%= row.id %>)">리뷰쓰기</button>
                           <%}%>
 
                           <%if (review!=null){
@@ -87,7 +87,7 @@
                           <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewRead(<%= row.id %>)">리뷰보기</button>
                           <%}%>
 
-                          <button type="button" id="reviewchat" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="location.href='/chat/enter/<%=row.id%>'">문의하기</button>
+                          <button type="button" id="reviewchat" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="location.href='/chat/enter/<%=row.productId %>'">문의하기</button>
 
                         </p>
                         <p id="rescount" name="rescount"></p>
