@@ -48,7 +48,7 @@
           <div class="row">
             <div class="col-8 col-lg-6"> 
               <br>
-              <table width="1000px;" id="mygoodslist">
+              <table width="1200px;" id="mygoodslist">
                 <tbody>
                   <tr bgcolor="#DFE7F6" align="center">  
                     <th>번호</th>
@@ -63,7 +63,7 @@
                       <td><p alt="상품이름"><%= product.name %></p></td>  
                       <td><p alt="사용자"><%= room.userId %></p></td>               
                       <td>
-                        <p> <button type="button" class="btn" id="enterbtn" onclick="location.href='/chat/room/<%=room.chatroomId%>';" style="color: #000000;">참여하기</button> </p>
+                        <p> <button type="button" class="btn btn-dark" id="enterbtn" onclick="location.href='/chat/room/<%=room.chatroomId%>';">참여하기</button> </p>
                       </td>
                     </tr>
                     <% } %>
