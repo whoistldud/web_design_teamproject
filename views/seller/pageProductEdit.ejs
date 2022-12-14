@@ -92,8 +92,7 @@
                                 <img class = "mb-2" id="previewnewThumbnailImg" width="300" />
                                 <p id="changethumbnail">변경할 사진을 선택하세요</p>                            
                                 <label for="formFileMultiple" class="form-label">대표 사진</label>
-                                <input class="form-control" type="file" id="newthumbnailimageurl" name="newthumbnailimageurl" accept="image/*" 
-                                onchange="imagefilecheck(this)">
+                                <input class="form-control" type="file" id="newthumbnailimageurl" name="newthumbnailimageurl" accept="image/*" >
                                 
 
 
@@ -119,8 +118,7 @@
                                 </ul>
                                 <!-- 탭 메뉴 내용 시작 -->
                                 <div id="tab-1" class="tab-content current">                            
-                                  <input class="form-control" type="file" id="newfileurl" name="newfileurl"  accept=".pdf"
-                                  onchange="pdffilecheck(this)">
+                                  <input class="form-control" type="file" id="newfileurl" name="newfileurl"  accept=".pdf">
                                 </div>
                                 <div id="tab-2" class="tab-content">
                                   <select class="form-select" id="newfileurl" name="newfileurl">
@@ -143,8 +141,7 @@
                               <%}%>
                               <img class = "mb-2 mt-2" id="previewnewDetailImg" width="300" />
                               <p class="mt-4">등록 혹은 변경할 사진을 선택하세요</p>
-                              <input class="form-control" type="file" id="newdetailimageurl" name="newdetailimageurl" accept="image/*" 
-                              onchange="imagefilecheck(this)">
+                              <input class="form-control" type="file" id="newdetailimageurl" name="newdetailimageurl" accept="image/*" ">
                             </td>                            
                         </tr>
                         <tr style="border-bottom: solid 1px rgb(48, 48, 60);">  
@@ -257,29 +254,6 @@
   }
 
 
-  function imagefilecheck(obj){
-    pathpoint = obj.value.lastIndexOf('.');
-    filepoint = obj.value.substring(pathpoint+1, obj.length);
-    filetype = filepoint.toLowerCase();
-    if(filetype != 'jpg' || filetype !='png' ||filetype !='gif' || filetype !='jpeg'){
-        alert("이미지 파일만 선택 가능합니다.");
-        parentObj = obj.parentNode;
-        node = parentObj.replaceChild(obj.cloneNode(true),obj);
-        return null;
-    }
-    
-  }
 
-  function pdffilecheck(obj){
-    pathpoint = obj.value.lastIndexOf('.');
-    filepoint = obj.value.substring(pathpoint+1, obj.length);
-    filetype = filepoint.toLowerCase();
-    if(filetype != 'pdf'){
-        alert("pdf 파일만 선택 가능합니다.");
-        parentObj = obj.parentNode;
-        node = parentObj.replaceChild(obj.cloneNode(true),obj);
-        return false;
-    }
-    
-  }
+
 </script>
