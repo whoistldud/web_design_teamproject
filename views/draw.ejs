@@ -177,6 +177,7 @@
 
   var canvas = document.getElementById('canvas');
   var ctx = canvas.getContext('2d');
+  var ctx1 = canvas.getContext('2d');
   var rect = canvas.getBoundingClientRect();  // 터치 스크린
   const saveBtn = document.querySelector('.save-btn');
   const resultImage = document.querySelector('.result-image');
@@ -196,27 +197,27 @@
 
 
   socket.on("draw_start<%=id%>",(e) => {  
-    var temp_width = ctx.lineWidth;
-    var temp_color = ctx.strokeStyle;
-    ctx.lineWidth = e.width;
-    ctx.strokeStyle = e.color;
+    var temp_width = ctx1.lineWidth;
+    var temp_color = ctx1.strokeStyle;
+    ctx1.lineWidth = e.width;
+    ctx1.strokeStyle = e.color;
     pos.drawable = true;
-    ctx.beginPath();
-    ctx.moveTo(e.x, e.y);
-    ctx.lineWidth = temp_width;
-    ctx.strokeStyle = temp_color;
+    ctx1.beginPath();
+    ctx1.moveTo(e.x, e.y);
+    ctx1.lineWidth = temp_width;
+    ctx1.strokeStyle = temp_color;
   });
 
 
   socket.on("draw<%=id%>",(e) => {
-    var temp_width = ctx.lineWidth;
-    var temp_color = ctx.strokeStyle;
-    ctx.lineWidth = e.width;
-    ctx.strokeStyle = e.color;
-    ctx.lineTo(e.x, e.y);
-    ctx.stroke();
-    ctx.lineWidth = temp_width;
-    ctx.strokeStyle = temp_color;
+    var temp_width = ctx1.lineWidth;
+    var temp_color = ctx1.strokeStyle;
+    ctx1.lineWidth = e.width;
+    ctx1.strokeStyle = e.color;
+    ctx1.lineTo(e.x, e.y);
+    ctx1.stroke();
+    ctx1.lineWidth = temp_width;
+    ctx1.strokeStyle = temp_color;
   });
 
   socket.on("draw_end<%=id%>",(e) => {
