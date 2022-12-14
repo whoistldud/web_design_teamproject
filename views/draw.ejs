@@ -145,13 +145,15 @@
 
   const sendMessage = () => {
       let data = {roomId : '<%=id%>', sender : '<%=senderId%>', msg : document.getElementById("textMessage").value};
-      str = "<div class='col-12'>";
-      str += "<div class='message-me'>";
-      str += "<b>🗨️" + '<%=senderId%>' + " : " +document.getElementById("textMessage").value+ "</b>";
-      str += "</div></div>";
-      $("#workmsgArea").prepend(str);
-      socket.emit("drawchat", data);
-      document.getElementById("textMessage").value = "";
+      if(data.msg != ""){
+        str = "<div class='col-12'>";
+        str += "<div class='message-me'>";
+        str += "<b>🗨️" + '<%=senderId%>' + " : " +document.getElementById("textMessage").value+ "</b>";
+        str += "</div></div>";
+        $("#workmsgArea").prepend(str);
+        socket.emit("drawchat", data);
+        document.getElementById("textMessage").value = "";
+      }
     };
 
     const invite = () => {
