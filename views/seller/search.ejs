@@ -39,9 +39,7 @@
         <div class="col-2" >
           <% include ./../layout/sellermenubar.ejs %>
         </div>
-        <div class="col-10" >
-          <div class="row" style="height: 20px;"></div>
-
+        <div class="col-10 "style="margin-left : -20px;" >
           <div class="row">
             <h6 id="navtext">HOME > 검색 </h6>
             <div class="col"></div>
@@ -57,16 +55,16 @@
                   </div>
             </div>
             <div class="col"></div>            
-            <h3><%=keyword%> 검색결과 (                
+            <h4><%=keyword%> 검색결과 (                
                 <% if(key == 0) {%> 전체 <%}%>
                 <% if(key == 1) {%> 상품명 <%}%>
                 <% if(key == 2) {%> 판매자명<%}%> )
-            </h3>
+            </h4>
 
               <div class="container mb-2" >
                   <div class="container mt-2 mb-2 mr-4 border border-top border-bottom">
                   <div class="container px-2" style="border-radius: 15px;">
-                      <div  id="LAcard" class="row row-cols-2 row-cols-md-4 g-5 mt-0" style="height:300px;">
+                      <div  id="LAcard" class="row row-cols-2 row-cols-md-4 g-5 mt-0" style="height:400px;">
 
                         <% for (var j=0; j< result.length; j++) { var res = result[j]; res %>
                             <% if(key == 1 && !res.name.includes(keyword)) {continue;} %>
@@ -99,7 +97,6 @@
 <script>    
   document.getElementById("key").value = <%=key%>;
   document.getElementById("search").value = '<%=keyword%>';
-
   const search = () => {
       const id = document.getElementById("search").value;
       const key = document.getElementById("key").value;
@@ -107,8 +104,7 @@
       if(id == "") alert("검색어를 입력하세요!");
       else window.location.href = '/seller/search/'+key+'/'+id;
   };
-
   function goDetails(id) {
-      location.href="/seller/lookAsellers/details/" + id;
-    }
+        location.href="/seller/details/" + id;
+      }
 </script>

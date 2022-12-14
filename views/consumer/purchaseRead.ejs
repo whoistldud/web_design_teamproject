@@ -87,7 +87,7 @@
                           <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="reviewRead(<%= row.id %>)">리뷰보기</button>
                           <%}%>
 
-                          <button type="button" id="reviewwrite" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;">문의하기</button>
+                          <button type="button" id="reviewchat" class="btn btn-primary mb-3" style="background-color: #191B5E; color: #ffffff;" onclick="location.href='/chat/enter/<%=row.id%>'">문의하기</button>
 
                         </p>
                         <p id="rescount" name="rescount"></p>
@@ -106,6 +106,13 @@
 <script>
   var max = 7;
   var count = 0;
+  if('<%=product.state%>' == 'n'){
+    document.getElementById('reviewwrite').disabled = true;
+    document.getElementById('reviewchat').disabled = true;
+  }
+
+
+
   function btnClick(){
     alert('다운로드 기한이 끝났습니다.');
   }

@@ -33,74 +33,85 @@
   <body>
     <% include ./../layout/sellerloginheader.ejs %>
     <% include ./../layout/sellercategory.ejs %>
-
+    
     <div>
-      <div class="row">
+      <div class="row" >
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
-          <% include ./../layout/sellerpgmenubar.ejs %>
+          <% include ./../layout/sellermenubar.ejs %>
         </div>
         <div class="col-10">
-    <div class="container">
-        <div class="input-form-backgroud row">
-          <div class="input-form col-md-12 mx-auto">
-            <h4 class="mb-3">문의내역</h4>
-            <form class="validation-form"  enctype="multipart/form-data" id = "qnaRead" action="delete/:id" method = "post" ></form>
-            <table class="table">
-                <tbody>
-                    <tr>  
-                        <td>제목</td>
-                        <td><p alt="제목"><%=row.title %></p></td>
-                    </tr>
-                    <tr>  
-                        <td>이름</td>
-                        <td><p alt="이름"><%=row.name %></p></td>
-                    </tr>
-                    <tr>  
-                        <td>날짜</td>
-                        <td><p alt="날짜"><%=row.date %></p></td>
-                    </tr>
-                    <tr>  
-                        <td>문의내용</td>
-                        <td><p alt="문의내용"><%=row.content %></p></td>
-                    </tr>
-                    
-                </tbody>
-              </table>
-              <% if (loginId == row.userId) { %>
-              <button type="submit" class="btn btn-primary mb-3" style="float:right" onclick="deleteQnA()">삭제</button>
-              <%}%>
-              </br></br></br>
-              <% if(commentlist.length > 0 ){ %>
-              <section class="mb-5">
-                <div class="card bg-light">
-                  <div class="card-body">
-                    <div class="d-flex mb-4">
-                      <div class="col">
-                        <% for(let i=0;i<commentlist.length; i++) {%>
-                          <div class="mb-3 col">
-                            <i class="bi bi-person-circle" style="float: left;"></i><div class="fw-bold">
-                              관리자</div>
-                              <div class="row-10"><p><%=commentlist[i].content%></p>
-                              </div>
-                              <hr/>
-                               <%}%>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                </section>
-                <%}%>
+          <div class="row mb-2">
+            <h6 id="navtext">HOME > Q&A > 문의내역</h6>
           </div>
-        </div></div>
+
+          <div class="container">
+
+            <div class="input-form-backgroud row">
+              <div class="input-form col-md-12 mx-auto">
+                <h5 class="mb-3" style="font-weight: bold;">문의내역</h5>
+                <form class="validation-form"  enctype="multipart/form-data" id = "qnaRead" action="delete/:id" method = "post" ></form>
+                <table class="table" id="allQNA">
+                    <tbody>
+                        <tr>  
+                            <th>제목</th>
+                            <th><p alt="제목"><%=row.title %></p></th>
+                        </tr>
+                        <tr>  
+                            <th>이름</th>
+                            <td><p alt="이름"><%=row.name %></p></td>
+                        </tr>
+                        <tr>  
+                            <th>날짜</th>
+                            <td><p alt="날짜"><%=row.date %></p></td>
+                        </tr>
+                        <tr>  
+                            <th>문의내용</th>
+                            <td><p alt="문의내용"><%=row.content %></p></td>
+                        </tr>
+                        
+                    </tbody>
+                  </table>
+                  <% if (loginId == row.userId) { %>
+                    <button type="submit" class="btn btn-primary mb-3" style="float:right; color: #ffffff; background-color : #191B5E;"" onclick="deleteQnA()">삭제</button>
+                    <%}%>
+                  </br></br></br>
+                  <% if(commentlist.length > 0 ){ %>
+                    <section class="mb-5">
+                      <div class="card bg-light">
+                        <div class="card-body">
+                          <div class="d-flex mb-4">
+                            <div class="col">
+                              
+                              <% for(let i=0;i<commentlist.length; i++) {%>
+                                <div class="mb-3 col">
+                                  <i class="bi bi-person-circle" style="float: left;"></i><div class="fw-bold">
+                                    관리자</div>
+                                    <div class="row-10"><p><%=commentlist[i].content%></p>
+                                    </div>
+                                    <hr/>
+                                     <%}%>
+                                     
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                      </section>
+                      <%}%>
+              </div>
+            </div>
+        
+        </div>
+    </div>
+    
   </body>
 </html>
-
+<% include ./../layout/footer.ejs %>
 <script>
   function deleteQnA() {
     
     if (confirm("질문을 삭제하시겠습니까?") == true) {
-      location.href = "/seller/qna/delete/<%=row.id %>"
+      location.href = "/consumer/qna/delete/<%=row.id %>"
     }
   }
 </script>

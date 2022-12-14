@@ -55,7 +55,7 @@
                     <h3 id="goodsName" style="font-weight: bold;"> <%= row.name%></h3>
                       <div class="row mt-4">
                           <h5>made by <%= storename %>
-                            <button class="btn btn-sm " onclick="location.href='/consumer/storegoods/<%=row.sellerId %>'" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
+                            <button class="btn btn-sm " id = "stordbtn" onclick="location.href='/consumer/storegoods/<%=row.sellerId %>'" style="background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 1px 1px 1px;">이 작가의 상품 더보기 
                               <i class="bi bi-arrow-right-circle"></i>
                             </button>
                           </h5>
@@ -107,14 +107,6 @@
                   <% if (!isNaN(staravg)) { %>
                     <h2 style="font-weight:900;"><%=staravg%></h2>
                     <%}%>
-                  <!-- <div class="star-ratings">
-                    <div style='position:absolute; width:max-content; overflow:hidden; color:#dbd5d5;'>
-                      <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
-                    </div>
-                    <div style='position:absolute; width:'+(4.7/5*90)+'px; overflow:hidden; white-space:nowrap; color:rgb(11, 0, 170);'>
-                      <span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span><span>⭐</span>
-                    </div>
-                  </div> -->
                   <br/><br/>
                   <h5>  리뷰 <%=review.length%>건  </h5>
                   <hr/>
@@ -138,26 +130,34 @@
       </div>
     </div>
 
-    <script>
-      $(document).ready(function(){
-	
-    $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
-      var tab_id = $(this).attr('data-tab');
-
-      $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
-      $('.tab-content').removeClass('current');		
-
-      $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
-      $("#" + tab_id).addClass('current');
-	  })
-});
-
-    </script>
   </body>
   <% include ./../layout/footer.ejs %>
 </html>
 
 <script>
+  if('<%=row.state%>' == 'n'){
+    document.getElementById('buybtn').disabled = true;
+    document.getElementById('cartbtn').disabled = true;
+    document.getElementById('chatbtn').disabled = true;
+    document.getElementById('stordbtn').disabled = true;
+  }
+
+
+
+$(document).ready(function(){
+	
+  $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
+    var tab_id = $(this).attr('data-tab');
+
+    $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
+    $('.tab-content').removeClass('current');		
+
+    $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
+    $("#" + tab_id).addClass('current');
+  })
+});
+
+
   function buy(id){
     location.href="/consumer/buy/" + id;
   }

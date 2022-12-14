@@ -35,7 +35,7 @@
     <% include ./../layout/sellercategory.ejs %>
 
     <div>
-      <div class="row" style="height: 500px;">
+      <div class="row">
         <div class="col-2" >
           <!-- 안에 들어가는 내용의 height이 500px 미만이면 style="height: 500px" 이렇게 설정-->
           <% include ./../layout/sellermenubar.ejs %>
@@ -65,14 +65,37 @@
                    
             <div class="col-2 col-lg-3"></div>
             <div class="col-8 col-lg-6"> 
-              <br>
+              <b><text>참여중인 공동작업방</text></b>
               <table width="1050px;" id="mygoodslist">
                 <tbody>
                   <tr bgcolor="#DFE7F6" align="center">  
                     <th>번호</th>
                     <th>이름</th>
                     <th>판매자</th>
-                    <th>참여</th>
+                    <th></th>
+                    </tr>
+
+                  <% for(var i=0; i<myrooms.length; i++){ var myroom = myrooms[i];  %>
+                    <tr align="center">
+                      <td><p alt="번호"><%= i+1 %></p></td>                      
+                      <td><p alt="이름"><%= myroom.title %> (<%= myroom.currentnum%> / <%= myroom.maximum%> )</p></td>  
+                      <td><p alt="판매자"><%= myroom.sellerId %></p></td>               
+                      <td>
+                        <p> <button type="button" class="btn btn-sm" id="enterbtn" onclick="location.href='/draw/<%=myroom.workId%>';"style="background-color: #cbdbf9;">참여하기</button> </p>
+                      </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+              </table>
+              <br>
+              <b><text>공개 공동작업방</text></b>
+              <table width="1050px;" id="mygoodslist">
+                <tbody>
+                  <tr bgcolor="#DFE7F6" align="center">  
+                    <th>번호</th>
+                    <th>이름</th>
+                    <th>판매자</th>
+                    <th></th>
                     </tr>
 
                   <% for(var i=0; i<rooms.length; i++){ var room = rooms[i];  %>

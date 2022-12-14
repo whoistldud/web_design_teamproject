@@ -68,7 +68,7 @@
                       <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="formFileMultiple" class="form-label">📌 대표 이미지</label>
-                            <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" >
+                            <input class="form-control" type="file" id="thumbnailimageurl" name="thumbnailimageurl" required>
                             <img id="previewThumbnailImg" width="400" alt="이미지 영역" />
                         </div>
                       </div>
@@ -139,18 +139,19 @@
 </html>
 
 <script>
-      $(document).ready(function(){
-	
-  $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
-    var tab_id = $(this).attr('data-tab');
+  
+  $(document).ready(function(){
+    $('ul.tabs li').click(function(){							//선택자를 통해 tabs 메뉴를 클릭 이벤트를 지정해줍니다.
+      var tab_id = $(this).attr('data-tab');
 
-    $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
-    $('.tab-content').removeClass('current');		
+      $('ul.tabs li').removeClass('current');			//선택 되있던 탭의 current css를 제거하고 
+      $('.tab-content').removeClass('current');		
 
-    $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
-    $("#" + tab_id).addClass('current');
-  })
-});
+      $(this).addClass('current');								////선택된 탭에 current class를 삽입해줍니다.
+      $("#" + tab_id).addClass('current');
+    })
+  });
+
   const input = document.querySelector('#price');
   input.addEventListener('keyup', function(e) {
     let value = e.target.value;

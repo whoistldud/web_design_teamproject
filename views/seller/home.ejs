@@ -32,13 +32,14 @@
     <% include ./../layout/sellercategory.ejs %>
     
     <!-- 안에 들어가는 내용의 height이 500px 미만이면 아래 <div class="row" 옆에 style="height: 500px" 이렇게 설정-->
-    <div class="row" >
+    <div class="row" style="height: 500px;">
       <div class="col-2" >
         <% include ./../layout/sellermenubar.ejs %>
       </div>
       <div class="col-10" >    
         <!-- 내용 들어갈 자리 !!! -->
         <div class="row" style="height: 20px;"></div>
+        
         <button class="btn" id="newgoodsbtn" onclick="registerProduct()" style="font-weight: bold; background-color: #DFE7F6; border-radius: 15px; box-shadow: #ced5e0 2px 2px 2px;">새로운 상품 등록하러 가기
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
@@ -46,21 +47,17 @@
           </button>
           <br />
           <h6 class="mt-3 mb-2"><p onclick="gotoLA()" style="font-size: 15pt; font-weight: bold;">🔎 나의 상품 </p></h6>
-          <% for(var i=0; i< seller.length ; i++){ %>
-            <% if (seller[i] != loginid) { %>
-              <% continue; %>
-              <% } else { %>
-            
+
             <div class="container mb-2 " >
                 <div class="container mt-2 mb-2 mr-4 ">
                     <div class="row row-cols-2 row-cols-md-4 g-5 mt-0">
-                      <% for (var j=1; j< res[i].length; j++) { %>
+                      <% for (var j=0; j< result.length; j++) { %>
                               <div class="col">
-                                  <div class="card h-100" onclick="goDetails(<%=res[i][j].id%>)" style="margin-top : -15px; border-color: #ffe2e2; background-color: #F9F6F6">
-                                      <img src="/images/<%=res[i][j].thumbnailimageurl %>" class="card-img-top" alt="...">
+                                  <div class="card h-100" onclick="goDetails(<%=result[j].id%>)" style="margin-top : -15px; border-color: #ffe2e2; background-color: #F9F6F6">
+                                      <img src="/images/<%=result[j].thumbnailimageurl %>" class="card-img-top" alt="...">
                                       <div class="card-body">
-                                          <h6 class="card-title"  style="font-weight: bold;"><%=res[i][j].name%></h6>
-                                          <h6 class="card-title"><%= res[i][j].price %></h6>
+                                          <h6 class="card-title"  style="font-weight: bold;"><%=result[j].name%></h6>
+                                          <h6 class="card-title"><%= result[j].price %></h6>
                                       </div>
                                   </div>
                               </div>
@@ -68,8 +65,7 @@
                   </div>
                 </div>
               </div>
-            <% } %>
-            <% } %>
+
       </div>
     </div>
   </div>

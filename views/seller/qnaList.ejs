@@ -63,7 +63,7 @@
                         <% for(var i=0; i < row.length; i++) {  
                           %>
                           <tr align="center">
-                            <td><p alt="번호"><%= row[i].id %></p></td>
+                            <td><p alt="번호"><%= i+1 %></p></td>
                             <td><p alt="제목" onclick="readQna(<%=row[i].id%>,<%=row[i].lock_post%> , '<%=row[i].password%>' )"><% if (row[i].lock_post == 2) { %>
                               🔒
                             <%}%> <%= row[i].title %></p>  
@@ -98,7 +98,7 @@
     // alert(lock);
     if (lock == 2) {
       // alert(pw);
-      var pwInput = prompt("비공개글입니다. 비밀번호를 입력해주세요~"+"");
+      var pwInput = prompt("비공개글입니다. 비밀번호를 입력해주세요~");
       if (pwInput == pw){
         location.href = "/seller/qna/read/" +id;
       }

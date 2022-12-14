@@ -261,7 +261,6 @@ router.get('/mypurchase/:id', async (req, res, next) => {
     if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');
     let consumerID = jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.id;
   
-
     var id = req.params.id;
     console.log("purchaseId : ",req.params );
     const user = await mysql.query("userLogin", consumerID);
@@ -634,8 +633,8 @@ router.get('/details/:id', async function(req, res, next) {
     starAvg = starSum / result2.length;
   
     const result3 = await mysql.query("userName", result[0].sellerId);
-    var storeName = result3[0].name;
-
+    var storeName = "탈퇴한 회원";
+    if(result3[0] != undefined) var storeName = result3[0].name;
     res.render("index/goodsDetail", { title: "상품 정보", row : result[0], review : result2, staravg:starAvg, userName:resnameArr, storename:storeName});
   }
 });
@@ -706,9 +705,6 @@ router.post('/buy/bycom/:id', async function(req,res,next) {
     var dateString2 = year2 + '-' + month2  + '-' + day2;
     console.log("다운로드 가능 기한:",dateString2);
 
-
-
-
     const resultN1 = await mysql.query("productlisRead", id);
     resultN1[0].price = Number( resultN1[0].price.replace(",",""));
     console.log(resultN1[0].price);
@@ -757,5 +753,16 @@ router.get('/chatlist', async (req, res) => {
   }  
 });
 
+//탈퇴
+router.get('/withdrawal', async (req, res, next) => {
+  if(req.session.user == undefined)  {
+    res.send("<script>alert('로그인을 하십시오.');location.href='/login';</script>");
+  }
+  else{
+    if(jwt.verify(req.session.user.token, process.env.ACCESS_TOKEN_SECRET).user.role != 'consumer') res.redirect('/');    
+
+    res.render('consumer/pagewithdrawal', { title: 'able'});
+  }
+});
 
 module.exports = router;
